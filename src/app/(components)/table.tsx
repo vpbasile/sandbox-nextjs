@@ -15,13 +15,13 @@ export default function Table(props: propsTable) {
 	const headers = props.dataLabels;
 	const data = props.dataContents;
 	let indexRow = 0;
-	const standardCss = "rounded p-3 w-full"
+	const standardCss = "rounded p-3"
 
 	// <> States
 	const [isEditing, selectForEdit] = useState<number | null>(null)
 	const [keyTemp, keySetTemp] = useState<number | null>(null)
 	const [titleTemp, titleSetTemp] = useState<number | null>(null)
-	const [urlTemp,urlSetTemp] = useState<number | null>(null)
+	const [urlTemp, urlSetTemp] = useState<number | null>(null)
 
 	// <> Functions for building the tables
 	function tableHeader(headers: string[]) {
@@ -35,31 +35,38 @@ export default function Table(props: propsTable) {
 	function tableRow(indexRow: number, fields: any[], isEditing: boolean) {
 		let indexCell = 0
 		if (isEditing) {
-			return (<tr key={`row#${indexRow}`} className={`border border-slate-100`} >
+			return (<tr key={`row#${indexRow}`} className={`border border-slate-100 rounded`} >
 				{saveButton()}
 				{fields.map((element) => { return cellEdit(`cell#${indexRow}-${indexCell++}`, element) })}
 			</tr>)
 		}
-		else return (<tr key={`row#${indexRow}`} >
+		else return (<tr key={`row#${indexRow}`} className={`border border-slate-700 rounded`}>
 			{editButton(indexRow)}
 			{fields.map((element) => { return cellDisplay(`cell#${indexRow}-${indexCell++}`, element) })}
 		</tr>)
 	}
+
+	// <> Matching buttons
 	function editButton(rowID: number) {
-		return <td><button className={`${standardCss} bg-slate-700 text-slate-100`} value={"Edit"} onClick={() => selectForEdit(rowID)}>Edit</button></td>
+		return <td><button className={`${standardCss} w-full bg-slate-700 text-slate-100`} value={"Edit"}
+			onClick={() => selectForEdit(rowID)}>Edit</button></td>
 
 	}
 	function saveButton() {
-		return <td><button className={`${standardCss} bg-slate-100 text-slate-700`} value={"Save"}>Save</button></td>
+		return <td><button className={`${standardCss} w-full bg-slate-100 text-slate-700`} value={"Save"}
+			onClick={() => selectForEdit(null)}>Save</button></td>
 	}
 
-	function cellDisplay(indexCell: string, contentsCell: string, appendStyle?: string) {
-		return <td className={`${standardCss} ${appendStyle}`} key={`cell#${indexCell}`}>{contentsCell}</td>
+	// <> Matching cells
+	function cellDisplay(indexCell: string, contentsCell: string) {
+		return <td className={`${standardCss}`} key={`cell#${indexCell}`}>
+			{contentsCell}
+		</td>
 	}
 
-	function cellEdit(indexCell: string, contentsCell: string, appendStyle?: string) {
-		return <td className={`${standardCss} bg-slate-700 text-slate-100 ${appendStyle}`} key={`cell#${indexCell}`}>
-			<input className={`bg-slate-700 text-slate-100`} value={contentsCell}></input>
+	function cellEdit(indexCell: string, contentsCell: string) {
+		return <td className={`${standardCss} bg-slate-700 text-slate-100`} key={`cell#${indexCell}`}>
+			<input className={`bg-slate-700 text-slate-100`} defaultValue={contentsCell}></input>
 		</td>
 	}
 
