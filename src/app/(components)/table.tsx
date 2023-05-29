@@ -4,16 +4,18 @@ import { use, useState } from "react";
 
 // <> Define component props
 type propsTable = {
-	dataLabels: string[]
-	dataContents: string[][]
+	dataLabels: string[];
+	dataContents: string[][];
+	editable?:boolean;
 	// Pass down class
-	cssClasses?: string
+	cssClasses?: string;
 }
 
 export default function Table(props: propsTable) {
 	//  <> Cache and initialize
 	const headers = props.dataLabels;
 	const data = props.dataContents;
+	const editable = props.editable;
 	let indexRow = 0;
 	const standardCss = "rounded p-3"
 
@@ -26,6 +28,7 @@ export default function Table(props: propsTable) {
 	// <> Functions for building the tables
 	function tableHeader(headers: string[]) {
 		let numberColumn = 0;
+		if (editable) {headers.unshift(`Edit`)}
 		return <thead>
 			<tr>{headers.map(eachOne => { return (<th key={`header-col#${numberColumn++}`}>{eachOne}</th>) })}</tr>
 		</thead>
@@ -41,7 +44,7 @@ export default function Table(props: propsTable) {
 			</tr>)
 		}
 		else return (<tr key={`row#${indexRow}`} className={`border border-slate-700 rounded`}>
-			{editButton(indexRow)}
+			{editable && editButton(indexRow)}
 			{fields.map((element) => { return cellDisplay(`cell#${indexRow}-${indexCell++}`, element) })}
 		</tr>)
 	}

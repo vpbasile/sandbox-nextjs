@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Table from './(components)/table'
+import CardDeck from './(components)/cardDeck';
 
 export default function Home() {
 
@@ -16,7 +17,7 @@ export default function Home() {
   }
 
   // <> Do the things
-  const headersTest = ["", "Key", "Title", "URL"]
+  const headersTest = ["Key", "Title", "URL"]
   let indexData = 0
 
   // Define my data
@@ -31,7 +32,10 @@ export default function Home() {
     <main className="flex flex-col items-center justify-between p-24">
       <h1 className={classesFor('big-orange')}>Sandbox: Next.js with <Link href='https://tailwindcss.com/' className='text-orange-700' >tailwind</Link> and <Link className={classesFor('link', 'text-')} href="https://react.daisyui.com/">react-daisyUI</Link></h1>
       <div className={`w-full ${classesFor('bubble')}`}>
-        <Table dataLabels={headersTest} dataContents={dataTest} />
+        <CardDeck />
+      </div>
+      <div className={`w-full ${classesFor('bubble')}`}>
+        <Table dataLabels={headersTest} dataContents={dataTest} editable={true} />
       </div>
       {/* <div className={`w-full ${classesFor('bubble')}`}>
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam fugiat explicabo eos quam, animi totam voluptates quas nesciunt natus provident a praesentium dicta id doloribus vel repellat aspernatur, officiis laudantium?</p>
