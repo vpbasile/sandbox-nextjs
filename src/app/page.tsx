@@ -1,20 +1,14 @@
 import Link from 'next/link'
 import Table from './(components)/table'
 import CardDeck from './(components)/cardDeck';
+import TextParse from './(components)/textParse';
+import { styles } from './(components)/tsStyles';
 
 export default function Home() {
 
-  // <> Style
-  function classesFor(selector: string, append?: string) {
-    let classes = ""
-    switch (selector) {
-      case 'bubble': classes += 'border-solid rounded-lg border p-8 m-8'; break;
-      case 'big-orange': classes += 'text-orange-400 text-2xl'; break;
-      case 'link': classes += `text-orange-700`; break;
-      default: console.log(`Style not defined: ${selector}`);
-    }
-    return classes + " " + append;
-  }
+
+  // Add a theme switch with a state for the current theme.  Then make the css strings dependent on that
+  // https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually
 
   // <> Do the things
   const headersTest = ["Key", "Title", "URL"]
@@ -23,24 +17,26 @@ export default function Home() {
   // Define my data
   const dataTest: string[][] = [
     ["key000", "I should add PostgreSQL", "https://www.postgresql.org/docs/current/tutorial.html"]
-    , ['key001', "Next Title", "https://www.postgresql.org/docs/current/tutorial.html"]
-    , [`key002`, "Another Title", "https://www.postgresql.org/docs/current/tutorial.html"]
+    , ['key001', "Or maybe SQLite would be better", "https://sqlite.org/quickstart.html"]
   ]
 
   // <> Main return
   return (
     <main className="flex flex-col items-center justify-between p-24">
-      <h1 className={classesFor('big-orange')}>Sandbox: Next.js with <Link href='https://tailwindcss.com/' className='text-orange-700' >tailwind</Link> and <Link className={classesFor('link', 'text-')} href="https://react.daisyui.com/">react-daisyUI</Link></h1>
-      <div className={`w-full ${classesFor('bubble')}`}>
+      <h1 className={styles.bigOrange}>Sandbox: Next.js with <Link href='https://tailwindcss.com/' className='text-orange-700' >tailwind</Link> and <Link className={styles.link} href="https://react.daisyui.com/">react-daisyUI</Link></h1>
+      <div className={`w-full ${styles.bubble} ${styles.spacious}`}>
+        <TextParse />
+      </div>
+      <div className={`w-full ${styles.bubble} ${styles.spacious}`}>
         <CardDeck />
       </div>
-      <div className={`w-full ${classesFor('bubble')}`}>
+      <div className={`w-full ${styles.bubble} ${styles.spacious}`}>
         <Table dataLabels={headersTest} dataContents={dataTest} editable={true} />
       </div>
-      {/* <div className={`w-full ${classesFor('bubble')}`}>
+      {/* <div className={`w-full ${styles.bubble} ${styles.spacious}`}>
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam fugiat explicabo eos quam, animi totam voluptates quas nesciunt natus provident a praesentium dicta id doloribus vel repellat aspernatur, officiis laudantium?</p>
       </div> */}
-      {/* <div className={classesFor('bubble')}>
+      {/* <div className={styles.bubble}>
         <ExampleForm />
       </div> */}
 
