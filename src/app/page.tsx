@@ -23,10 +23,10 @@ export default function Home() {
   const dataTest: string[][] = [
     ["key000", "I should add PostgreSQL", "https://www.postgresql.org/docs/current/tutorial.html"]
     , ['key001', "Or maybe SQLite would be better", "https://sqlite.org/quickstart.html"]
-    , [`key002`, `The table changes size when you change to edit mode`]
+    , [`key002`, `The table changes size when you change to edit mode`,'']
     , [`key003`, `sqlite3`, 'https://stackoverflow.com/questions/56583738/how-to-connect-to-a-sqlite-db-from-a-react-app']
     , [`key004`, 'Server components', 'https://nextjs.org/docs/getting-started/react-essentials']
-    , [`key005`, 'Create a script that will launch the server and the client']
+    , [`key005`, 'Create a script that will launch the server and the client','']
   ]
 
   const paragraphOfText = `Customizing your theme
