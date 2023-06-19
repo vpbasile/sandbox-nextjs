@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# <> My additions
+trash
+
 # dependencies
 /node_modules
 /.pnp
@@ -33,3 +36,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+public/people-schema.jpg
+src/app/server/sqldiff.exe
+src/app/server/sqlite3_analyzer.exe
+src/app/server/sqlite3.exe

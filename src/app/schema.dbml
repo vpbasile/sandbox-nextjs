@@ -1,0 +1,27 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table people {
+  id integer [primary key]
+  name varchar
+  birthdate date
+  preferred_contact_method integer
+  groups integer
+  indexes {
+    groups
+  }
+}
+
+Table groups {
+  id integer [primary key]
+  title varchar
+  sortorder integer
+}
+
+table contact_methods {
+  id integer [primary key]
+  title varchar
+}
+
+Ref: people.groups > groups.id
+Ref: people.preferred_contact_method > contact_methods.id
