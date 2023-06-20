@@ -33,25 +33,24 @@ export default function Home() {
 
   If you want to change things like your color palette, spacing scale, typography scale, or breakpoints, add your customizations to the theme section of your tailwind.config.js file`
 
-  const instructions = `To test the database connection, at the command line run "npm run database", then in the browser, go to http://localhost:8000/employees/1`
-
   // <> Main return
   return (
     <main className="flex flex-col items-center justify-between p-24">
       <h1 className={styles.bigOrange}>Sandbox: Next.js with <Link href='https://tailwindcss.com/' className='text-orange-700' >tailwind</Link> and <Link className={styles.link} href="https://react.daisyui.com/">react-daisyUI</Link></h1>
       {/* <Section id='new' headerText='New Section'></Section> */}
       <Section id='dbTable' headerText='Database Table'>
-        <p>{instructions}</p>
+        <p>To test the database connection, at the command line run <span className=''>npm run database</span>, then in the browser, go to <Link href="http://localhost:8000/employees/1">http://localhost:8000/employees/1</Link></p>
+        {/* <p className={styles.roomy}>Server result: {serverResponse}</p> */}
         <p className={styles.roomy}>This one does not work yet.  My next step is to set up express.  <Link className={styles.link} href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes">This tutorial</Link> might be helpful, though it is using mongoose instead of sqlite3. <Link className={styles.link} href="https://medium.com/@codesprintpro/rest-api-using-sqlite3-nodejs-and-expressjs-f8c0c0847fe5">This tutorial</Link> is much more helpful.</p>
         {/* <DBTable /> */}
       </Section>
       <Section id='description' headerText="Database Schema">
-        <Image
+        {/* <Image
           src="/public/people-schema.jpg"
           width={200}
           height={200}
           alt='Diagram of the database schema'
-        />
+        /> */}
         <code>{`
           Table people {
             id integer [primary key]

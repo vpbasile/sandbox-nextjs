@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "database": "node ./src/server/testServer.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-    , "database": "node run-test-server.js"
   },
   "dependencies": {
     "@types/node": "20.2.1",
