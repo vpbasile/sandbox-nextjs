@@ -23,10 +23,10 @@ export default function Home() {
   const dataTest: string[][] = [
     ["key000", "I should add PostgreSQL", "https://www.postgresql.org/docs/current/tutorial.html"]
     , ['key001', "Or maybe SQLite would be better", "https://sqlite.org/quickstart.html"]
-    , [`key002`, `The table changes size when you change to edit mode`,'']
+    , [`key002`, `The table changes size when you change to edit mode`, '']
     , [`key003`, `sqlite3`, 'https://stackoverflow.com/questions/56583738/how-to-connect-to-a-sqlite-db-from-a-react-app']
     , [`key004`, 'Server components', 'https://nextjs.org/docs/getting-started/react-essentials']
-    , [`key005`, 'Create a script that will launch the server and the client','']
+    , [`key005`, 'Create a script that will launch the server and the client', '']
   ]
 
   const paragraphOfText = `Customizing your theme
@@ -39,45 +39,17 @@ export default function Home() {
       <h1 className={styles.bigOrange}>Sandbox: Next.js with <Link href='https://tailwindcss.com/' className='text-orange-700' >tailwind</Link> and <Link className={styles.link} href="https://react.daisyui.com/">react-daisyUI</Link></h1>
       {/* <Section id='new' headerText='New Section'></Section> */}
       <Section id='dbTable' headerText='Database Table'>
-        <p>To test the database connection, at the command line run <span className=''>npm run database</span>, then in the browser, go to <Link href="http://localhost:8000/employees/1">http://localhost:8000/employees/1</Link></p>
+        <p>To test the database connection, at the command line run <span className=''>npm run database</span>, then in the browser, go to <Link href="http://localhost:8000/">http://localhost:8000/</Link></p>
         {/* <p className={styles.roomy}>Server result: {serverResponse}</p> */}
-        <p className={styles.roomy}>This one does not work yet.  My next step is to set up express.  <Link className={styles.link} href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes">This tutorial</Link> might be helpful, though it is using mongoose instead of sqlite3. <Link className={styles.link} href="https://medium.com/@codesprintpro/rest-api-using-sqlite3-nodejs-and-expressjs-f8c0c0847fe5">This tutorial</Link> is much more helpful.</p>
+        <p className={styles.roomy}>This one does not work yet.  My next step is to invloke the ctroller (defined in the server directory) via the UI.</p>
+        <ul>
+          <li><Link className={styles.link} href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes">This tutorial</Link> might be helpful, though it is using mongoose instead of sqlite3.</li>
+          <li><Link className={styles.link} href="https://medium.com/@codesprintpro/rest-api-using-sqlite3-nodejs-and-expressjs-f8c0c0847fe5">This tutorial</Link> was helpful setting up the express server with the sqlite3 database.</li>
+        </ul>
         {/* <DBTable /> */}
       </Section>
-      <Section id='description' headerText="Database Schema">
-        {/* <Image
-          src="/public/people-schema.jpg"
-          width={200}
-          height={200}
-          alt='Diagram of the database schema'
-        /> */}
-        <code>{`
-          Table people {
-            id integer [primary key]
-            name varchar
-            birthdate date
-            preferred_contact_method integer
-            groups integer
-            indexes {
-              groups
-            }
-          }
-          
-          Table groups {
-            id integer [primary key]
-            title varchar
-            sortorder integer
-          }
-          
-          table contact_methods {
-            id integer [primary key]
-            title varchar
-          }
-          
-          Ref: people.groups > groups.id
-          Ref: people.preferred_contact_method > contact_methods.id
-          `}</code>
-      </Section>
+      {/* 
+       */}
       <Section id='textParse' headerText='Parser for Delimited Text'>
         <TextParse />
       </Section>

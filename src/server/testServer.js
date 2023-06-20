@@ -38,6 +38,7 @@ app.get("/", (req, res, next) => {
       myObject = {
         serverUpSince: startTimeDisplay,
         testURL: 'http://localhost:8000/',
+        rowsReturned: rows.length,
         dbResponse: rows
       }
       res.status(200).json(myObject);
