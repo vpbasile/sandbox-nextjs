@@ -39,7 +39,6 @@ app.get("/", (req, res, next) => {
         testURL: 'http://localhost:8000/',
         dbResponse: rows
       }
-      console.log(myObject)
       res.status(200).json(myObject);
       return;
     }
@@ -60,14 +59,3 @@ app.get("/test/:id", (req, res, next) => {
   res.status(statusCode).json(myObject)
   return;
 })
-
-app.get("/people", (req, res, next) => {
-
-  const holdThis = db.all("SELECT * FROM myTable", [], (err, rows) => {
-    if (err) {
-      res.status(400).json({ "error": err.message });
-      return;
-    }
-    res.status(200).json({ rows });
-  });
-});
