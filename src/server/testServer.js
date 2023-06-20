@@ -6,8 +6,7 @@ var app = express();
 
 // <> Listen on port 8000 and log the url to the console.
 const HTTP_PORT = 8000
-const baseURL = `http://localhost:${HTTP_PORT}`
-const testURL = baseURL + `/people`;
+const baseURL = `http://localhost:${HTTP_PORT}/`
 
 const startTime = new Date();
 const startTimeDisplay = startTime.getHours() + ":" + startTime.getMinutes() + ":" + startTime.getSeconds();
@@ -15,9 +14,7 @@ const startTimeDisplay = startTime.getHours() + ":" + startTime.getMinutes() + "
 app.listen(HTTP_PORT, () => {
   console.log(`Start time: ${startTimeDisplay}`)
   console.log("Server is listening on port " + HTTP_PORT);
-  console.log(baseURL + `/test/3`)
-  console.log(testURL)
-
+  console.log(baseURL)
 });
 
 const dbPath = './test.db';
@@ -30,6 +27,27 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 // Default GET
+app.get("/", (req, res, next) => {
+  let myObject, statusToSet
+  db.all("SELECT * FROM people", [], (err, rows) => {
+    if (err) {
+      res.status(400).json({ "error": err.message });
+      return;
+    } else {
+      myObject = {
+        serverUpSince: startTimeDisplay,
+        testURL: 'http://localhost:8000/',
+        dbResponse: rows
+      }
+      console.log(myObject)
+      res.status(200).json(myObject);
+      return;
+    }
+  });
+})
+
+
+// GET with an input id
 app.get("/test/:id", (req, res, next) => {
   const statusCode = 200
   const id = req.params.id
@@ -52,5 +70,4 @@ app.get("/people", (req, res, next) => {
     }
     res.status(200).json({ rows });
   });
-  console.log(holdThis);
 });
