@@ -17,6 +17,7 @@ app.listen(HTTP_PORT, () => {
   console.log(baseURL)
 });
 
+// <> Connect to the Database
 const dbPath = './test.db';
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
@@ -47,15 +48,15 @@ app.get("/", (req, res, next) => {
 
 
 // GET with an input id
-app.get("/test/:id", (req, res, next) => {
-  const statusCode = 200
-  const id = req.params.id
-  let myObject = {
-    numberEntered: id,
-    status: statusCode,
-    serverUpSince: startTimeDisplay,
-    testURL: 'http://localhost:8000/people'
-  }
-  res.status(statusCode).json(myObject)
-  return;
-})
+// app.get("/test/:id", (req, res, next) => {
+//   const statusCode = 200
+//   const id = req.params.id
+//   let myObject = {
+//     numberEntered: id,
+//     status: statusCode,
+//     serverUpSince: startTimeDisplay,
+//     testURL: 'http://localhost:8000/people'
+//   }
+//   res.status(statusCode).json(myObject)
+//   return;
+// })
