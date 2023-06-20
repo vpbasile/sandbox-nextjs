@@ -9,9 +9,9 @@ type propsType = {}
 
 export default function TextParse(props: propsType) {
 	const tempString = `Field 1|Field 2|Third Field|Yet another|Field the fifth
-	Value apple|value b|
+	Value apple|value b|Nothing else||Also
 	Value C|Delta Value||Echo Value
-	Value C|Delta Value|Echo Value||Nothing|Too much`
+	Value C|Delta Value|Echo Value||Nothing`
 	const [stringToParse, setString] = useState(tempString)
 	const [dlm, dlmSet] = useState(`|`)
 	let dataContainer: string[][] = [];
@@ -27,14 +27,10 @@ export default function TextParse(props: propsType) {
 	}
 	// Build the UI
 	return (<>
-		<div className="flex flex-row">
-			<div id="left-col">
-				<label htmlFor="dlmField">Delimiter: </label>
-				<input defaultValue={dlm} onChange={(e) => { dlmSet(e.target.value) }} className={`basis-1/4 ${styles.fields}`} /></div>
-			<div id="right-col" className={`basis-3/4 ${styles.fields}`}>
-				<textarea defaultValue={stringToParse} onChange={(e) => { setString(e.target.value) }} className={`w-full ${styles.bubble} ${styles.spacious} ${styles.fields}`} />
-			</div>
-		</div>
+		<div id="field-col" className={`w-full bg-orange-950`}>
+			<textarea defaultValue={stringToParse} onChange={(e) => { setString(e.target.value) }} className={`w-full min-h-800 ${styles.bubble} ${styles.spacious} ${styles.fields}`} />
+			<label htmlFor="dlmField">Delimiter: </label>
+			<input defaultValue={dlm} onChange={(e) => { dlmSet(e.target.value) }} className={`w-[12rem] ${styles.fields}`} /></div>
 		<div>
 			<Table dataLabels={headersList} dataContents={dataContainer} />
 		</div>

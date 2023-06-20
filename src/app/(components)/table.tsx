@@ -28,7 +28,6 @@ export default function Table(props: propsTable) {
 	// <> Functions for building the tables
 	function tableHeader(headers: string[]) {
 		let numberColumn = 0;
-		if (editable) {headers.unshift(`Edit`)}
 		return <thead>
 			<tr>{headers.map(eachOne => { return (<th key={`header-col#${numberColumn++}`}>{eachOne}</th>) })}</tr>
 		</thead>
@@ -39,13 +38,13 @@ export default function Table(props: propsTable) {
 		let indexCell = 0
 		if (isEditing) {
 			return (<tr key={`row#${indexRow}`} className={`border border-slate-100 rounded`} >
-				{saveButton()}
 				{fields.map((element) => { return cellEdit(`cell#${indexRow}-${indexCell++}`, element) })}
+				{saveButton()}
 			</tr>)
 		}
 		else return (<tr key={`row#${indexRow}`} className={`border border-slate-700 rounded`}>
-			{editable && editButton(indexRow)}
 			{fields.map((element) => { return cellDisplay(`cell#${indexRow}-${indexCell++}`, element) })}
+			{editable && editButton(indexRow)}
 		</tr>)
 	}
 
