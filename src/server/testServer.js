@@ -2,7 +2,10 @@
 
 const express = require("express");
 const sqlite3 = require('sqlite3');
+const cors = require('cors');
+
 var app = express();
+app.use(cors());
 
 // <> Listen on port 8000 and log the url to the console.
 const HTTP_PORT = 8000

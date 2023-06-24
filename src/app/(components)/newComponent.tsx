@@ -4,20 +4,35 @@ import { run } from "node:test"
 import { browser } from "process"
 import { styles } from "./tsStyles"
 import { useState } from "react"
+import Table from "./table"
+import { Divider } from "./divider"
 
 type propsType = any;
+type person = {}
 
 export default function SectionJournal(props: propsType) {
 
-	const [myState,setMyState] = useState("No query has been sent.")
+	const [myState, setMyState] = useState("No query has been sent.");
+	const [secondState, setSecondState] = useState([{ "id": 1, "name": "Doe", "birthdate": "1990-01-01", "preferred_contact_method": 1, "groups": 1 }, { "id": 2, "name": "Smith", "birthdate": "1985-05-10", "preferred_contact_method": 2, "groups": 1 }, { "id": 3, "name": "Johnson", "birthdate": "1992-08-15", "preferred_contact_method": 2, "groups": 2 }, { "id": 4, "name": "Williams", "birthdate": "1988-11-20", "preferred_contact_method": 1, "groups": 2 }, { "id": 5, "name": "Brown", "birthdate": "1994-03-25", "preferred_contact_method": 1, "groups": 3 }]);
+
+	function parseMyData(data: any): void {
+		console.log(data);
+		const displayString = `Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${data.rowsReturned} rows.`
+		setMyState(displayString)
+		setSecondState(data.dbResponse);
+		// I should also query the database for the list of the column names
+	}
 
 	const queryDB = () => {
-		const url = ""
-		console.log("Send query to" + url)
-		fetch(url).then(response => response.json()).catch(error => { console.log(error); });
+		const url = "http://localhost:8000/"
+		const displayString = "Attempting to send query to " + url;
+		console.log(displayString);
+		setMyState(displayString);
+		fetch(url).then(response => response.json()).then(data => parseMyData(data))
+			.catch(error => { setMyState("An error occurred - see console for details."); console.log(error); });
 	};
 
-	const buttonElement = <button onClick={queryDB} className={styles.button}>Send query</button>;
+	const buttonElement = <button onClick={queryDB} className={styles.button + styles.roomy}>Send query</button>;
 
 	const stuffToSay =
 		<>
@@ -32,12 +47,35 @@ export default function SectionJournal(props: propsType) {
 			</ul>
 		</>
 
+	const translatedArray = secondState.map((thisRow) => {
+		return (
+			[thisRow.id, thisRow.name, thisRow.birthdate]
+		)
+	})
+
+	let keyCounter = 0;
+	let rowKey = 0;
 	return (
 		<>
-			{myState}
+			<div className={styles.bubble + styles.spacious}>{myState}</div>
 			{buttonElement}
-			<hr className={styles.roomy} />
+			<div className={styles.bubble + styles.spacious}>
+				{/* This is doing it manually, but I alreayd have a component that does this for me. */}
+				{/* 
+				<table>
+				{secondState.map(eachRow => {
+					return (<tr key={rowKey++}>
+						<td>{eachRow.name}</td><td>{eachRow.id}</td>
+					</tr>)
+				})} 
+			</table>
+				*/}
+				<Table dataLabels={["Id", "Name", "DOB"]} dataContents={translatedArray} />
+			</div>
+			<Divider />
 			{stuffToSay}
 		</>
 	)
 }
+
+
