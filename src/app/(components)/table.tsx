@@ -1,5 +1,6 @@
 "use client"
 import { use, useState } from "react";
+import { styles } from "./tsStyles";
 
 
 // <> Define component props
@@ -17,7 +18,6 @@ export default function Table(props: propsTable) {
 	const data = props.dataContents;
 	const editable = props.editable;
 	let indexRow = 0;
-	const standardCss = "rounded p-3"
 
 	// <> States
 	const [isEditing, selectForEdit] = useState<number | null>(null)
@@ -50,25 +50,25 @@ export default function Table(props: propsTable) {
 
 	// <> Matching buttons
 	function editButton(rowID: number) {
-		return <td><button className={`${standardCss} w-full bg-slate-700 text-slate-100`} value={"Edit"}
+		return <td><button className={styles.button} value={"Edit"}
 			onClick={() => selectForEdit(rowID)}>Edit</button></td>
 
 	}
 	function saveButton() {
-		return <td><button className={`${standardCss} w-full bg-slate-100 text-slate-700`} value={"Save"}
+		return <td><button className={styles.button} value={"Save"}
 			onClick={() => selectForEdit(null)}>Save</button></td>
 	}
 
 	// <> Matching cells
 	function cellDisplay(indexCell: string, contentsCell: string) {
-		return <td className={`${standardCss}`} key={`cell#${indexCell}`}>
+		return <td className={styles.roomy} key={`cell#${indexCell}`}>
 			{contentsCell}
 		</td>
 	}
 
 	function cellEdit(indexCell: string, contentsCell: string) {
-		return <td className={`${standardCss} bg-slate-700 text-slate-100`} key={`cell#${indexCell}`}>
-			<input className={`bg-slate-700 text-slate-100`} defaultValue={contentsCell}></input>
+		return <td className={styles.roomy} key={`cell#${indexCell}`}>
+			<input className={styles.roomy} defaultValue={contentsCell}></input>
 		</td>
 	}
 

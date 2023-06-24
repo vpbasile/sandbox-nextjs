@@ -1,27 +1,33 @@
 "use client"
 import Link from 'next/link'
-import Image from 'next/image';
 import Table from './(components)/table'
 // import CardDeck from './(components)/cardDeck';
 import TextParse from './(components)/textParse';
 import { styles } from './(components)/tsStyles';
 import Section from './(components)/section';
 import { useState } from 'react';
+import SectionJournal from './(components)/newComponent';
 
 export default function Home() {
 
-  const [tempString, setString] = useState("npm install sqlite3 --save")
-
-  // Add a theme switch with a state for the current theme.  Then make the css strings dependent on that
+  // <> Enhancement <> Add a theme switch with a state for the current theme.  Then make the css strings dependent on that
   // https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually
 
   // <><><><> This is where I should open the database, retrieve the entirety of a table, and display it in a <Table> component.
   // <> 
 
   // Define my data
+
+  const paragraphOfText = `Customizing your theme
+  
+  If you want to change things like your color palette, spacing scale, typography scale, or breakpoints, add your customizations to the theme section of your tailwind.config.js file`
+  
+    {/* <DBTable /> */}
+
   const headersTest = ["Key", "Title", "URL"]
   const dataTest: string[][] = [
-    ["key000", "I should add PostgreSQL", "https://www.postgresql.org/docs/current/tutorial.html"]
+    ["key006", "Edit buttons should be links", ""]
+    , ["key000", "I should add PostgreSQL", "https://www.postgresql.org/docs/current/tutorial.html"]
     , ['key001', "Or maybe SQLite would be better", "https://sqlite.org/quickstart.html"]
     , [`key002`, `The table changes size when you change to edit mode`, '']
     , [`key003`, `sqlite3`, 'https://stackoverflow.com/questions/56583738/how-to-connect-to-a-sqlite-db-from-a-react-app']
@@ -29,37 +35,25 @@ export default function Home() {
     , [`key005`, 'Create a script that will launch the server and the client', '']
   ]
 
-  const paragraphOfText = `Customizing your theme
+  let modules: { id: string; contents: JSX.Element; headerText: string; }[] = [
+    { headerText: 'Database Table', id: 'dbTable', contents: <SectionJournal /> },
+    // { headerText: "Parser for Delimited Text", id: "textParse", contents: <TextParse />, },
+    { headerText: "Editable Table Display", id: "tableDisplay", contents: <Table dataLabels={headersTest} dataContents={dataTest} editable={true} /> },
+    // { id: 'loremIpsum', headerText: 'Lorem Ipsum', contents: <p className={styles.roomy}>{paragraphOfText}</p> },
+  ]
+  let moduleCounter = 0;
 
-  If you want to change things like your color palette, spacing scale, typography scale, or breakpoints, add your customizations to the theme section of your tailwind.config.js file`
 
   // <> Main return
   return (
     <main className="flex flex-col items-center justify-between p-24">
-      <h1 className={styles.bigOrange}>Sandbox: Next.js with <Link href='https://tailwindcss.com/' className='text-orange-700' >tailwind</Link> and <Link className={styles.link} href="https://react.daisyui.com/">react-daisyUI</Link></h1>
-      {/* <Section id='new' headerText='New Section'></Section> */}
-      <Section id='dbTable' headerText='Database Table'>
-        <p>To test the database connection, at the command line run <span className=''>npm run database</span>, then in the browser, go to <Link href="http://localhost:8000/">http://localhost:8000/</Link></p>
-        {/* <p className={styles.roomy}>Server result: {serverResponse}</p> */}
-        <p className={styles.roomy}>This one does not work yet.  My next step is to invloke the ctroller (defined in the server directory) via the UI.</p>
-        <ul>
-          <li><Link className={styles.link} href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes">This tutorial</Link> might be helpful, though it is using mongoose instead of sqlite3.</li>
-          <li><Link className={styles.link} href="https://medium.com/@codesprintpro/rest-api-using-sqlite3-nodejs-and-expressjs-f8c0c0847fe5">This tutorial</Link> was helpful setting up the express server with the sqlite3 database.</li>
-        </ul>
-        {/* <DBTable /> */}
-      </Section>
-      {/* 
-       */}
-      <Section id='textParse' headerText='Parser for Delimited Text'>
-        <TextParse />
-      </Section>
-      <Section id='tableDisplay' headerText='Editable Table Display'><Table dataLabels={headersTest} dataContents={dataTest} editable={true} /></Section>
-      <Section id='loremIpsum' headerText='Lorem Ipsum'>
-        <p className={styles.roomy}>{tempString}</p>
-        <p className={styles.roomy}>{paragraphOfText}</p>
-      </Section>
+      <h1 className={styles.bigOrange}>Sandbox: Next.js with <Link href='https://tailwindcss.com/' className='' >tailwind</Link> and <Link className={styles.link} href="https://react.daisyui.com/">react-daisyUI</Link></h1>
+      {modules[0] && modules.map((thisModule) => {
+        return (<Section key={moduleCounter++} id={thisModule.id} headerText={thisModule.headerText}>
+          {thisModule.contents}
+        </Section>)
+      })}
 
     </main>
   )
 }
-

@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+a {
+  color: hsl(212, 96%, 70%);
+}
