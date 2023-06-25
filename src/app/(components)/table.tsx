@@ -6,7 +6,7 @@ import { styles } from "./tsStyles";
 // <> Define component props
 type propsTable = {
 	dataLabels: string[];
-	dataContents: string[][];
+	dataContents: (string|number)[][];
 	editable?:boolean;
 	// Pass down class
 	cssClasses?: string;
@@ -37,12 +37,12 @@ export default function Table(props: propsTable) {
 	function tableRow(indexRow: number, fields: any[], isEditing: boolean) {
 		let indexCell = 0
 		if (isEditing) {
-			return (<tr key={`row#${indexRow}`} className={`border border-slate-100 rounded`} >
+			return (<tr key={`row#${indexRow}`}>
 				{fields.map((element) => { return cellEdit(`cell#${indexRow}-${indexCell++}`, element) })}
 				{saveButton()}
 			</tr>)
 		}
-		else return (<tr key={`row#${indexRow}`} className={`border border-slate-700 rounded`}>
+		else return (<tr key={`row#${indexRow}`}>
 			{fields.map((element) => { return cellDisplay(`cell#${indexRow}-${indexCell++}`, element) })}
 			{editable && editButton(indexRow)}
 		</tr>)
