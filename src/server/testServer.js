@@ -32,7 +32,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 // Default GET
 const defaultRoute = app.get("/", (req, res, next) => {
-  let myObject, statusToSet
+  let myObject
   db.all("SELECT * FROM people", [], (err, rows) => {
     if (err) {
       res.status(400).json({ "error": err.message });
@@ -51,15 +51,23 @@ const defaultRoute = app.get("/", (req, res, next) => {
 })
 
 // GET with an input id
-app.get("/:id", (req, res, next) => {
-  const statusCode = 200
-  const id = req.params.id
-  let myObject = {
-    numberEntered: id,
-    status: statusCode,
-    serverUpSince: startTimeDisplay,
-    testURL: 'http://localhost:8000/people'
-  }
-  res.status(statusCode).json(myObject)
-  return;
+app.get("/:tableName", (req, res, next) => {
+  let myObject
+  const tableName = req.params.tableName;
+  db.all(`SELECT * FROM `+ tableName, [], (err, rows) => {
+    if (err) {
+      res.status(400).json({ "error": err.message });
+      return;
+    } else {
+      myObject = {
+        serverUpSince: startTimeDisplay,
+        baseURL: 'http://localhost:8000/',
+        tableName: tableName,
+        rowsReturned: rows.length,
+        dbResponse: rows
+      }
+      res.status(200).json(myObject);
+      return;
+    }
+  })
 })
