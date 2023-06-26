@@ -13,17 +13,7 @@ export default function Home() {
   // <> Enhancement <> Add a theme switch with a state for the current theme.  Then make the css strings dependent on that
   // https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually
 
-  // <><><><> This is where I should open the database, retrieve the entirety of a table, and display it in a <Table> component.
-  // <> 
-
-  // Define my data
-
-  const paragraphOfText = `Customizing your theme
-  
-  If you want to change things like your color palette, spacing scale, typography scale, or breakpoints, add your customizations to the theme section of your tailwind.config.js file`
-  
-    {/* <DBTable /> */}
-
+  // <> Test data used in the editable table until I can store this data in the database.
   const headersTest = ["Key", "Title", "URL"]
   const dataTest: string[][] = [
     ["key006", "Edit buttons should be links", ""]
@@ -35,12 +25,33 @@ export default function Home() {
     , [`key005`, 'Create a script that will launch the server and the client', '']
   ]
 
-  let modules: { id: string; contents: JSX.Element; headerText: string; }[] = [
-    { headerText: 'Database Table', id: 'dbTable', contents: <SectionJournal /> },
-    // { headerText: "Parser for Delimited Text", id: "textParse", contents: <TextParse />, },
-    { headerText: "Editable Table Display", id: "tableDisplay", contents: <Table dataLabels={headersTest} dataContents={dataTest} editable={true} /> },
-    // { id: 'loremIpsum', headerText: 'Lorem Ipsum', contents: <p className={styles.roomy}>{paragraphOfText}</p> },
-  ]
+  // <> Define modeules
+  let modules: { uid: number, id: string; contents: JSX.Element; headerText: string }[] = []
+  let makeUID = 0
+  modules.push({ uid: makeUID++, headerText: 'Database Table', id: 'dbTable', contents: <SectionJournal /> })
+  modules.push({ uid: makeUID++, headerText: "Notes", id: "tableDisplay", contents: <Table dataLabels={headersTest} dataContents={dataTest} editable={true} /> })
+  // modules.push({ uid: makeUID++, headerText: "Parser for Delimited Text", id: "textParse", contents: <TextParse />, })
+
+  // <> Toolbar for selecting a module
+  const [selectedModule, SETselectedModule] = useState(0);
+  const toolbar =
+    <ul className="flex">
+      {modules.map(eachModule => {
+        const uid = eachModule.uid;
+        let buttonStyle;
+        if (uid === selectedModule) { buttonStyle = `text-soothingBlue ` + styles.button + styles.roomy } else { buttonStyle = `text-yellow-600  ` + styles.button + styles.roomy }
+        return (
+          <li key={`button-${uid}`} className="mr-6">
+            <button key={uid} onClick={() => {
+              SETselectedModule(uid);
+            }} className={buttonStyle}>{eachModule.headerText}</button>
+          </li>
+        )
+      })}
+    </ul>
+  const actualModule = modules[selectedModule];
+
+  // <> Varibales used in key loops
   let moduleCounter = 0;
 
 
@@ -48,12 +59,15 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between p-24">
       <h1 className={styles.bigOrange}>Sandbox: Next.js with <Link href='https://tailwindcss.com/' className='' >tailwind</Link> and <Link className={styles.link} href="https://react.daisyui.com/">react-daisyUI</Link></h1>
-      {modules[0] && modules.map((thisModule) => {
+      {toolbar}
+      {/* {modules[0] && modules.map((thisModule) => {
         return (<Section key={moduleCounter++} id={thisModule.id} headerText={thisModule.headerText}>
           {thisModule.contents}
         </Section>)
-      })}
-
+      })} */}
+      <Section key={moduleCounter++} id={actualModule.id} headerText={actualModule.headerText}>
+        {actualModule.contents}
+      </Section>
     </main>
   )
 }

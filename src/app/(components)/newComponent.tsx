@@ -6,6 +6,7 @@ import { styles } from "./tsStyles"
 import { useState } from "react"
 import Table from "./table"
 import { Divider } from "./divider"
+import SelectList from "./selectList"
 
 type propsType = any;
 type person = {}
@@ -19,6 +20,12 @@ export default function SectionJournal(props: propsType) {
 		{ "id": 0, "name": "", "birthdate": "", "preferred_contact_method": 1, "groups": 3 }
 	]);
 
+
+	// <> States used for creating a new record
+	const [idTemp, SETidTemp] = useState("99"); // This should be set by nextID
+	const [nameTemp, SETnameTemp] = useState("Name Name");
+	const [birthdateTemp, SETbirthdateTemp] = useState("1990-01-01")
+
 	function parseMyData(data: any): void {
 		console.log(data);
 		const displayString = `Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${data.rowsReturned} rows.`
@@ -27,13 +34,14 @@ export default function SectionJournal(props: propsType) {
 		// I should also query the database for the list of the column names
 	}
 
+	let listMethods, listGroups;
+	const dbURL = "http://localhost:8000/"
 	const queryDB = () => {
-		const url = "http://localhost:8000/"
-			const displayString = "Attempting to send query to " + url;
-			console.log(displayString);
-			setMyState(displayString);
-		fetch(url).then(response => response.json()).then(data => parseMyData(data))
-				.catch(error => { setMyState("An error occurred - see console for details."); console.log(error); });
+		const displayString = "Attempting to send query to " + dbURL;
+		console.log(displayString);
+		setMyState(displayString);
+		fetch(dbURL).then(response => response.json()).then(data => parseMyData(data))
+			.catch(error => { setMyState("An error occurred - see console for details."); console.log(error); });
 	};
 
 	const buttonElement = <button onClick={queryDB} className={styles.button + styles.roomy}>Send query</button>;
@@ -60,12 +68,26 @@ export default function SectionJournal(props: propsType) {
 
 	let keyCounter = 0;
 	let rowKey = 0;
+
+	const dataHeaders = ["Id", "Name", "DOB", "Group", "Preferred Contact Method"]
 	return (
 		<>
-			<div className={styles.bubble + styles.spacious}>{myState}</div>
+			<div className={styles.bubble + styles.spacious}>Response: {myState}</div>
 			{buttonElement}
 			<div className={styles.bubble + styles.spacious}>
-				<Table cssClasses="" editable={true} dataLabels={["Id", "Name", "DOB", "Group", "Preferred Contact Method"]} dataContents={translatedArray} />
+				<Table cssClasses="" editable={true} dataLabels={dataHeaders} dataContents={translatedArray} />
+			</div>
+			<div className={styles.bubble + styles.roomy}>
+				<table>
+					<tr>
+						<td>uid:<input defaultValue={idTemp} onChange={(e) => { SETidTemp(e.target.value) }} className={styles.fields} /></td>
+						<td>name:<input defaultValue={nameTemp} onChange={(e) => { SETnameTemp(e.target.value) }} className={styles.fields} /></td>
+						<td>birthdate:<input defaultValue={birthdateTemp} onChange={(e) => { SETbirthdateTemp(e.target.value) }} className={styles.fields} /></td>
+						<td>contact method:</td>
+						<td>groups:</td>
+					</tr>
+				</table>
+				<SelectList url={dbURL} tableName="groups" onSelect={(e:Event) => console.log(e.target.value)} />
 			</div>
 			<Divider />
 			{stuffToSay}
