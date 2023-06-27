@@ -66,7 +66,7 @@ export default function SectionJournal(props: propsType) {
 	let keyCounter = 0;
 	let rowKey = 0;
 
-	const dataHeaders = ["Id", "Name", "DOB", "Group", "Preferred Contact Method"]
+	// const dataHeaders = ["Id", "Name", "DOB", "Group", "Preferred Contact Method"]
 	const fieldsForTable: field[] = [
 		{ matchID: "uid", displayLabel: "UID", type: "string", defaultValue: idTemp, changeFunction: (e) => { SETidTemp(e.target.value) } },
 		{ matchID: "name", displayLabel: "Name", type: "string", defaultValue: nameTemp, changeFunction: (e) => { SETnameTemp(e.target.value) } },
@@ -74,12 +74,12 @@ export default function SectionJournal(props: propsType) {
 		{ matchID: "contactMethod", displayLabel: "Preferred Contact Method", type: "list", defaultValue: 1, changeFunction: (e): void => console.log(e.target.value) },
 		{ matchID: "groups", displayLabel: "Groups", type: "list-multi", defaultValue: 1, changeFunction: (e): void => console.log(e.target.value) }
 	]
+
 	return (
 		<>
-			<div className={styles.bubble + styles.spacious}>
-				<form action="/send-data-here" method="post">
+			{/* <div className={styles.bubble + styles.spacious}>
 					<table>
-						<thead>
+					<thead>
 							<tr>
 								<th></th>
 								<th><label htmlFor="name">Name</label></th>
@@ -87,25 +87,25 @@ export default function SectionJournal(props: propsType) {
 								<th><label htmlFor="groups">Groups</label></th>
 								<th><label htmlFor="method">Preferred Contact Method</label></th>
 								<th>---</th>
-							</tr>
-						</thead>
-						<tbody>
-							<InputRow fields={fieldsForTable} />
-							{inputCell("uid", idTemp, (e) => { SETidTemp(e.target.value), "" })}
-							{inputCell("name", nameTemp, (e) => { SETnameTemp(e.target.value) }, "")}
+								</tr>
+								</thead>
+								<tbody>
+								{inputCell("uid", idTemp, (e) => { SETidTemp(e.target.value), "" })}
+								{inputCell("name", nameTemp, (e) => { SETnameTemp(e.target.value) }, "")}
 							{inputCell("birthdate", birthdateTemp, (e) => { SETbirthdateTemp(e.target.value) }, "")}
 							<td><SelectList url={dbURL} tableName="groups"
-								onSelect={(e): void => console.log(e.target.value)} />
+							onSelect={(e): void => console.log(e.target.value)} />
 							</td>
 							<td><SelectList url={dbURL} tableName="groups"
 								onSelect={(e): void => console.log(e.target.value)} />
-							</td>
-						</tbody>
-					</table>
-				</form>
-			</div>
+								</td>
+								</tbody>
+								</table>
+							</div> */}
 			<div className={styles.bubble + styles.spacious}>
-				<Table cssClasses="" editable={true} dataLabels={dataHeaders} dataContents={translatedArray} />
+				<form action="/send-data-here" method="post">
+					<Table cssClasses="" editable={true} fields={fieldsForTable} dataContents={translatedArray} />
+				</form>
 			</div>
 			{buttonElement}
 			<div className={styles.bubble + styles.spacious}>Response: {myState}</div>

@@ -2,12 +2,14 @@
 import { use, useState } from "react";
 import { styles } from "../tsStyles";
 import { buttonCell, tableHeader } from "./table-helpers";
+import InputRow from "./inputRow";
+import { field } from "./field";
 
 
 // <> Define component props
 type propsTable = {
-	dataLabels: string[];
 	dataContents: (string | number)[][];
+	fields: field[];
 	editable?: boolean;
 	// Pass down class
 	cssClasses?: string;
@@ -15,16 +17,13 @@ type propsTable = {
 
 export default function Table(props: propsTable) {
 	//  <> Cache and initialize
-	const headers = props.dataLabels;
 	const data = props.dataContents;
 	const editable = props.editable;
+	const fields = props.fields;
 	let indexRow = 0;
 
 	// <> States
 	const [isEditing, selectForEdit] = useState<number | null>(null)
-	const [keyTemp, keySetTemp] = useState<number | null>(null)
-	const [titleTemp, titleSetTemp] = useState<number | null>(null)
-	const [urlTemp, urlSetTemp] = useState<number | null>(null)
 
 	type row = { rowUID: string, fields: { key: string, value: string }[] }
 
@@ -59,16 +58,18 @@ export default function Table(props: propsTable) {
 		</td>
 	}
 
+	const dataHeaders = fields.map((eachField) => { return (eachField.displayLabel) })
 
 	// <> Come back with the table
 	return (
 		<table className={`w-full table-auto ${props.cssClasses}`}>
-			{tableHeader(headers)}
+			{tableHeader(dataHeaders)}
 			<tbody>
 				{data.map((contentsRow) => {
 					const numIndex = indexRow++;
 					return tableRow(numIndex, contentsRow, (numIndex === isEditing));
 				})}
+				<InputRow fields={fields} />
 			</tbody>
 		</table>
 	);
