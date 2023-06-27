@@ -8,10 +8,10 @@ import { styles } from './(components)/structure/tsStyles';
 import Section from './(components)/structure/section';
 
 // <>DATA<>people
-import SectionJournal from './(components)/db-table/people/display-people';
+import SectionJournal from './(components)/data/people/display-people';
 
 // <>DATA<>notes
-import { dataTest, testFields, stuffToSay } from './(components)/db-table/notes';
+import { dataTest, testFields, stuffToSay } from './(components)/data/notes';
 
 export default function Home() {
 

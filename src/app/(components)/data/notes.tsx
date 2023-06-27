@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { field } from "./field"
+import { field } from "../db-table/field"
 import { styles } from "../structure/tsStyles"
 
 // <>DATA<>notes Test data used in the editable table until I can store this data in the database.

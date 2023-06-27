@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { styles } from "../../structure/tsStyles"
 import { useState, ChangeEvent } from "react"
-import Table from "../table"
-import { field } from "../field"
+import Table from "../../db-table/table"
+import { field } from "../../db-table/field"
 import { list } from "postcss"
 
 type propsType = any;
