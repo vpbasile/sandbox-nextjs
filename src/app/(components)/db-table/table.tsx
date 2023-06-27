@@ -1,13 +1,14 @@
 "use client"
 import { use, useState } from "react";
-import { styles } from "./tsStyles";
+import { styles } from "../tsStyles";
+import { buttonCell, tableHeader } from "./table-helpers";
 
 
 // <> Define component props
 type propsTable = {
 	dataLabels: string[];
-	dataContents: (string|number)[][];
-	editable?:boolean;
+	dataContents: (string | number)[][];
+	editable?: boolean;
 	// Pass down class
 	cssClasses?: string;
 }
@@ -25,13 +26,6 @@ export default function Table(props: propsTable) {
 	const [titleTemp, titleSetTemp] = useState<number | null>(null)
 	const [urlTemp, urlSetTemp] = useState<number | null>(null)
 
-	// <> Functions for building the tables
-	function tableHeader(headers: string[]) {
-		let numberColumn = 0;
-		return <thead>
-			<tr>{headers.map(eachOne => { return (<th key={`header-col#${numberColumn++}`}>{eachOne}</th>) })}</tr>
-		</thead>
-	}
 	type row = { rowUID: string, fields: { key: string, value: string }[] }
 
 	function tableRow(indexRow: number, fields: any[], isEditing: boolean) {
@@ -49,15 +43,8 @@ export default function Table(props: propsTable) {
 	}
 
 	// <> Matching buttons
-	function editButton(rowID: number) {
-		return <td><button className={styles.button} value={"Edit"}
-			onClick={() => selectForEdit(rowID)}>Edit</button></td>
-
-	}
-	function saveButton() {
-		return <td><button className={styles.button} value={"Save"}
-			onClick={() => selectForEdit(null)}>Save</button></td>
-	}
+	function editButton(rowID: number) { return (buttonCell("Edit", () => selectForEdit(rowID))) }
+	function saveButton() { return (buttonCell("Save", () => selectForEdit(null))) }
 
 	// <> Matching cells
 	function cellDisplay(indexCell: string, contentsCell: string) {

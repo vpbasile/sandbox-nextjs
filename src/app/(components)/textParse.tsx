@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Table from "./table"
+import Table from "./db-table/table"
 import { data } from "autoprefixer"
 import { styles } from "./tsStyles"
 

@@ -1,12 +1,12 @@
 "use client"
 import Link from 'next/link'
-import Table from './(components)/table'
+import Table from './(components)/db-table/table'
 // import CardDeck from './(components)/cardDeck';
 import TextParse from './(components)/textParse';
 import { styles } from './(components)/tsStyles';
 import Section from './(components)/section';
 import { useState } from 'react';
-import SectionJournal from './(components)/newComponent';
+import SectionJournal from './(components)/db-table/newComponent';
 
 export default function Home() {
 
@@ -17,8 +17,6 @@ export default function Home() {
   const headersTest = ["Key", "Title", "URL"]
   const dataTest: string[][] = [
     ["key006", "Edit buttons should be links", ""]
-    , ["key000", "I should add PostgreSQL", "https://www.postgresql.org/docs/current/tutorial.html"]
-    , ['key001', "Or maybe SQLite would be better", "https://sqlite.org/quickstart.html"]
     , [`key002`, `The table changes size when you change to edit mode`, '']
     , [`key003`, `sqlite3`, 'https://stackoverflow.com/questions/56583738/how-to-connect-to-a-sqlite-db-from-a-react-app']
     , [`key004`, 'Server components', 'https://nextjs.org/docs/getting-started/react-essentials']

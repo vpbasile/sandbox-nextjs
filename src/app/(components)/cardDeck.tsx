@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import { styles } from './tsStyles';
-import Table from './table';
+import Table from './db-table/table';
 
 // Define the card suits
 enum Suit {
