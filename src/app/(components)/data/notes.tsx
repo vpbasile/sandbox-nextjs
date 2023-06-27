@@ -9,15 +9,17 @@ export const dataTest: (string | number)[][] = [
 	[6, "Fix the display of all the form fields.  Make them match the size of the text."],
 	[7, "Define link fields"]
 	, [5, "Edit buttons should be links", ""]
-	
+
 	, [3, `sqlite3`, 'https://stackoverflow.com/questions/56583738/how-to-connect-to-a-sqlite-db-from-a-react-app']
-	, [2, 'Server components', 'https://nextjs.org/docs/getting-started/react-essentials']
+	, [2, 'Server components', 'https://nextjs.org/docs/getting-started/react-essentials'],
+	[8, 'Tutorial,']
 ]
 
 export const testFields: field[] = [
 	{ matchID: "uid", displayLabel: "UID", type: "number", defaultValue: 99, changeFunction: null },
 	{ matchID: "title", displayLabel: "Title", type: "string", defaultValue: "New title", changeFunction: null },
-	{ matchID: "url", displayLabel: "URL", type: "string", defaultValue: "http://", changeFunction: null }
+	{ matchID: "url", displayLabel: "URL", type: "string", defaultValue: "http://", changeFunction: null },
+	{ matchID: "link", displayLabel: "Link", type: "link", defaultValue: "Link", changeFunction: null }
 ]
 
 export const stuffToSay =

@@ -21,7 +21,7 @@ app.listen(HTTP_PORT, () => {
 });
 
 // <> Connect to the Database
-const dbPath = './test.db';
+const dbPath = './people.db';
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error("Error opening database " + err.message);
