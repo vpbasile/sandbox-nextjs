@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { styles } from './tsStyles';
+import { styles } from './structure/tsStyles';
 import Table from './db-table/table';
 
 // Define the card suits

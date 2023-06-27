@@ -4,14 +4,14 @@ import Link from 'next/link'
 import Table from './(components)/db-table/table'
 // import CardDeck from './(components)/cardDeck';
 import TextParse from './(components)/textParse';
-import { styles } from './(components)/tsStyles';
-import Section from './(components)/section';
+import { styles } from './(components)/structure/tsStyles';
+import Section from './(components)/structure/section';
 
 // <>DATA<>people
-import SectionJournal from './(components)/db-table/display-people';
+import SectionJournal from './(components)/db-table/people/display-people';
 
 // <>DATA<>notes
-import { dataTest, testFields, stuffToSay } from './notes';
+import { dataTest, testFields, stuffToSay } from './(components)/db-table/notes';
 
 export default function Home() {
 

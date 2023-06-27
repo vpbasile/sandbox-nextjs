@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Table from "./db-table/table"
 import { data } from "autoprefixer"
-import { styles } from "./tsStyles"
+import { styles } from "./structure/tsStyles"
 
 type propsType = {}
 
