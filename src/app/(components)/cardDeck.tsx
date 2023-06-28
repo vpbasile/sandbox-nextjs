@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { styles } from './structure/tsStyles';
 import Table from './db-table/table';
+import { field } from './db-table/field';
 
 // Define the card suits
 enum Suit {
@@ -85,6 +86,24 @@ const CardDeck: React.FC = () => {
 		console.log(`Dealt card: ${dealtCard.rank} of ${dealtCard.suit}`);
 	};
 
+	const fields: field[] = [
+		{
+			matchID: "suit",
+			displayLabel: `Suit`,
+			type: "string",
+			defaultValue: "Suit",
+			changeFunction: null,
+			listTable: undefined,
+		},
+		{
+			matchID: "rank",
+			displayLabel: `Rank`,
+			type: "string",
+			defaultValue: "Rank",
+			changeFunction: null,
+			listTable: "ranks",
+		}
+	];
 	return (
 		<div>
 			<h1>Card Deck Simulator</h1>
@@ -92,7 +111,8 @@ const CardDeck: React.FC = () => {
 			<button onClick={dealCard} className={styles.button}>Deal Card</button>
 			<div>
 				{topCard && `${topCard?.rank} of ${topCard?.suit}`}
-				{displayList && <Table dataLabels={[`Suit`, `Rank`]} dataContents={displayList} editable={false} />}
+				{/* editable={false} */}
+				{displayList && <Table dataContents={displayList} fields={fields} />}
 			</div>
 		</div>
 	);

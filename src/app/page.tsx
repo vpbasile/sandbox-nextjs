@@ -2,13 +2,12 @@
 import { useState } from 'react';
 import Link from 'next/link'
 import Table from './(components)/db-table/table'
-// import CardDeck from './(components)/cardDeck';
-import TextParse from './(components)/textParse';
+import CardDeck from './(components)/cardDeck';
 import { styles } from './(components)/structure/tsStyles';
 import Section from './(components)/structure/section';
 
 // <>DATA<>people
-import SectionJournal from './(components)/data/people/display-people';
+import DisplayPeople from './(components)/data/people/display-people';
 
 // <>DATA<>notes
 import { dataTest, testFields, stuffToSay } from './(components)/data/notes';
@@ -21,7 +20,7 @@ export default function Home() {
   // <> Define modeules
   let modules: { uid: number, id: string; contents: JSX.Element; headerText: string }[] = []
   let makeUID = 0
-  modules.push({ uid: makeUID++, headerText: 'People Database', id: 'dbTable', contents: <SectionJournal /> })
+  modules.push({ uid: makeUID++, headerText: 'People Database', id: 'dbTable', contents: <DisplayPeople /> })
   modules.push({
     uid: makeUID++, headerText: "Notes Database", id: "tableDisplay", contents: <div>
       <Table dataContents={dataTest} fields={testFields} />
@@ -29,7 +28,7 @@ export default function Home() {
     </div>
 
   })
-  // modules.push({ uid: makeUID++, headerText: "Parser for Delimited Text", id: "textParse", contents: <TextParse />, })
+  modules.push({ uid: makeUID++, headerText: "CarDeck Simulator", id: "cardeck", contents: <CardDeck />, })
 
   // <> Toolbar for selecting a module
   const [selectedModule, SETselectedModule] = useState(0);
@@ -38,7 +37,7 @@ export default function Home() {
       {modules.map(eachModule => {
         const uid = eachModule.uid;
         let buttonStyle;
-        if (uid === selectedModule) { buttonStyle = `text-soothingBlue ` + styles.button + styles.roomy } else { buttonStyle = `text-yellow-600  ` + styles.button + styles.roomy }
+        if (uid === selectedModule) { buttonStyle = `text-soothingYellow ring-8 ring-inset ring-green-500 ` + styles.button + styles.roomy } else { buttonStyle = `text-yellow-600  ` + styles.button + styles.roomy }
         return (
           <li key={`button-${uid}`} className="mr-6">
             <button key={uid} onClick={() => {

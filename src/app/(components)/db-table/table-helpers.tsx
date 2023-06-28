@@ -24,6 +24,6 @@ export function inputCell(cellKey: number, matchID: string, defaultValue: string
 	return (<td key={cellKey}>
 		<label className="collapse" htmlFor="uid">UID</label>
 		<input name={matchID} id={matchID} defaultValue={defaultValue}
-			onChange={typingF} className={cssClasses} />
+			onChange={typingF} className={styles.fields + cssClasses} />
 	</td>)
 }

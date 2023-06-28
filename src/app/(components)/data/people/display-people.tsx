@@ -71,6 +71,8 @@ export default function DisplayPeople(props: propsType) {
 				<form action="/send-data-here" method="post">
 					<Table cssClasses="" editable={true} fields={fieldsForPeople} dataContents={translatedArray} />
 				</form>
+			</div>
+			<div className={styles.bubble + styles.spacious}>
 				{buttonElement}
 			</div>
 		</>

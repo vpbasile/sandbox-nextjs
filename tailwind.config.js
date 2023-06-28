@@ -7,7 +7,8 @@ module.exports = {
   ],
   theme: {
     colors:{
-      soothingBlue: 'hsl(212, 96%, 70%);'
+      soothingBlue: 'hsl(212, 96%, 70%);',
+      soothingYellow: 'hsl(50, 75 %, 42%);'
     },
     extend: {
       backgroundImage: {

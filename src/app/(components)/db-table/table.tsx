@@ -54,7 +54,7 @@ export default function Table(props: propsTable) {
 
 	function cellEdit(indexCell: string, contentsCell: string) {
 		return <td className={styles.roomy} key={`cell#${indexCell}`}>
-			<input className={styles.roomy} defaultValue={contentsCell}></input>
+			<input className={styles.roomy + 'bg-black text-black rounded '} defaultValue={contentsCell}></input>
 		</td>
 	}
 
