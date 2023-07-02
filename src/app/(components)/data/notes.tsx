@@ -25,6 +25,7 @@ export const testFields: field[] = [
 export const stuffToSay =
 	<div>
 		<ul>
+			
 			<li>Add styling to the lists</li>
 			<li>Use the Table component for to display the hex roster</li>
 			<li><Link className={styles.link} href="https://expressjs.com/en/guide/routing.html#response-methods">Reference on the Response methods</Link></li>

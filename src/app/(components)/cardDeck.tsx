@@ -55,6 +55,7 @@ const CardDeck: React.FC = () => {
 	const [deck, setDeck] = useState<Card[]>(createDeck());
 	const [topCard, setTopCard] = useState<Card | null>(null);
 	const [displayList, setDisplayList] = useState<string[][] | null>(null);
+	const [showDeck, SETshowDeck] = useState(true);
 
 	const shuffleDeck = () => {
 		setTopCard(null);
@@ -109,11 +110,13 @@ const CardDeck: React.FC = () => {
 			<div className={styles.gridSidebar}>
 				<button onClick={shuffleDeck} className={styles.button}>Shuffle Deck</button>
 				<button onClick={dealCard} className={styles.button}>Deal Card</button>
-				<p>{topCard && `${topCard?.rank} of ${topCard?.suit}`}</p>
+				<button onClick={()=>SETshowDeck(!showDeck)} className={styles.button}>Hide/show deck</button>
+				<div className={styles.playingCard}>
+					{topCard && `${topCard?.rank} of ${topCard?.suit}`}	</div>
 			</div>
 			<div className={styles.gridDisplay}>
 				{/* editable={false} */}
-				{displayList && <Table dataContents={displayList} fields={fields} />}
+				{showDeck && displayList && <Table dataContents={displayList} fields={fields} />}
 			</div>
 		</div>
 	);
