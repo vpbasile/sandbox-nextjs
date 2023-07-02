@@ -12,6 +12,12 @@ import DisplayPeople from './(components)/data/people/display-people';
 // <>DATA<>notes
 import { dataTest, testFields, stuffToSay } from './(components)/data/notes';
 import HexBrowser from './(components)/hexboard/browser';
+import SavedBoard from './(components)/hexboard/boards/SavedBoard';
+import Snowflake from './(components)/hexboard/boards/Snowflake';
+import Keyboard from './(components)/hexboard/boards/Keyboard';
+import TriviaBoard from './(components)/hexboard/boards/TriviaBoard';
+import GenerativeBoard from './(components)/hexboard/boards/Generative';
+import CreateBoard from './(components)/hexboard/boards/CreateBoard';
 
 export default function Home() {
 
@@ -23,14 +29,21 @@ export default function Home() {
   let makeUID = 0
   modules.push({ uid: makeUID++, headerText: 'People Database', id: 'dbTable', contents: <DisplayPeople /> });
   modules.push({
-    uid: makeUID++, headerText: "Notes Database", id: "tableDisplay", contents: <div>
+    uid: makeUID++, id: "tableDisplay", headerText: "Notes Database", contents: <div>
       <Table dataContents={dataTest} fields={testFields} />
       <div className={styles.bubble + styles.spacious}>{stuffToSay}</div>
     </div>
 
   });
-  modules.push({ uid: makeUID++, headerText: "Hexboard browser", id: "hexBrowser", contents: <HexBrowser />});
-  modules.push({ uid: makeUID++, headerText: "CarDeck Simulator", id: "cardeck", contents: <CardDeck />, })
+  // modules.push({ uid: makeUID++, headerText: "Hexboard browser", id: "hexBrowser", contents: <HexBrowser /> });
+  modules.push({ uid: makeUID++, id: "cardeck", headerText: "CarDeck Simulator", contents: <CardDeck />, });
+  modules.push({ uid: makeUID++, id: "keyboard", headerText: "Keyboard", contents: <Keyboard /> })
+  modules.push({ uid: makeUID++, id: "snowflake", headerText: "Snowflake Generator", contents: <Snowflake /> });
+  // modules.push({ uid: makeUID++, id: "savedHexBoard", headerText: "Saved Hex Board", contents: <SavedBoard />});
+  modules.push({ uid: makeUID++, id: "trivia", headerText: "Trivia board", contents: <TriviaBoard /> });
+  modules.push({ uid: makeUID++, id: "generative", headerText: "Generative Map", contents: <GenerativeBoard /> });
+  modules.push({ uid: makeUID++, id: "create", headerText: "Create Hex Board", contents: <CreateBoard /> });
+
 
   // <> Toolbar for selecting a module
   const [selectedModule, SETselectedModule] = useState(0);
