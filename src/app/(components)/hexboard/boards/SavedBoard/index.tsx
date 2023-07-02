@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import { canvasGlobals, gameGlobals } from "../../helpers/hexDefinitions";
-import ErrorBoundary from "@/app/(components)/structure/ErrorBoundary";
+import ErrorBoundary from "@/app/(components)/helpers/ErrorBoundary";
+import { canvasGlobals, gameGlobals } from "../../hexDefinitions";
 import GameBoard from "../../HexBoardSVG";
 import fileData from './data.json';
-import { hexOrientations } from '../../helpers/hexMath';
-import CanvasControl from '../../CanvasControl';
-import BoardControl from '../../BoardControl';
-import { clickMessage } from '../../helpers/hexFunctions';
+import { hexOrientations } from '../../hexMath';
+import CanvasControl from '../../forms/CanvasControl';
+import BoardControl from '../../forms/BoardControl';
+import { clickMessage } from '../../hexFunctions';
 
 export default function SavedBoard(props: any) {
 	// <> States that control canvas parameters

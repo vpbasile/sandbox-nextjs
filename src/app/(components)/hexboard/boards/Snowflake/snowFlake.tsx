@@ -1,6 +1,6 @@
-import { coordinateHex, direction, hexagon } from "../../helpers/hexDefinitions";
-import { directionVectors, rolloverDirection, sCoordinate } from "../../helpers/hexMath";
-import { reflectAcrossAxis } from '../../helpers/hexFunctions'
+import { coordinateHex, direction, hexagon } from "../../hexDefinitions";
+import { directionVectors, rolloverDirection, sCoordinate } from "../../hexMath";
+import { reflectAcrossAxis } from '../../hexFunctions'
 
 export type snowflakeBranch = {
 	seed: coordinateHex,

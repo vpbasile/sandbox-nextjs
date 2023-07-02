@@ -1,12 +1,12 @@
 
 // <> Import components
-import { hexOrientations } from '../../helpers/hexMath';
-import { randomBounded } from '../../helpers/math';
+import { hexOrientations } from '../../hexMath';
+import { randomBounded } from '../../math';
 import { BranchObject, hexplicate } from './snowFlake';
-import { centerHexagon, reflectAcrossAxis } from '../../helpers/hexFunctions';
+import { centerHexagon, reflectAcrossAxis } from '../../hexFunctions';
+import { gameGlobals, hexagon } from '../../hexDefinitions';
 
-import ErrorBoundary from '@/app/(components)/structure/ErrorBoundary';
-import { gameGlobals, hexagon } from '../../helpers/hexDefinitions';
+import ErrorBoundary from '@/app/(components)/helpers/ErrorBoundary';
 import GameBoard from '../../HexBoardSVG';
 // import BoardControl from '../../forms/BoardControl';
 // import CanvasControl from '../../forms/CanvasControl';

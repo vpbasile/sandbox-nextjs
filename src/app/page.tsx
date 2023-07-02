@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Link from 'next/link'
 import Table from './(components)/db-table/table'
 import CardDeck from './(components)/cardDeck';
-import { styles } from './(components)/structure/tsStyles';
-import Section from './(components)/structure/section';
+import { styles } from './(components)/helpers/tsStyles';
+import Section from './(components)/helpers/section';
 
 // <>DATA<>people
 import DisplayPeople from './(components)/data/people/display-people';

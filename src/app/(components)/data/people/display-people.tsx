@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { styles } from "../../structure/tsStyles"
+import { styles } from "../../helpers/tsStyles"
 import { useState, ChangeEvent } from "react"
 import Table from "../../db-table/table"
 import { field } from "../../db-table/field"

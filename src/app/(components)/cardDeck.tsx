@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { styles } from './structure/tsStyles';
+import { styles } from './helpers/tsStyles';
 import Table from './db-table/table';
 import { field } from './db-table/field';
 

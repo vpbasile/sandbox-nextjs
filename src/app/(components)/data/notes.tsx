@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { field } from "../db-table/field"
-import { styles } from "../structure/tsStyles"
+import { styles } from "../helpers/tsStyles"
 
 // <>DATA<>notes Test data used in the editable table until I can store this data in the database.
 export const headersTest = ["Key", "Title", "URL"]
@@ -19,7 +19,7 @@ export const testFields: field[] = [
 	{ matchID: "uid", displayLabel: "UID", type: "number", defaultValue: 99, changeFunction: null },
 	{ matchID: "title", displayLabel: "Title", type: "string", defaultValue: "New title", changeFunction: null },
 	{ matchID: "url", displayLabel: "URL", type: "string", defaultValue: "http://", changeFunction: null },
-	{ matchID: "link", displayLabel: "Link", type: "link", defaultValue: "Link", changeFunction: null }
+	// { matchID: "link", displayLabel: "Link", type: "link", defaultValue: "Link", changeFunction: null }
 ]
 
 export const stuffToSay =

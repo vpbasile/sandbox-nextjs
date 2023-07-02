@@ -1,4 +1,4 @@
-import { styles } from "../structure/tsStyles";
+import { styles } from "../helpers/tsStyles";
 
 // <> Functions for building the tables
 export function tableHeader(headers: string[]) {

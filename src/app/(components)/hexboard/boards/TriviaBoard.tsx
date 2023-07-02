@@ -1,12 +1,12 @@
 import GameBoard from '../HexBoardSVG';
-import ErrorBoundary from '@/app/(components)/structure/ErrorBoundary';
+import ErrorBoundary from '@/app/(components)/helpers/ErrorBoundary';
 import { useState } from "react";
-import { gameGlobals, hexagon } from '../helpers/hexDefinitions';
-import { blackHexes, clickMessage, colorHexes } from '../helpers/hexFunctions';
-import { hexOrientations, cube_ring, calcCenteredRectangle } from '../helpers/hexMath'
-import CanvasControl from '../CanvasControl';
-import BoardControl from '../BoardControl';
-import aspectRatio from '../helpers/rectMath';
+import { gameGlobals, hexagon } from '../hexDefinitions';
+import { blackHexes, clickMessage, colorHexes } from '../hexFunctions';
+import { hexOrientations, cube_ring, calcCenteredRectangle } from '../hexMath'
+import CanvasControl from '../forms/CanvasControl';
+import BoardControl from '../forms/BoardControl';
+import aspectRatio from '../rectMath';
 
 export default function TriviaBoard(props: any) {
   // Constants, States, and Functions unique to this board

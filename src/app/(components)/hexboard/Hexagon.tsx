@@ -1,6 +1,5 @@
-import { gameGlobals } from './helpers/hexDefinitions';
-import { clickMessage } from './helpers/hexFunctions';
-import { hex_to_pixel,calcTheta } from './helpers/hexMath';
+import { gameGlobals } from './hexDefinitions';
+import { hex_to_pixel,calcTheta } from './hexMath';
 
 // function degtoRad(degrees) { return degrees * Math.PI / 180 }
 

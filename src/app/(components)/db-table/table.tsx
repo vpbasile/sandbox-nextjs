@@ -1,6 +1,6 @@
 "use client"
 import { use, useState } from "react";
-import { styles } from "../structure/tsStyles";
+import { styles } from "../helpers/tsStyles";
 import { buttonCell, tableHeader } from "./table-helpers";
 import InputRow from "./inputRow";
 import { field } from "./field";
