@@ -10,6 +10,7 @@ import CanvasControl from "../forms/CanvasControl";
 import { calcCenteredRectangle, hexOrientations } from "../hexMath";
 import BoardControl from "@/app/(components)/hexboard/forms/BoardControl";
 import aspectRatio from "../rectMath";
+import { styles } from "../../helpers/tsStyles";
 
 export default function GenerativeBoard(props: any) {
 	// <> States that control canvas parameters
@@ -93,19 +94,8 @@ export default function GenerativeBoard(props: any) {
 	}
 
 	return (
-		<div className="row" id="generativeContainer">
-			<div id='generativeBoard' className="col-md-10">
-				<ErrorBoundary>
-					<GameBoard
-						hexRoster={hexRoster}
-						gameGlobals={gameGlobals}
-						canvasGlobals={canvasGlobals}
-					// textSize={props.textSize}
-					//   logo={logo}
-					/>
-				</ErrorBoundary>
-			</div>
-			<div id="sidebar" className="col-md-2">
+		<div className={styles.gridContainer} id="generativeContainer">
+			<div id="sidebar" className={styles.gridSidebar}>
 				<SaveRosterButton
 					hexRoster={hexRoster}
 					gameGlobals={gameGlobals}
@@ -123,6 +113,17 @@ export default function GenerativeBoard(props: any) {
 				/>
 
 				{/* <RosterDisplay hexRoster={hexRoster} /> */}
+			</div>
+			<div id='generativeBoard' className={styles.gridDisplay}>
+				<ErrorBoundary>
+					<GameBoard
+						hexRoster={hexRoster}
+						gameGlobals={gameGlobals}
+						canvasGlobals={canvasGlobals}
+					// textSize={props.textSize}
+					//   logo={logo}
+					/>
+				</ErrorBoundary>
 			</div>
 		</div>
 	);

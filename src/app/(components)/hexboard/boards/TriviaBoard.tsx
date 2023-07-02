@@ -7,6 +7,7 @@ import { hexOrientations, cube_ring, calcCenteredRectangle } from '../hexMath'
 import CanvasControl from '../forms/CanvasControl';
 import BoardControl from '../forms/BoardControl';
 import aspectRatio from '../rectMath';
+import { styles } from '../../helpers/tsStyles';
 
 export default function TriviaBoard(props: any) {
   // Constants, States, and Functions unique to this board
@@ -73,18 +74,8 @@ export default function TriviaBoard(props: any) {
 
   return (
 
-    <div className="row" id="triviaBoardContainer">
-      <div id='displayBoard' className="col-md-10">
-        <ErrorBoundary>
-          <GameBoard
-            gameGlobals={gameGlobals}
-            canvasGlobals={canvasGlobals}
-            hexRoster={hexRoster}
-          //   logo={logo}
-          />
-        </ErrorBoundary>
-      </div>
-      <div id="sideBar" className="col-md-2">
+    <div id="triviaBoardContainer" className={styles.gridContainer}>
+      <div id="sideBar" className="">
         <BoardControl
           hexRadius={hexRadius}
           separationMultiplier={separationMultiplier}
@@ -95,6 +86,16 @@ export default function TriviaBoard(props: any) {
           canvasHeight={canvasHeight} SETcanvasHeight={SETcanvasHeight}
           hexGridOrigin={hexGridOrigin} SEThexGridOrigin={SEThexGridOrigin}
         />
+      </div>
+      <div id='displayBoard' className={styles.gridDisplay}>
+        <ErrorBoundary>
+          <GameBoard
+            gameGlobals={gameGlobals}
+            canvasGlobals={canvasGlobals}
+            hexRoster={hexRoster}
+          //   logo={logo}
+          />
+        </ErrorBoundary>
       </div>
     </div>
   );

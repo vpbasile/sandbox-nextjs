@@ -27,7 +27,7 @@ export default function Table(props: propsTable) {
 
 	type row = { rowUID: string, fields: { key: string, value: string }[] }
 
-	function tableRow(indexRow: number, fields: any[], isEditing: boolean) {
+	function tableRow(indexRow: number, fields: any[], isEditing: boolean, cssClasses?:string) {
 		let indexCell = 0
 		if (isEditing) {
 			return (<tr key={`row#${indexRow}`}>
@@ -35,7 +35,7 @@ export default function Table(props: propsTable) {
 				{saveButton()}
 			</tr>)
 		}
-		else return (<tr key={`row#${indexRow}`}>
+		else return (<tr key={`row#${indexRow}`} className={cssClasses}>
 			{fields.map((element) => { return cellDisplay(`cell#${indexRow}-${indexCell++}`, element) })}
 			{editable && editButton(indexRow)}
 		</tr>)
@@ -67,7 +67,9 @@ export default function Table(props: propsTable) {
 			<tbody>
 				{data.map((contentsRow) => {
 					const numIndex = indexRow++;
-					return tableRow(numIndex, contentsRow, (numIndex === isEditing));
+					let cssClasses = ""
+					if (numIndex % 2 === 0) { cssClasses = "bg-slate-900" }
+					return tableRow(numIndex, contentsRow, (numIndex === isEditing),cssClasses);
 				})}
 				<InputRow fields={fields} />
 			</tbody>

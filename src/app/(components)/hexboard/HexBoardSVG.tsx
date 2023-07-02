@@ -6,6 +6,9 @@ import { canvasGlobals, coordinateXY, gameGlobals, hexagon } from "./hexDefiniti
 import { directionVectors, hex_to_pixel } from './hexMath';
 import { clickMessage } from './hexFunctions';
 
+//style
+import './color-dark.css';
+
 export interface gameBoardProps {
 	gameGlobals: gameGlobals;
 	canvasGlobals: canvasGlobals;

@@ -8,6 +8,7 @@ import CanvasControl from "@/app/(components)/hexboard/forms/CanvasControl";
 import BoardControl from "@/app/(components)/hexboard/forms/BoardControl";
 import aspectRatio from "../rectMath";
 import { clickMessage } from "../hexFunctions";
+import { styles } from "../../helpers/tsStyles";
 
 export default function CreateBoard(props: any) {
 	// <> States that control canvas parameters
@@ -91,15 +92,8 @@ export default function CreateBoard(props: any) {
 	}
 
 	return (
-		<div className="row" id="generativeContainer">
-			<div id='createBoard' className="col-md-10">
-				<GameBoard
-					hexRoster={hexRoster}
-					gameGlobals={gameGlobals}
-					canvasGlobals={canvasGlobals}
-				/>
-			</div>
-			<div id="sidebar" className="col-md-2">
+		<div className={styles.gridContainer} id="generativeContainer">
+			<div id="sidebar" className={styles.gridSidebar}>
 				<SaveRosterButton
 					hexRoster={hexRoster}
 					gameGlobals={gameGlobals}
@@ -114,6 +108,13 @@ export default function CreateBoard(props: any) {
 					canvasWidth={canvasWidth} SETcanvasWidth={SETcanvasWidth}
 					canvasHeight={canvasHeight} SETcanvasHeight={SETcanvasHeight}
 					hexGridOrigin={hexGridOrigin} SEThexGridOrigin={SEThexGridOrigin}
+				/>
+			</div>
+			<div id='createBoard' className={styles.gridContainer}>
+				<GameBoard
+					hexRoster={hexRoster}
+					gameGlobals={gameGlobals}
+					canvasGlobals={canvasGlobals}
 				/>
 			</div>
 		</div>

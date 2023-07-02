@@ -7,6 +7,7 @@ import CanvasControl from '@/app/(components)/hexboard/forms/CanvasControl';
 import BoardControl from '@/app/(components)/hexboard/forms/BoardControl';
 import aspectRatio from '../rectMath';
 import { clickMessage } from '../hexFunctions';
+import { styles } from '../../helpers/tsStyles';
 
 
 export default function Keyboard(props: any) {
@@ -18,7 +19,7 @@ export default function Keyboard(props: any) {
 	// <> Create the roster of hexes
 	const hexList: hexagon[] = [];
 
-	let keyboardCharList = [`qwertyuiop[]`, `asdfghjkl;'`, `zxcvbnm,./`,"_"]
+	let keyboardCharList = [`qwertyuiop[]`, `asdfghjkl;'`, `zxcvbnm,./`, "_"]
 	keyboardCharList.forEach((row, rowIndex) => {
 		Array.from(row).forEach((key, keyIndex) => {
 			let thisOne: hexagon = { q: keyIndex, r: rowIndex, hexText: key }
@@ -51,17 +52,17 @@ export default function Keyboard(props: any) {
 	const gameGlobals: gameGlobals = {
 		orientation: orientation,
 		hexRadius: hexRadius,
-		textSize: hexRadius/2,
+		textSize: hexRadius / 2,
 		separationMultiplier: separationMultiplier,
 		drawBackBoard: false,
-		onClick:clickMessage,
+		onClick: clickMessage,
 	}
 
 	const multiplier = aspectRatio();
-	const [canvasWidth, SETcanvasWidth] = useState(2*hexRadius*12*separationMultiplier)
-	const [canvasHeight, SETcanvasHeight] = useState(canvasWidth/multiplier)
+	const [canvasWidth, SETcanvasWidth] = useState(2 * hexRadius * 12 * separationMultiplier)
+	const [canvasHeight, SETcanvasHeight] = useState(canvasWidth / multiplier)
 	const originY = hexRadius * separationMultiplier;
-	const [hexGridOrigin, SEThexGridOrigin] = useState({ x:originY * multiplier, y: originY});
+	const [hexGridOrigin, SEThexGridOrigin] = useState({ x: originY * multiplier, y: originY });
 	const canvasGlobals = {
 		canvasWidth: canvasWidth,
 		canvasHeight: canvasHeight,
@@ -70,30 +71,31 @@ export default function Keyboard(props: any) {
 	}
 
 	return (
-		<div className="row" id="displayBoardContainer">
-			<div id='displayBoard' className="col-md-10">
-
-				<ErrorBoundary>
-					<GameBoard
-						hexRoster={keyboardHexes}
-						gameGlobals={gameGlobals}
-						canvasGlobals={canvasGlobals}
-					//   logo={logo}
+		<ErrorBoundary>
+			<div className={styles.gridContainer}>
+				<div id="sideBar" className={styles.gridSidebar}>
+					<BoardControl
+						hexRadius={hexRadius} SEThexRadius={SEThexRadius}
+						separationMultiplier={separationMultiplier} SETseparationMultiplier={SETseparationMultiplier}
 					/>
-				</ErrorBoundary>
+					<CanvasControl
+						canvasWidth={canvasWidth} SETcanvasWidth={SETcanvasWidth}
+						canvasHeight={canvasHeight} SETcanvasHeight={SETcanvasHeight}
+						hexGridOrigin={hexGridOrigin} SEThexGridOrigin={SEThexGridOrigin}
+					/>
+				</div>
+				<div id="displayBoardContainer" className={styles.gridDisplay}>
+					<div id='displayBoard' className="col-md-10">
+						<GameBoard
+							hexRoster={keyboardHexes}
+							gameGlobals={gameGlobals}
+							canvasGlobals={canvasGlobals}
+						//   logo={logo}
+						/>
+					</div>
+				</div>
 			</div>
-			<div id="sideBar" className="col-md-2">
-				<BoardControl
-					hexRadius={hexRadius} SEThexRadius={SEThexRadius}
-					separationMultiplier={separationMultiplier} SETseparationMultiplier={SETseparationMultiplier}
-				/>
-				<CanvasControl
-					canvasWidth={canvasWidth} SETcanvasWidth={SETcanvasWidth}
-					canvasHeight={canvasHeight} SETcanvasHeight={SETcanvasHeight}
-					hexGridOrigin={hexGridOrigin} SEThexGridOrigin={SEThexGridOrigin}
-				/>
-			</div>
-		</div>
+		</ErrorBoundary>
 
 	);
 }

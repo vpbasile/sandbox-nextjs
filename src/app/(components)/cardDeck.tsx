@@ -79,7 +79,7 @@ const CardDeck: React.FC = () => {
 
 		const [dealtCard, ...remainingDeck] = deck;
 		setDeck(remainingDeck);
-		const displayListTemp = deck.map((eachCard) => { return [`${eachCard.suit}`, `${eachCard.rank}`]; });
+		const displayListTemp = remainingDeck.map((eachCard) => { return [`${eachCard.rank}`,`${eachCard.suit}`]; });
 		setDisplayList(displayListTemp);
 
 		setTopCard(dealtCard);
@@ -88,29 +88,30 @@ const CardDeck: React.FC = () => {
 
 	const fields: field[] = [
 		{
-			matchID: "suit",
-			displayLabel: `Suit`,
-			type: "string",
-			defaultValue: "Suit",
-			changeFunction: null,
-			listTable: undefined,
-		},
-		{
 			matchID: "rank",
 			displayLabel: `Rank`,
 			type: "string",
 			defaultValue: "Rank",
 			changeFunction: null,
 			listTable: "ranks",
+		},
+		{
+			matchID: "suit",
+			displayLabel: `Suit`,
+			type: "string",
+			defaultValue: "Suit",
+			changeFunction: null,
+			listTable: undefined,
 		}
 	];
 	return (
-		<div>
-			<h1>Card Deck Simulator</h1>
-			<button onClick={shuffleDeck} className={styles.button}>Shuffle Deck</button>
-			<button onClick={dealCard} className={styles.button}>Deal Card</button>
-			<div>
-				{topCard && `${topCard?.rank} of ${topCard?.suit}`}
+		<div className={styles.gridContainer}>
+			<div className={styles.gridSidebar}>
+				<button onClick={shuffleDeck} className={styles.button}>Shuffle Deck</button>
+				<button onClick={dealCard} className={styles.button}>Deal Card</button>
+				<p>{topCard && `${topCard?.rank} of ${topCard?.suit}`}</p>
+			</div>
+			<div className={styles.gridDisplay}>
 				{/* editable={false} */}
 				{displayList && <Table dataContents={displayList} fields={fields} />}
 			</div>

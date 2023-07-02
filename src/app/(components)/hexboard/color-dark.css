@@ -25,7 +25,6 @@
     stroke: var(--purple-light);
 }
 
-/* Category color schemes */
 .bg-black {
  background-color: black;
  fill:black;
@@ -111,7 +110,6 @@ h1 { color: white; }
 
 body{
 	background-color: var(--background-dark);
-	color:var(--text-light);
 }
 
 /* All color transitions should be 1 second long. */

@@ -38,11 +38,11 @@ export default function Home() {
   // modules.push({ uid: makeUID++, headerText: "Hexboard browser", id: "hexBrowser", contents: <HexBrowser /> });
   modules.push({ uid: makeUID++, id: "cardeck", headerText: "CarDeck Simulator", contents: <CardDeck />, });
   modules.push({ uid: makeUID++, id: "keyboard", headerText: "Keyboard", contents: <Keyboard /> })
-  modules.push({ uid: makeUID++, id: "snowflake", headerText: "Snowflake Generator", contents: <Snowflake /> });
-  // modules.push({ uid: makeUID++, id: "savedHexBoard", headerText: "Saved Hex Board", contents: <SavedBoard />});
   modules.push({ uid: makeUID++, id: "trivia", headerText: "Trivia board", contents: <TriviaBoard /> });
   modules.push({ uid: makeUID++, id: "generative", headerText: "Generative Map", contents: <GenerativeBoard /> });
   modules.push({ uid: makeUID++, id: "create", headerText: "Create Hex Board", contents: <CreateBoard /> });
+  modules.push({ uid: makeUID++, id: "snowflake", headerText: "Snowflake Generator", contents: <Snowflake /> });
+  // modules.push({ uid: makeUID++, id: "savedHexBoard", headerText: "Saved Hex Board", contents: <SavedBoard />});
 
 
   // <> Toolbar for selecting a module
@@ -51,8 +51,8 @@ export default function Home() {
     <ul className="flex">
       {modules.map(eachModule => {
         const uid = eachModule.uid;
-        let buttonStyle;
-        if (uid === selectedModule) { buttonStyle = `text-soothingYellow ring-8 ring-inset ring-green-500 ` + styles.button + styles.roomy } else { buttonStyle = `text-yellow-600  ` + styles.button + styles.roomy }
+        let buttonStyle = "text-blue-500 ";
+        if (uid === selectedModule) { buttonStyle = `ring-8 ring-inset ` + styles.button + styles.roomy } else { buttonStyle = `  ` + styles.button + styles.roomy }
         return (
           <li key={`button-${uid}`} className="mr-6">
             <button key={uid} onClick={() => {
