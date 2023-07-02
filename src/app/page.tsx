@@ -11,6 +11,7 @@ import DisplayPeople from './(components)/data/people/display-people';
 
 // <>DATA<>notes
 import { dataTest, testFields, stuffToSay } from './(components)/data/notes';
+import HexBrowser from './(components)/hexboard/browser';
 
 export default function Home() {
 
@@ -20,14 +21,15 @@ export default function Home() {
   // <> Define modeules
   let modules: { uid: number, id: string; contents: JSX.Element; headerText: string }[] = []
   let makeUID = 0
-  modules.push({ uid: makeUID++, headerText: 'People Database', id: 'dbTable', contents: <DisplayPeople /> })
+  modules.push({ uid: makeUID++, headerText: 'People Database', id: 'dbTable', contents: <DisplayPeople /> });
   modules.push({
     uid: makeUID++, headerText: "Notes Database", id: "tableDisplay", contents: <div>
       <Table dataContents={dataTest} fields={testFields} />
       <div className={styles.bubble + styles.spacious}>{stuffToSay}</div>
     </div>
 
-  })
+  });
+  modules.push({ uid: makeUID++, headerText: "Hexboard browser", id: "hexBrowser", contents: <HexBrowser />});
   modules.push({ uid: makeUID++, headerText: "CarDeck Simulator", id: "cardeck", contents: <CardDeck />, })
 
   // <> Toolbar for selecting a module
