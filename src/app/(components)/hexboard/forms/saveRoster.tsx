@@ -1,4 +1,5 @@
-import { gameGlobals, hexagon } from "../helpers/hexDefinitions";
+import { styles } from "../../helpers/tsStyles";
+import { gameGlobals, hexagon } from "../hexDefinitions";
 
 export default function SaveRosterButton(props: {
 	hexRoster: hexagon[],
@@ -32,7 +33,7 @@ export default function SaveRosterButton(props: {
 
 	// }
 
-	return (<div className="bg-green p-3 border">
-		<button className={`btn form-control m-1 bg-green`} onClick={() => saveRoster(hexRoster)} >Save Roster</button>
+	return (<div className={styles.hexBoardForm}>
+		<button className={styles.button} onClick={() => saveRoster(hexRoster)} >Save Roster</button>
 	</div>)
 }

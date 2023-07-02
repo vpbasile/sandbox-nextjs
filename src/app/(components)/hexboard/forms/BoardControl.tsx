@@ -1,3 +1,4 @@
+import { styles } from "../../helpers/tsStyles";
 import { coordinateXY } from "../hexDefinitions";
 import ValueField from "@/app/(components)/hexboard/forms/ValueField";
 // import { useState } from 'react';
@@ -14,8 +15,8 @@ export default function BoardControl(props: {
 	const SETseparationMultiplier = props.SETseparationMultiplier;
 	// const SEThexGridOrigin = props.SEThexGridOrigin;
 
-	return (<div id="canvasControlDiv" className="border bg-gray p-3">
-		<h3>Board Parameters</h3>
+	return (<div id="canvasControlDiv" className={styles.hexBoardForm}>
+		<h3 className={styles.h3}>Board Parameters</h3>
 		<div className="" id="canvasDimensionDiv">
 			<div className="" id="pickSizeDiv">
 				<ValueField

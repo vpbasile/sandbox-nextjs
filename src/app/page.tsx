@@ -40,7 +40,7 @@ export default function Home() {
   modules.push({ uid: makeUID++, id: "keyboard", headerText: "Keyboard", contents: <Keyboard /> })
   modules.push({ uid: makeUID++, id: "trivia", headerText: "Trivia board", contents: <TriviaBoard /> });
   modules.push({ uid: makeUID++, id: "generative", headerText: "Generative Map", contents: <GenerativeBoard /> });
-  modules.push({ uid: makeUID++, id: "create", headerText: "Create Hex Board", contents: <CreateBoard /> });
+  // modules.push({ uid: makeUID++, id: "create", headerText: "Create Hex Board", contents: <CreateBoard /> });
   modules.push({ uid: makeUID++, id: "snowflake", headerText: "Snowflake Generator", contents: <Snowflake /> });
   // modules.push({ uid: makeUID++, id: "savedHexBoard", headerText: "Saved Hex Board", contents: <SavedBoard />});
 

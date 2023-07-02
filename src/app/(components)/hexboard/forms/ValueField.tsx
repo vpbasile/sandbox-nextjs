@@ -1,4 +1,5 @@
 import React from 'react';
+import { styles } from '../../helpers/tsStyles';
 
 export default function ValueField(props: {
 	fieldName: string,
@@ -14,7 +15,7 @@ export default function ValueField(props: {
 	return (
 		<React.Fragment>
 			<label htmlFor={fieldName}>{labelText}</label>
-			<input name={fieldName} type={type} className='form-control' defaultValue={defaultValue} onChange={(e) => onChangeFunction(+e.target.value)} />
+			<input name={fieldName} type={type} className={styles.fields} defaultValue={defaultValue} onChange={(e) => onChangeFunction(+e.target.value)} />
 		</React.Fragment>
 	)
 }

@@ -2,6 +2,7 @@
 import { Dispatch } from "react";
 import { coordinateXY } from "../hexDefinitions";
 import ValueField from "@/app/(components)/hexboard/forms/ValueField";
+import { styles } from "../../helpers/tsStyles";
 // import { useState } from 'react';
 
 type myProps = {
@@ -22,8 +23,8 @@ export default function CanvasControl(props: myProps) {
 	const SETcanvasHeight = props.SETcanvasHeight;
 	// const SEThexGridOrigin = props.SEThexGridOrigin;
 
-	return (<div id="canvasControlDiv" className="border bg-gray p-3">
-		<h3>Canvas Parameters</h3>
+	return (<div id="canvasControlDiv" className={styles.hexBoardForm}>
+		<h3 className={styles.h3}>Canvas Parameters</h3>
 		<div className="" id="canvasDimensionDiv">
 			<ValueField
 				fieldName="pickCanvasWidth"

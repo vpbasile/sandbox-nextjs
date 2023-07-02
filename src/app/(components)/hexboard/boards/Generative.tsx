@@ -62,8 +62,8 @@ export default function GenerativeBoard(props: any) {
 	// Interface for changing things
 
 	const editForm =
-		<div id="reRender" className="bg-blue p-3 border">
-			<h3>Generation Parameters</h3>
+		<div id="reRender" className={styles.hexBoardForm}>
+			<h3 className={styles.h3}>Generation Parameters</h3>
 			<label htmlFor="pickSpace">Number of cells: </label>
 			<input type="number" className="form-control" defaultValue={tempNumber} onChange={(e) => { SETtempNumber(+e.target.value); SETnumberOfSpaces(tempNumber); SEThexRoster(newRoster()); }} />
 			{/* <button className={`btn bg-blue`} onClick={() => {
@@ -96,11 +96,11 @@ export default function GenerativeBoard(props: any) {
 	return (
 		<div className={styles.gridContainer} id="generativeContainer">
 			<div id="sidebar" className={styles.gridSidebar}>
+				{editForm}
 				<SaveRosterButton
 					hexRoster={hexRoster}
 					gameGlobals={gameGlobals}
 				/>
-				{editForm}
 				<BoardControl
 					hexRadius={hexRadius}
 					separationMultiplier={separationMultiplier}

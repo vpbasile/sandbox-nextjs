@@ -50,7 +50,7 @@ export default function CreateBoard(props: any) {
 	}
 
 	let form = <div className="form-group border bg-orange p-3">
-		<h3>Add Hex</h3>
+		<h3 className={styles.h3}>Add Hex</h3>
 		<div id="setQdiv">
 			<label className="" htmlFor="qField">q:</label>
 			<input className="form-control" name="qField" defaultValue={qTemp} onChange={(e) => SETqTemp(+e.target.value)} />
