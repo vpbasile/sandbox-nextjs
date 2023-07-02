@@ -30,7 +30,7 @@ export default function Home() {
   modules.push({ uid: makeUID++, headerText: 'People Database', id: 'dbTable', contents: <DisplayPeople /> });
   modules.push({
     uid: makeUID++, id: "tableDisplay", headerText: "Notes Database", contents: <div>
-      <Table dataContents={dataTest} fields={testFields} />
+      <Table dataContents={dataTest} fields={testFields} editable={true}/>
       <div className={styles.bubble + styles.spacious}>{stuffToSay}</div>
     </div>
 

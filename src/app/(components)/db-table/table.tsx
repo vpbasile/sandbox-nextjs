@@ -71,7 +71,7 @@ export default function Table(props: propsTable) {
 					if (numIndex % 2 === 0) { cssClasses = "bg-slate-900" }
 					return tableRow(numIndex, contentsRow, (numIndex === isEditing),cssClasses);
 				})}
-				<InputRow fields={fields} />
+				{editable && <InputRow fields={fields} />}
 			</tbody>
 		</table>
 	);

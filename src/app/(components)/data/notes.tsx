@@ -6,13 +6,13 @@ import { styles } from "../helpers/tsStyles"
 export const headersTest = ["Key", "Title", "URL"]
 export const dataTest: (string | number)[][] = [
 
-	[6, "Fix the display of all the form fields.  Make them match the size of the text."],
-	[7, "Define link fields"]
+	[6, "Fix the display of all the form fields.  Make them match the size of the text.",""],
+	[7, "Define link fields",""]
 	, [5, "Edit buttons should be links", ""]
 
 	, [3, `sqlite3`, 'https://stackoverflow.com/questions/56583738/how-to-connect-to-a-sqlite-db-from-a-react-app']
 	, [2, 'Server components', 'https://nextjs.org/docs/getting-started/react-essentials'],
-	[8, 'Tutorial,']
+	[8, 'Tutorial',""]
 ]
 
 export const testFields: field[] = [
