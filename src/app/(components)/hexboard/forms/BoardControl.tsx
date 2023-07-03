@@ -3,12 +3,14 @@ import { coordinateXY } from "../hexDefinitions";
 import ValueField from "@/app/(components)/hexboard/forms/ValueField";
 // import { useState } from 'react';
 
-export default function BoardControl(props: {
+type propsType = {
 	hexRadius: number, separationMultiplier: number
 	SEThexRadius: any, SETseparationMultiplier: any,
 	// SEThexGridOrigin: any
 
-}) {
+}
+
+export default function BoardControl(props: propsType) {
 	const hexRadius = props.hexRadius;
 	const separationMultiplier = props.separationMultiplier;
 	const SEThexRadius = props.SEThexRadius;

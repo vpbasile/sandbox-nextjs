@@ -1,6 +1,5 @@
 import { styles } from "../helpers/tsStyles";
-
-export type tableData = string | number | undefined;
+import { tableData } from "./field";
 
 // <> Functions for building the tables
 export function tableHeader(headers: string[]) {

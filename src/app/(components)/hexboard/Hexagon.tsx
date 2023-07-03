@@ -10,7 +10,7 @@ export interface hexProps {
 	r: number;
 	cssClasses?: string;
 	hexText?: string;
-	clickMessage: any;
+	clickMessage: string;
 }
 
 export default function Hexagon(props:hexProps) {

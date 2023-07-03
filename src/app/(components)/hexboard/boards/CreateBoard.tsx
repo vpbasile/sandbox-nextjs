@@ -10,7 +10,7 @@ import aspectRatio from "../rectMath";
 import { clickMessage } from "../hexFunctions";
 import { styles } from "../../helpers/tsStyles";
 
-export default function CreateBoard(props: any) {
+export default function CreateBoard() {
 	// <> States that control canvas parameters
 	const [hexRadius, SEThexRadius] = useState(200);
 	const [separationMultiplier, SETseparationMultiplier] = useState(1.1)

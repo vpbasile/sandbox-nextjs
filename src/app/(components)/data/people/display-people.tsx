@@ -5,9 +5,7 @@ import Table from "../../db-table/table"
 import { field } from "../../db-table/field"
 import { list } from "postcss"
 
-type propsType = any;
-
-export default function DisplayPeople(props: propsType) {
+export default function DisplayPeople() {
 
 	const [displayState, SETdisplayState] = useState("No query has been sent.");
 	const [dataHolder, SETdataHolder] = useState([

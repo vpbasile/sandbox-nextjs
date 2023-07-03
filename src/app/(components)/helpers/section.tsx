@@ -1,6 +1,8 @@
+import { JsxElement } from "typescript";
 import { styles } from "./tsStyles";
+import { ReactNode } from "react";
 
-type propsType = { id: string, headerText: string, children?: any };
+type propsType = { id: string, headerText: string, children?: ReactNode };
 
 export default function Section(props: propsType) {
 	const headerText = props.headerText;

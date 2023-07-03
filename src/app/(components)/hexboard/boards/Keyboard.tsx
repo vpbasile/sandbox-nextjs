@@ -10,7 +10,7 @@ import { clickMessage } from '../hexFunctions';
 import { styles } from '../../helpers/tsStyles';
 
 
-export default function Keyboard(props: any) {
+export default function Keyboard() {
 	// <> States that control canvas parameters
 	const [hexRadius, SEThexRadius] = useState(200);
 	const [separationMultiplier, SETseparationMultiplier] = useState(1.1)

@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type orientation = { name: string; cornerAngles: number[]; }
 export type orientationName = 'flat-top' | 'pointy-top'
 
@@ -16,7 +18,7 @@ export type gameGlobals = {
 	drawBackBoard: boolean,
 	onClick: hexClickFunction,
 	// Children
-	children?: any
+	children?: ReactNode
 }
 
 export type canvasGlobals = {

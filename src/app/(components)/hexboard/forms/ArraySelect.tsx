@@ -1,4 +1,4 @@
-export default function ArraySelect(props: { choicesArray: string[], onChange: any, cssClasses?:string }) {
+export default function ArraySelect(props: { choicesArray: string[], onChange: (arg0:any) => void, cssClasses?: string }) {
 	const choicesArray = props.choicesArray;
 	const onChange = props.onChange
 	const options = choicesArray.map(
@@ -7,7 +7,7 @@ export default function ArraySelect(props: { choicesArray: string[], onChange: a
 		}
 	)
 	return (
-		<select className={`form-select ${props.cssClasses}`} onChange={e=>onChange(e.target.value)}>
+		<select className={`form-select ${props.cssClasses}`} onChange={e => onChange(e.target.value)}>
 			{options}
 		</select>
 	)

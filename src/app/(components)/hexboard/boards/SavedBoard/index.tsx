@@ -9,7 +9,7 @@ import CanvasControl from '../../forms/CanvasControl';
 import BoardControl from '../../forms/BoardControl';
 import { clickMessage } from '../../hexFunctions';
 
-export default function SavedBoard(props: any) {
+export default function SavedBoard() {
 	// <> States that control canvas parameters
 	const [canvasWidth, SETcanvasWidth] = useState(window.innerWidth)
 	const [canvasHeight, SETcanvasHeight] = useState(2 * window.innerHeight)

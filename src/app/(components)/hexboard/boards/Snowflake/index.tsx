@@ -11,7 +11,7 @@ import GameBoard from '../../HexBoardSVG';
 // import BoardControl from '../../forms/BoardControl';
 // import CanvasControl from '../../forms/CanvasControl';
 
-export default function Snowflake(props: any) {
+export default function Snowflake() {
 	// Define the canvas and snowflake properties
 	const canvasDimension = 2500;
 	const branchLength = 45;

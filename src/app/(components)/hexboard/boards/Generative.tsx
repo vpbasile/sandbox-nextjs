@@ -12,7 +12,7 @@ import BoardControl from "@/app/(components)/hexboard/forms/BoardControl";
 import aspectRatio from "../rectMath";
 import { styles } from "../../helpers/tsStyles";
 
-export default function GenerativeBoard(props: any) {
+export default function GenerativeBoard() {
 	// <> States that control canvas parameters
 	const [hexRadius, SEThexRadius] = useState(200);
 	const [separationMultiplier, SETseparationMultiplier] = useState(1.1)

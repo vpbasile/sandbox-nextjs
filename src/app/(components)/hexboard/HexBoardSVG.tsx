@@ -33,7 +33,7 @@ export default function GameBoard(props: gameBoardProps) {
 	// console.log(`Grid origin: ${Math.floor(hexGridOrigin.x)}, ${Math.floor(hexGridOrigin.y)}`)
 
 	// <> Render Functions
-	function backBoard(hexRoster: hexagon[], gameGlobals: gameGlobals): any {
+	function backBoard(hexRoster: hexagon[], gameGlobals: gameGlobals): string {
 		// <> Find the min and max values for q and r.  Convert those to rectangular coordinates.  
 		let maxRadius = 0
 		hexRoster.forEach(hex => {

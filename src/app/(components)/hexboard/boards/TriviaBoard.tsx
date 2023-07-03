@@ -10,7 +10,7 @@ import aspectRatio from '../rectMath';
 import { styles } from '../../helpers/tsStyles';
 import RosterDisplay from '../RosterDisplay';
 
-export default function TriviaBoard(props: any) {
+export default function TriviaBoard() {
   // Constants, States, and Functions unique to this board
   const cssClasses = ["bg-green", "bg-red", "bg-blue", "bg-yellow", "bg-purple", "bg-orange"]
   let cssClassIndex = 0;
