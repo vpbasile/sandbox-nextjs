@@ -8,6 +8,7 @@ import { clickMessage } from './hexFunctions';
 
 //style
 import './color-dark.css';
+import RosterDisplay from './RosterDisplay';
 
 export interface gameBoardProps {
 	gameGlobals: gameGlobals;
@@ -15,6 +16,7 @@ export interface gameBoardProps {
 	hexRoster: hexagon[];
 	textSize?: number;
 	cssClasses?: string;
+	displayRoster?: boolean
 }
 
 export default function GameBoard(props: gameBoardProps) {
@@ -91,6 +93,7 @@ export default function GameBoard(props: gameBoardProps) {
 						</svg>
 					</div>
 				</div>
+				{props.displayRoster && <RosterDisplay hexRoster={hexRoster} />}
 			</div>
 		</ErrorBoundary>
 	)

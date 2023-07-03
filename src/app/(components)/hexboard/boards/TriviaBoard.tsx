@@ -8,6 +8,7 @@ import CanvasControl from '../forms/CanvasControl';
 import BoardControl from '../forms/BoardControl';
 import aspectRatio from '../rectMath';
 import { styles } from '../../helpers/tsStyles';
+import RosterDisplay from '../RosterDisplay';
 
 export default function TriviaBoard(props: any) {
   // Constants, States, and Functions unique to this board
@@ -93,6 +94,7 @@ export default function TriviaBoard(props: any) {
             gameGlobals={gameGlobals}
             canvasGlobals={canvasGlobals}
             hexRoster={hexRoster}
+            displayRoster={true}
           //   logo={logo}
           />
         </ErrorBoundary>

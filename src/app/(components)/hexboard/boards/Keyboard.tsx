@@ -90,6 +90,7 @@ export default function Keyboard(props: any) {
 							hexRoster={keyboardHexes}
 							gameGlobals={gameGlobals}
 							canvasGlobals={canvasGlobals}
+							displayRoster={true}
 						//   logo={logo}
 						/>
 					</div>

@@ -120,6 +120,7 @@ export default function GenerativeBoard(props: any) {
 						hexRoster={hexRoster}
 						gameGlobals={gameGlobals}
 						canvasGlobals={canvasGlobals}
+						displayRoster={true}
 					// textSize={props.textSize}
 					//   logo={logo}
 					/>

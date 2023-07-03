@@ -1,5 +1,7 @@
 import { styles } from "../helpers/tsStyles";
 
+export type tableData = string | number | undefined;
+
 // <> Functions for building the tables
 export function tableHeader(headers: string[]) {
 	let numberColumn = 0;
@@ -20,7 +22,7 @@ export function submitCell() {
 	return <td><button className={styles.button} type="submit">Submit</button></td>
 }
 
-export function inputCell(cellKey: number, matchID: string, defaultValue: string | number, typingF: (arg0: any) => void, cssClasses?: string) {
+export function inputCell(cellKey: number, matchID: string, defaultValue: tableData, typingF: (arg0: any) => void, cssClasses?: string) {
 	return (<td key={cellKey}>
 		<label className="collapse" htmlFor="uid">UID</label>
 		<input name={matchID} id={matchID} defaultValue={defaultValue}

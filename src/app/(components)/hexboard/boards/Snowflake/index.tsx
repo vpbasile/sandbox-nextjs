@@ -75,6 +75,7 @@ export default function Snowflake(props: any) {
 						canvasGlobals={canvasGlobals}
 						hexRoster={hexRoster}
 						cssClasses={"viewHeight100"}
+						displayRoster={true}
 					/>
 				</ErrorBoundary>
 			</div>

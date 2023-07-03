@@ -1,10 +1,11 @@
 import Link from "next/link"
 import { field } from "../db-table/field"
 import { styles } from "../helpers/tsStyles"
+import { tableData } from "../db-table/table-helpers"
 
 // <>DATA<>notes Test data used in the editable table until I can store this data in the database.
 export const headersTest = ["Key", "Title", "URL"]
-export const dataTest: (string | number)[][] = [
+export const dataTest: tableData[][] = [
 
 	[6, "Fix the display of all the form fields.  Make them match the size of the text.",""],
 	[7, "Define link fields",""]

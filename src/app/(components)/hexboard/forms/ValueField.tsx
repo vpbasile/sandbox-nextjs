@@ -1,11 +1,12 @@
 import React from 'react';
 import { styles } from '../../helpers/tsStyles';
+import { tableData } from '../../db-table/table-helpers';
 
 export default function ValueField(props: {
 	fieldName: string,
 	labelText: string,
 	type: string,
-	defaultValue: string | number, onChangeFunction: any
+	defaultValue: tableData, onChangeFunction: any
 }) {
 	const fieldName = props.fieldName;
 	const labelText = props.labelText;

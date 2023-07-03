@@ -1,14 +1,14 @@
 "use client"
 import { use, useState } from "react";
 import { styles } from "../helpers/tsStyles";
-import { buttonCell, tableHeader } from "./table-helpers";
+import { buttonCell, tableData, tableHeader } from "./table-helpers";
 import InputRow from "./inputRow";
-import { field } from "./field";
+import { field, fieldType } from "./field";
 
 
 // <> Define component props
 type propsTable = {
-	dataContents: (string | number)[][];
+	dataContents: tableData[][];
 	fields: field[];
 	editable?: boolean;
 	// Pass down class
@@ -22,21 +22,24 @@ export default function Table(props: propsTable) {
 	const fields = props.fields;
 	let indexRow = 0;
 
+	const quote = '"';
+
 	// <> States
 	const [isEditing, selectForEdit] = useState<number | null>(null)
 
 	type row = { rowUID: string, fields: { key: string, value: string }[] }
 
-	function tableRow(indexRow: number, fields: any[], isEditing: boolean, cssClasses?:string) {
+	function tableRow(indexRow: number, rowValues: tableData[], isEditing: boolean, cssClasses?: string) {
 		let indexCell = 0
 		if (isEditing) {
 			return (<tr key={`row#${indexRow}`}>
-				{fields.map((element) => { return cellEdit(`cell#${indexRow}-${indexCell++}`, element) })}
+				{rowValues.map((element) => { return cellEdit(`cell#${indexRow}-${indexCell++}`, element) })}
 				{saveButton()}
 			</tr>)
 		}
 		else return (<tr key={`row#${indexRow}`} className={cssClasses}>
-			{fields.map((element) => { return cellDisplay(`cell#${indexRow}-${indexCell++}`, element) })}
+			{/* Display cells */}
+			{rowValues.map((element) => { return cellDisplay(`cell#${indexRow}-${indexCell++}`, element, typeof (element)) })}
 			{editable && editButton(indexRow)}
 		</tr>)
 	}
@@ -46,13 +49,14 @@ export default function Table(props: propsTable) {
 	function saveButton() { return (buttonCell("Save", () => selectForEdit(null))) }
 
 	// <> Matching cells
-	function cellDisplay(indexCell: string, contentsCell: string) {
+	function cellDisplay(indexCell: string, contentsCell: tableData, typeCell: fieldType) {
+		if (typeCell === "string") { contentsCell = quote + contentsCell + quote }
 		return <td className={styles.roomy} key={`cell#${indexCell}`}>
 			{contentsCell}
 		</td>
 	}
 
-	function cellEdit(indexCell: string, contentsCell: string) {
+	function cellEdit(indexCell: string, contentsCell: tableData) {
 		return <td className={styles.roomy} key={`cell#${indexCell}`}>
 			<input className={styles.roomy + 'bg-black text-black rounded '} defaultValue={contentsCell}></input>
 		</td>
@@ -69,7 +73,7 @@ export default function Table(props: propsTable) {
 					const numIndex = indexRow++;
 					let cssClasses = ""
 					if (numIndex % 2 === 0) { cssClasses = "bg-slate-900" }
-					return tableRow(numIndex, contentsRow, (numIndex === isEditing),cssClasses);
+					return tableRow(numIndex, contentsRow, (numIndex === isEditing), cssClasses);
 				})}
 				{editable && <InputRow fields={fields} />}
 			</tbody>

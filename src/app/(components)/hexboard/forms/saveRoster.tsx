@@ -9,18 +9,18 @@ export default function SaveRosterButton(props: {
 	const gameGlobals = props.gameGlobals;
 
 	const saveRoster = (hexRoster: hexagon[]) => {
-
 		let exportObject: { gameGlobals: gameGlobals, hexRoster: hexagon[] } = {
 			gameGlobals: gameGlobals,
 			hexRoster: hexRoster
 		}
+
 		const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
 			JSON.stringify(exportObject)
 		)}`;
+		
 		const link = document.createElement("a");
 		link.href = jsonString;
 		link.download = "data.json";
-
 		link.click();
 	};
 
