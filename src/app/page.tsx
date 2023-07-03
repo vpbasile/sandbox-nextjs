@@ -27,6 +27,11 @@ export default function Home() {
   // <> Define modeules
   let modules: { uid: number, id: string; contents: JSX.Element; headerText: string }[] = []
   let makeUID = 0
+  modules.push({ uid: makeUID++, id: "trivia", headerText: "Trivia board", contents: <TriviaBoard /> });
+  modules.push({ uid: makeUID++, id: "generative", headerText: "Generative Map", contents: <GenerativeBoard /> });
+  // modules.push({ uid: makeUID++, id: "create", headerText: "Create Hex Board", contents: <CreateBoard /> });
+  modules.push({ uid: makeUID++, id: "snowflake", headerText: "Snowflake Generator", contents: <Snowflake /> });
+  // modules.push({ uid: makeUID++, id: "savedHexBoard", headerText: "Saved Hex Board", contents: <SavedBoard />});
   modules.push({ uid: makeUID++, headerText: 'People Database', id: 'dbTable', contents: <DisplayPeople /> });
   modules.push({
     uid: makeUID++, id: "tableDisplay", headerText: "Notes Database", contents: <div>
@@ -35,14 +40,8 @@ export default function Home() {
     </div>
 
   });
-  // modules.push({ uid: makeUID++, headerText: "Hexboard browser", id: "hexBrowser", contents: <HexBrowser /> });
   modules.push({ uid: makeUID++, id: "cardeck", headerText: "CarDeck Simulator", contents: <CardDeck />, });
   modules.push({ uid: makeUID++, id: "keyboard", headerText: "Keyboard", contents: <Keyboard /> })
-  modules.push({ uid: makeUID++, id: "trivia", headerText: "Trivia board", contents: <TriviaBoard /> });
-  modules.push({ uid: makeUID++, id: "generative", headerText: "Generative Map", contents: <GenerativeBoard /> });
-  // modules.push({ uid: makeUID++, id: "create", headerText: "Create Hex Board", contents: <CreateBoard /> });
-  modules.push({ uid: makeUID++, id: "snowflake", headerText: "Snowflake Generator", contents: <Snowflake /> });
-  // modules.push({ uid: makeUID++, id: "savedHexBoard", headerText: "Saved Hex Board", contents: <SavedBoard />});
 
 
   // <> Toolbar for selecting a module

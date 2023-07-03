@@ -75,7 +75,7 @@ export default function GameBoard(props: gameBoardProps) {
 			<div className="gameboard">
 				<div className="gameboard-container">
 					<p className='caption'></p>
-					<div className="gameboard-canvas">
+					<div id='gameboard-canvas' className="border">
 						<svg
 							className={cssClasses}
 							viewBox={`${-hexGridOrigin.x} ${-hexGridOrigin.y} ${canvasWidth} ${canvasHeight}`}
