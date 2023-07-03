@@ -78,10 +78,10 @@ export default function Snowflake(props: any) {
 					/>
 				</ErrorBoundary>
 			</div>
-			<div id="sideBar" className="col-md-2">
+			{/* <div id="sideBar" className="col-md-2">
 				<h2>Sidebar</h2>
-				<p>This is the sidebar</p>
-				{/* <BoardControl
+				<p>This is the sidebar</p> */}
+			{/* <BoardControl
 					hexRadius={hexRadius}
 					separationMultiplier={separationMultiplier}
 					SEThexRadius={SEThexRadius}
@@ -91,7 +91,7 @@ export default function Snowflake(props: any) {
 					canvasHeight={canvasHeight} SETcanvasHeight={SETcanvasHeight}
 					hexGridOrigin={hexGridOrigin} SEThexGridOrigin={SEThexGridOrigin}
 				/> */}
-			</div>
+			{/* </div> */}
 		</div>
 	)
 }

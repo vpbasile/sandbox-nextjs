@@ -65,7 +65,7 @@ export default function GenerativeBoard(props: any) {
 		<div id="reRender" className={styles.hexBoardForm}>
 			<h3 className={styles.h3}>Generation Parameters</h3>
 			<label htmlFor="pickSpace">Number of cells: </label>
-			<input type="number" className="form-control" defaultValue={tempNumber} onChange={(e) => { SETtempNumber(+e.target.value); SETnumberOfSpaces(tempNumber); SEThexRoster(newRoster()); }} />
+			<input type="number" className={styles.fields} defaultValue={tempNumber} onChange={(e) => { SETtempNumber(+e.target.value); SETnumberOfSpaces(tempNumber); SEThexRoster(newRoster()); }} />
 			{/* <button className={`btn bg-blue`} onClick={() => {
 				SETnumberOfSpaces(tempNumber);
 				SEThexRoster(newRoster());
