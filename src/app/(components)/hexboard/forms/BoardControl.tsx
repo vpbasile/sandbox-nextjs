@@ -30,9 +30,9 @@ export default function BoardControl(props: {
 				<label htmlFor='pickSeparation'>Separation multiplier: {separationMultiplier}</label>
 				<input type='range' min='1' max='2' step='0.1' className='form-range'
 					defaultValue={separationMultiplier} onChange={(e) => {
-						console.log(`separationMultiplier: ${separationMultiplier}`)
+						// console.log(`separationMultiplier: ${separationMultiplier}`)
 						SETseparationMultiplier(+e.target.value)
-						setTimeout(() => console.log(`separationMultiplier: ${separationMultiplier}`), 1000)
+						// setTimeout(() => console.log(`separationMultiplier: ${separationMultiplier}`), 1000)
 					}
 					} />
 			</div>

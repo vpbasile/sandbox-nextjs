@@ -26,9 +26,9 @@ export default function GameBoard(props: gameBoardProps) {
 	const canvasHeight = canvasGlobals.canvasHeight;
 	const hexGridOrigin = canvasGlobals.hexGridOrigin;
 	const cssClasses = props.cssClasses;
-
-	console.log(`Canvas size: ${Math.floor(canvasWidth)}, ${Math.floor(canvasHeight)}`)
-	console.log(`Grid origin: ${Math.floor(hexGridOrigin.x)}, ${Math.floor(hexGridOrigin.y)}`)
+	// <> Debugging logs
+	// console.log(`Canvas size: ${Math.floor(canvasWidth)}, ${Math.floor(canvasHeight)}`)
+	// console.log(`Grid origin: ${Math.floor(hexGridOrigin.x)}, ${Math.floor(hexGridOrigin.y)}`)
 
 	// <> Render Functions
 	function backBoard(hexRoster: hexagon[], gameGlobals: gameGlobals): any {
