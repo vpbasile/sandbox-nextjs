@@ -1,14 +1,14 @@
 // https://dev.to/sanity-io/how-to-use-svgs-in-react-3gof
 
-import Hexagon from './Hexagon';
 import ErrorBoundary from '@/app/(components)/helpers/ErrorBoundary';
+import Hexagon from './Hexagon';
 import { canvasGlobals, coordinateXY, gameGlobals, hexagon } from "./hexDefinitions";
 import { directionVectors, hex_to_pixel } from './hexMath';
 import { clickMessage } from './hexFunctions';
+import RosterDisplay from './RosterDisplay';
 
 //style
-import './color-dark.css';
-import RosterDisplay from './RosterDisplay';
+import './hex.css';
 
 export interface gameBoardProps {
 	gameGlobals: gameGlobals;
