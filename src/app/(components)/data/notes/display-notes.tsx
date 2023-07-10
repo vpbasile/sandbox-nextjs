@@ -22,21 +22,18 @@ export default function DisplayNotes() {
 	// ---------------------------------------------
 	const spoofData: task[] = []
 	// States for storage and display
-	const [displayState, SETdisplayState] = useState("No query has been sent.");
-	const [dataState, SETdataState] = useState(spoofData); // :SetStateAction<task[]>
+	// const [displayState, SETdisplayState] = useState("No query has been sent.");
+	const [dataState, SETdataState] = useState(spoofData);
 	const dbURL = "http://localhost:8000/notes/tasks"
-	function queryDB(dbURL: string, SETdisplayState: (arg0: string) => void): void {
+	function queryDB(dbURL: string): void {
 		const displayString = "Attempting to send query to " + dbURL;
 		console.log(displayString);
-		SETdisplayState(displayString);
-		fetch(dbURL).then(response => response.json()).then(data =>
-			{
-				const rows = unwrapData(data);
-				SETdataState(rows);
-			})
-			.catch(error => { SETdisplayState("An error occurred - see console for details."); console.log(error); });
+		fetch(dbURL).then(response => response.json()).then(data => {
+			const rows = unwrapData(data);
+			SETdataState(rows);
+		})
+			.catch(error => { console.log(error); });
 	}
-	// const data = queryDB(dbURL, () => SETdisplayState)
 	// ---------------------------------------------------------------------------------------------------------------------
 	// <>DATA<>notes - This is part of the data definition of the tasks table in the notes database.  
 	// It should conatin all of the information unique to a database.
@@ -66,8 +63,7 @@ export default function DisplayNotes() {
 	}
 
 	function unwrapData(data: expectedServerResponse): task[] {
-		console.log(data);
-		SETdisplayState(`Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${data.rowsReturned} rows.`)
+		console.log(`Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${data.rowsReturned} rows.`)
 		return data.dbResponse;
 	}
 
@@ -116,11 +112,10 @@ export default function DisplayNotes() {
 	// ---------------------------------------------
 	// <> Main return
 	// ---------------------------------------------
-
+	if(dataState===spoofData){queryDB(dbURL);}
 	return (
 		<ErrorBoundary>
-			{dataState && <Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} />}
-			{<button onClick={() => queryDB(dbURL, SETdisplayState)} className={styles.button + styles.roomy + "block"}>{displayState}</button>}
+			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} />
 			<div className={styles.bubble + styles.spacious}>{stuffToSay}T</div>
 			<Table dataContents={dataTest} fields={testFields} editable={true} />
 		</ErrorBoundary>
