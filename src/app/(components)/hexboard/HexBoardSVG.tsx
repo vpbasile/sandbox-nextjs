@@ -1,6 +1,6 @@
 // https://dev.to/sanity-io/how-to-use-svgs-in-react-3gof
 
-import ErrorBoundary from '@/app/(components)/helpers/ErrorBoundary';
+import ErrorBoundary from '@/app/(components)/helpersUniversal/ErrorBoundary';
 import Hexagon from './Hexagon';
 import { canvasGlobals, coordinateXY, gameGlobals, hexagon } from "./hexDefinitions";
 import { directionVectors, hex_to_pixel } from './hexMath';
@@ -28,11 +28,13 @@ export default function GameBoard(props: gameBoardProps) {
 	const canvasHeight = canvasGlobals.canvasHeight;
 	const hexGridOrigin = canvasGlobals.hexGridOrigin;
 	const cssClasses = props.cssClasses;
+	let range = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
 	// <> Debugging logs
 	// console.log(`Canvas size: ${Math.floor(canvasWidth)}, ${Math.floor(canvasHeight)}`)
 	// console.log(`Grid origin: ${Math.floor(hexGridOrigin.x)}, ${Math.floor(hexGridOrigin.y)}`)
 
 	// <> Render Functions
+	// Side effect: sets range = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
 	function backBoard(hexRoster: hexagon[], gameGlobals: gameGlobals): string {
 		// <> Find the min and max values for q and r.  Convert those to rectangular coordinates.  
 		let maxRadius = 0
@@ -46,7 +48,12 @@ export default function GameBoard(props: gameBoardProps) {
 		});
 		maxRadius++;
 		let cornerPoints: coordinateXY[] = directionVectors.map((vector) => {
-			return hex_to_pixel(vector.q * maxRadius, vector.r * maxRadius, gameGlobals)
+			const corner = hex_to_pixel(vector.q * maxRadius, vector.r * maxRadius, gameGlobals);
+			if (corner.x < range.xMin) { range.xMin = corner.x }
+			if (corner.x > range.xMax) { range.xMax = corner.x }
+			if (corner.y < range.yMin) { range.yMin = corner.y }
+			if (corner.y > range.yMax) { range.yMax = corner.y }
+			return corner;
 		})
 		let returnString: string = ""
 		cornerPoints.forEach((point) => {
@@ -69,32 +76,49 @@ export default function GameBoard(props: gameBoardProps) {
 			r={hex.r}
 			cssClasses={hex.cssClasses}
 			hexText={hex.hexText}
-			clickMessage={clickMessage(hex,thisHexKey,hex.hexText)}
+			clickMessage={clickMessage(hex, thisHexKey, hex.hexText)}
 		/>
 	})
+	// Do the math for the bounding hex and box
+	const backboardPoints = backBoard(hexRoster, gameGlobals);
+	const rectInfo = boundRect(range);
+
 	return (
 		<ErrorBoundary boundaryName={"GameBoard"}>
-			<div className="gameboard">
-				<div className="gameboard-container">
-					<p className='caption'></p>
-					<div id='gameboard-canvas' className="border">
-						<svg
-							className={cssClasses}
-							viewBox={`${-hexGridOrigin.x} ${-hexGridOrigin.y} ${canvasWidth} ${canvasHeight}`}
-							style={{ rotate: "0deg", fill: "white", opacity: "0.8" }}
-							xmlns="<http://www.w3.org/2000/svg>">
-							{gameGlobals.drawBackBoard && <polygon
-								style={{}}
-								className={`just-grid`}
-								id={`backboard`}
-								points={backBoard(hexRoster, gameGlobals)}
-							/>}
-							{hexes}
-						</svg>
-					</div>
-				</div>
-				{props.displayRoster && <RosterDisplay hexRoster={hexRoster} />}
-			</div>
+			{/* <> Parent SVG */}
+			<svg
+				className={cssClasses}
+				viewBox={`${-hexGridOrigin.x} ${-hexGridOrigin.y} ${canvasWidth} ${canvasHeight}`}
+				style={{ rotate: "0deg", fill: "white", opacity: "0.8" }}
+				xmlns="<http://www.w3.org/2000/svg>">
+				{gameGlobals.drawBackBoard && <polygon
+					style={{}}
+					className={`just-grid`}
+					id={`backboard`}
+					points={backboardPoints}
+				/>}
+				{/* <> The hexagons */}
+				{hexes}
+				{/* <> The bounding box */}
+				<rect width={rectInfo.width} height={rectInfo.height} x={rectInfo.x} y={rectInfo.y} style={{ fill: "none", stroke: "#F4C9C9", strokeWidth:"10px", opacity: "1.0"} }/>
+			</svg>
+			{props.displayRoster && <RosterDisplay hexRoster={hexRoster} />}
 		</ErrorBoundary>
 	)
+
+	function boundRect(range: { xMin: number; xMax: number; yMin: number; yMax: number; }): { width: number, height: number, x: number, y: number } {
+		const newRange = {
+			xMin: Math.floor(range.xMin), xMax: Math.floor(range.xMax),
+			yMin: Math.floor(range.yMin), yMax: Math.floor(range.yMax)
+		};
+		// console.log(newRange);
+		const rectWidth = Math.abs(newRange.xMax - newRange.xMin);
+		const rectHeight = Math.abs(newRange.yMax - newRange.yMin);
+		return ({
+			width: rectWidth,
+			height: rectHeight,
+			x: -(rectWidth / 2),
+			y: -(rectHeight / 2),
+		})
+	}
 }

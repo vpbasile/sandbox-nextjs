@@ -7,7 +7,7 @@ export type field = {
 	displayLabel: string;
 	type: fieldType;
 	defaultValue: tableData;
-	changeFunction: null | ((arg0:any)=>void);
+	changeFunction: ((arg0:any)=>void);
 	listTable?: string;
 	url?:URL;
 };

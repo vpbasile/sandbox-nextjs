@@ -1,10 +1,12 @@
 "use client"
 import { use, useState } from "react";
-import { styles } from "../helpers/tsStyles";
-import { buttonCell, tableData, tableHeader } from "./table-helpers";
+import { styles } from "../helpersUniversal/tsStyles";
 import InputRow from "./inputRow";
-import { field, fieldType } from "./field";
+import { field, fieldType, tableData } from "./field";
 
+// <> Types used wihen working with tables
+export type list = number;
+export type listMulti = number;
 
 // <> Define component props
 type propsTable = {
@@ -14,6 +16,20 @@ type propsTable = {
 	// Pass down class
 	cssClasses?: string;
 }
+type row = { rowUID: string, fields: { key: string, value: string }[] }
+
+export function submitCell() {
+	return <td><button className={styles.button} type="submit">Submit</button></td>
+}
+
+export function inputCell(cellKey: number, matchID: string, defaultValue: tableData, typingF: (arg0: any) => void, cssClasses?: string) {
+	return (<td key={cellKey}>
+		<label className="collapse" htmlFor="uid">UID</label>
+		<input name={matchID} id={matchID} defaultValue={defaultValue}
+			onChange={typingF} className={styles.fields + cssClasses} />
+	</td>)
+}
+
 
 export default function Table(props: propsTable) {
 	//  <> Cache and initialize
@@ -27,7 +43,27 @@ export default function Table(props: propsTable) {
 	// <> States
 	const [isEditing, selectForEdit] = useState<number | null>(null)
 
-	type row = { rowUID: string, fields: { key: string, value: string }[] }
+
+	// ---------------------------------------------
+	// <> Table helper functions
+	// ---------------------------------------------
+
+
+	// <> Functions for building the tables
+	function tableHeader(headers: string[]) {
+		let numberColumn = 0;
+		return (
+			<thead>
+				<tr>
+					{headers.map(eachOne => { return (<th key={`header-col#${numberColumn++}`}>{eachOne}</th>) })}
+				</tr>
+			</thead>
+		)
+	}
+
+	function buttonCell(text: string, callbackF: () => void, type?: string) {
+		return <td><button className={styles.button} value={text} onClick={callbackF}>{text}</button></td>
+	}
 
 	function tableRow(indexRow: number, rowValues: tableData[], isEditing: boolean, cssClasses?: string) {
 		let indexCell = 0
@@ -39,7 +75,7 @@ export default function Table(props: propsTable) {
 		}
 		else return (<tr key={`row#${indexRow}`} className={cssClasses}>
 			{/* Display cells */}
-			{rowValues.map((element) => { return cellDisplay(`cell#${indexRow}-${indexCell++}`, element, typeof (element)) })}
+			{rowValues.map((element) => cellDisplay(`cell#${indexRow}-${indexCell++}`, element, typeof(element)))}
 			{editable && editButton(indexRow)}
 		</tr>)
 	}

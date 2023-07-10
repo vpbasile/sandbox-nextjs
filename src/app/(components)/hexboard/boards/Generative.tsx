@@ -1,4 +1,4 @@
-import ErrorBoundary from "@/app/(components)/helpers/ErrorBoundary";
+import ErrorBoundary from "@/app/(components)/helpersUniversal/ErrorBoundary";
 import GameBoard from "../HexBoardSVG";
 import { useState } from "react";
 
@@ -10,7 +10,7 @@ import CanvasControl from "../forms/CanvasControl";
 import { calcCenteredRectangle, hexOrientations } from "../hexMath";
 import BoardControl from "@/app/(components)/hexboard/forms/BoardControl";
 import aspectRatio from "../rectMath";
-import { styles } from "../../helpers/tsStyles";
+import { styles } from "../../helpersUniversal/tsStyles";
 
 export default function GenerativeBoard() {
 	// <> States that control canvas parameters

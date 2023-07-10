@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react';
-import { styles } from './helpers/tsStyles';
+import { styles } from './helpersUniversal/tsStyles';
 import Table from './db-table/table';
 import { field } from './db-table/field';
 
@@ -84,7 +84,7 @@ const CardDeck: React.FC = () => {
 		setDisplayList(displayListTemp);
 
 		setTopCard(dealtCard);
-		console.log(`Dealt card: ${dealtCard.rank} of ${dealtCard.suit}`);
+		// console.log(`Dealt card: ${dealtCard.rank} of ${dealtCard.suit}`);
 	};
 
 	const fields: field[] = [

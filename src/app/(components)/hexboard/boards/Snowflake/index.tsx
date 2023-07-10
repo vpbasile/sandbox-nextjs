@@ -6,7 +6,7 @@ import { BranchObject, hexplicate } from './snowFlake';
 import { centerHexagon, reflectAcrossAxis } from '../../hexFunctions';
 import { gameGlobals, hexagon } from '../../hexDefinitions';
 
-import ErrorBoundary from '@/app/(components)/helpers/ErrorBoundary';
+import ErrorBoundary from '@/app/(components)/helpersUniversal/ErrorBoundary';
 import GameBoard from '../../HexBoardSVG';
 // import BoardControl from '../../forms/BoardControl';
 // import CanvasControl from '../../forms/CanvasControl';

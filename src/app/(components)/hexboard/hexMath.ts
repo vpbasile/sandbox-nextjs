@@ -41,6 +41,7 @@ export function cube_ring(center: hexagon, radius: number): hexagon[] {
 	return results
 }
 
+
 export function hex_to_pixel(q: number, r: number, gameGlobals: gameGlobals): coordinateXY {
 	let x: number
 	let y: number

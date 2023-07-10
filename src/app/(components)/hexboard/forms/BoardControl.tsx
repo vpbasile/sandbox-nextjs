@@ -1,4 +1,4 @@
-import { styles } from "../../helpers/tsStyles";
+import { styles } from "../../helpersUniversal/tsStyles";
 import { coordinateXY } from "../hexDefinitions";
 import ValueField from "@/app/(components)/hexboard/forms/ValueField";
 // import { useState } from 'react';

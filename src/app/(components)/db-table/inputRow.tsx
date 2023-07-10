@@ -1,7 +1,8 @@
 import { type } from "os"
 import SelectList from "./selectList"
-import { inputCell, submitCell } from "./table-helpers"
 import { field } from "./field"
+import { styles } from "../helpersUniversal/tsStyles"
+import { inputCell, submitCell } from "./table"
 
 type propsType = {
 	fields: field[]
@@ -13,6 +14,11 @@ export default function InputRow(props: propsType) {
 	const cells = fields.map((thisField) => {
 		switch (thisField.type) {
 			case 'string': return inputCell(fieldCount++, thisField.matchID, thisField.defaultValue, thisField.changeFunction, "");
+			case 'number': return (<td key={fieldCount++}>
+				<label className="collapse" htmlFor="uid">UID</label>
+				<input name={thisField.matchID} id={thisField.matchID} defaultValue={thisField.defaultValue}
+					onChange={thisField.changeFunction} className={styles.fields} />
+			</td>)
 			case 'list':
 				const listTable = thisField.listTable
 				if (listTable)

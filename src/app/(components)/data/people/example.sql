@@ -30,6 +30,9 @@ INSERT INTO people (id, name, birthdate, preferred_contact_method, groups) VALUE
 (4, 'Bob Williams', '1988-11-20', 1, 2),
 (5, 'Emma Brown', '1994-03-25', 1, 3);
 
+INSERT INTO people (id, name, birthdate, preferred_contact_method, groups) VALUES
+(6, 'Javen Dencen', '1980-02-01', 2, 3)
+
 -- Insert data into the "groups" table
 INSERT INTO groups (id, title, sortorder) VALUES
 (1, 'Group A', 1),

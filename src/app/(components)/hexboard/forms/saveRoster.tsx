@@ -1,4 +1,4 @@
-import { styles } from "../../helpers/tsStyles";
+import { styles } from "../../helpersUniversal/tsStyles";
 import { gameGlobals, hexagon } from "../hexDefinitions";
 
 export default function SaveRosterButton(props: {
