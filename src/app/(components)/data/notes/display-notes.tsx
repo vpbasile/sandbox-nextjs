@@ -23,17 +23,18 @@ export default function DisplayNotes() {
 	const spoofData: task[] = []
 	// States for storage and display
 	const [displayState, SETdisplayState] = useState("No query has been sent.");
-	const [dataState, SETdataState] = useState(spoofData);
+	const [dataState, SETdataState] = useState(spoofData); // :SetStateAction<task[]>
 	const dbURL = "http://localhost:8000/notes/tasks"
-	function queryDB(dbURL: string, SETdisplayState: (arg0: string) => void) {
-		let dataReturn
+	function queryDB(dbURL: string, SETdisplayState: (arg0: string) => void): void {
 		const displayString = "Attempting to send query to " + dbURL;
 		console.log(displayString);
 		SETdisplayState(displayString);
 		fetch(dbURL).then(response => response.json()).then(data =>
-			dataReturn = unwrapData(data.dbResponse))
+			{
+				const rows = unwrapData(data);
+				SETdataState(rows);
+			})
 			.catch(error => { SETdisplayState("An error occurred - see console for details."); console.log(error); });
-		return dataReturn;
 	}
 	// const data = queryDB(dbURL, () => SETdisplayState)
 	// ---------------------------------------------------------------------------------------------------------------------
@@ -118,8 +119,8 @@ export default function DisplayNotes() {
 
 	return (
 		<ErrorBoundary>
-			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} />
-			{<button onClick={()=>queryDB(dbURL, SETdisplayState)} className={styles.button + styles.roomy + "block"}>{displayState}</button>}
+			{dataState && <Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} />}
+			{<button onClick={() => queryDB(dbURL, SETdisplayState)} className={styles.button + styles.roomy + "block"}>{displayState}</button>}
 			<div className={styles.bubble + styles.spacious}>{stuffToSay}T</div>
 			<Table dataContents={dataTest} fields={testFields} editable={true} />
 		</ErrorBoundary>
