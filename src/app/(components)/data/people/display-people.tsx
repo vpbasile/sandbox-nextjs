@@ -28,7 +28,7 @@ export default function DisplayPeople() {
 	// States for storage and display
 	const [displayState, SETdisplayState] = useState("No query has been sent.");
 	const [dataState, SETdataState] = useState(spoofData);
-	
+
 	const dbURL = "http://localhost:8000/"
 	const queryDB = () => {
 		const displayString = "Attempting to send query to " + dbURL;
@@ -46,11 +46,11 @@ export default function DisplayPeople() {
 	const [birthdateTemp, SETbirthdateTemp] = useState("1990-01-01")
 	// Define the fields
 	const fieldsForPeople: field[] = [
-		{ matchID: "uid", displayLabel: "UID", type: "string", defaultValue: idTemp, changeFunction: (e: eType): void => { SETidTemp(+(e.target.value)) } },
-		{ matchID: "name", displayLabel: "Name", type: "string", defaultValue: nameTemp, changeFunction: (e: eType) => { SETnameTemp(e.target.value) } },
-		{ matchID: "birthdate", displayLabel: "DOB", type: "string", defaultValue: birthdateTemp, changeFunction: (e: eType) => { SETbirthdateTemp(e.target.value) } },
-		{ matchID: "contactMethod", displayLabel: "Preferred Contact Method", type: "list", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), listTable: "methods" },
-		{ matchID: "groups", displayLabel: "Groups", type: "list-multi", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value) }
+		{ matchID: "uid", displayLabel: "UID", type: "string", defaultValue: idTemp, changeFunction: (e: eType): void => { SETidTemp(+(e.target.value)) }, automatic: false },
+		{ matchID: "name", displayLabel: "Name", type: "string", defaultValue: nameTemp, changeFunction: (e: eType) => { SETnameTemp(e.target.value) }, automatic: false },
+		{ matchID: "birthdate", displayLabel: "DOB", type: "string", defaultValue: birthdateTemp, changeFunction: (e: eType) => { SETbirthdateTemp(e.target.value) }, automatic: false },
+		{ matchID: "contactMethod", displayLabel: "Preferred Contact Method", type: "list", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), listTable: "methods", automatic:false },
+		{ matchID: "groups", displayLabel: "Groups", type: "list-multi", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), automatic: false }
 	]
 
 	// ---------------------------------------------
@@ -84,7 +84,7 @@ export default function DisplayPeople() {
 		<>
 			<div className={styles.bubble + styles.spacious}>
 				<form action="/send-data-here" method="post">
-					<Table cssClasses="" editable={true} fields={fieldsForPeople} dataContents={peopleToTable(dataState)} />
+					<Table cssClasses="" editable={true} fields={fieldsForPeople} dataContents={peopleToTable(dataState)} newRowF={createPerson}/>
 				</form>
 			</div>
 			<div className={styles.bubble + styles.spacious}>

@@ -18,7 +18,8 @@ export default function InputRow(props: propsType) {
 				<label className="collapse" htmlFor="uid">UID</label>
 				<input name={thisField.matchID} id={thisField.matchID} defaultValue={thisField.defaultValue}
 					onChange={thisField.changeFunction} className={styles.fields} />
-			</td>)
+			</td>);
+			case 'boolean': return <td key={fieldCount++}></td>
 			case 'list':
 				const listTable = thisField.listTable
 				if (listTable)

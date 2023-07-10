@@ -1,5 +1,5 @@
 "use client"
-import { use, useState } from "react";
+import { useState } from "react";
 import { styles } from "../helpersUniversal/tsStyles";
 import InputRow from "./inputRow";
 import { field, fieldType, tableData } from "./field";
@@ -13,6 +13,7 @@ type propsTable = {
 	dataContents: tableData[][];
 	fields: field[];
 	editable?: boolean;
+	newRowF:(recordInfo:any)=>void;
 	// Pass down class
 	cssClasses?: string;
 }
@@ -22,12 +23,18 @@ export function submitCell() {
 	return <td><button className={styles.button} type="submit">Submit</button></td>
 }
 
-export function inputCell(cellKey: number, matchID: string, defaultValue: tableData, typingF: (arg0: any) => void, cssClasses?: string) {
-	return (<td key={cellKey}>
+// <> FIX <> Why do I need both InutCell and cellEdit?  inputCell is used in inputRow, but why are these separate?
+export function inputCell(cellKey: number, matchID: string, contentsCell: tableData, typingF: (arg0: any) => void, cssClasses?: string) {
+	if (typeof (contentsCell) === "boolean") { return <td></td> }
+	else return (<td key={cellKey}>
 		<label className="collapse" htmlFor="uid">UID</label>
-		<input name={matchID} id={matchID} defaultValue={defaultValue}
+		<input name={matchID} id={matchID} defaultValue={contentsCell}
 			onChange={typingF} className={styles.fields + cssClasses} />
 	</td>)
+}
+
+export function empty(): (arg0: any) => void {
+	return () => { };
 }
 
 
@@ -38,7 +45,6 @@ export default function Table(props: propsTable) {
 	const fields = props.fields;
 	let indexRow = 0;
 
-	const quote = '"';
 
 	// <> States
 	const [isEditing, selectForEdit] = useState<number | null>(null)
@@ -69,34 +75,43 @@ export default function Table(props: propsTable) {
 		let indexCell = 0
 		if (isEditing) {
 			return (<tr key={`row#${indexRow}`}>
-				{rowValues.map((element) => { return cellEdit(`cell#${indexRow}-${indexCell++}`, element) })}
+				{rowValues.map((element) => { return inputCell(indexCell++, `match${indexCell - 1}`, element, empty) })}
 				{saveButton()}
 			</tr>)
 		}
 		else return (<tr key={`row#${indexRow}`} className={cssClasses}>
 			{/* Display cells */}
-			{rowValues.map((element) => cellDisplay(`cell#${indexRow}-${indexCell++}`, element, typeof(element)))}
+			{rowValues.map((element) => {
+				const elementType = typeof (element);
+				if (elementType === "boolean")
+					return cellDisplay(`cell#${indexRow}-${indexCell++}`, element, elementType);
+			})}
 			{editable && editButton(indexRow)}
 		</tr>)
 	}
 
 	// <> Matching buttons
 	function editButton(rowID: number) { return (buttonCell("Edit", () => selectForEdit(rowID))) }
-	function saveButton() { return (buttonCell("Save", () => selectForEdit(null))) }
+	function saveButton() {
+		return (buttonCell("Save", () => {
+			// <> Put in the request to create a new row.
+			return selectForEdit(null);
+		}))
+	}
 
 	// <> Matching cells
 	function cellDisplay(indexCell: string, contentsCell: tableData, typeCell: fieldType) {
-		if (typeCell === "string") { contentsCell = quote + contentsCell + quote }
 		return <td className={styles.roomy} key={`cell#${indexCell}`}>
 			{contentsCell}
 		</td>
 	}
 
-	function cellEdit(indexCell: string, contentsCell: tableData) {
-		return <td className={styles.roomy} key={`cell#${indexCell}`}>
-			<input className={styles.roomy + 'bg-black text-black rounded '} defaultValue={contentsCell}></input>
-		</td>
-	}
+	// function cellEdit(indexCell: string, contentsCell: tableData) {
+	// 	if (typeof(contentsCell)==="boolean") {return <td></td>}
+	// 	else return <td className={styles.roomy} key={`cell#${indexCell}`}>
+	// 		<input className={styles.roomy + 'bg-black text-black rounded '} defaultValue={contentsCell}></input>
+	// 	</td>
+	// }
 
 	const dataHeaders = fields.map((eachField) => { return (eachField.displayLabel) })
 
