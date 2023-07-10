@@ -63,8 +63,12 @@ export default function DisplayNotes() {
 	}
 
 	function unwrapData(data: expectedServerResponse): task[] {
-		console.log(`Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${data.rowsReturned} rows.`)
-		return data.dbResponse;
+		const rowsReturned = data.rowsReturned;
+		if (rowsReturned) {
+			console.log(`Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${rowsReturned} rows.`)
+			return data.dbResponse;
+		}
+		else return ([{ uid: 99, title: "Blank task" }]);
 	}
 
 	// SPOOF<>DATA<>notes Test data used in the editable table until I can store this data in the database.
@@ -86,17 +90,18 @@ export default function DisplayNotes() {
 	]
 
 	// ---------------------------------------------
+	// <> Create 
+	// ---------------------------------------------
+	function createTask(info: task) {
+
+	}
+
+	// ---------------------------------------------
 	// <> Misc/Etc
 	// ---------------------------------------------
 
 	const stuffToSay =
 		<div>
-			<ul className={"list-disc " + styles.bubble + styles.spacious}>
-				To do:
-				<li>Place a red box around the hex board</li>
-				<li>Save board data to db.</li>
-				<li>Save hex roster to db.</li>
-			</ul>
 			<ul className={"list-disc " + styles.bubble + styles.spacious}>
 				Background:
 				<li><Link className={styles.link} href="https://expressjs.com/en/guide/routing.html#response-methods">Reference on the Response methods</Link></li>
@@ -112,10 +117,10 @@ export default function DisplayNotes() {
 	// ---------------------------------------------
 	// <> Main return
 	// ---------------------------------------------
-	if(dataState===spoofData){queryDB(dbURL);}
+	if (dataState === spoofData) { queryDB(dbURL); }
 	return (
 		<ErrorBoundary>
-			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} />
+			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} editable={true} />
 			<div className={styles.bubble + styles.spacious}>{stuffToSay}T</div>
 			<Table dataContents={dataTest} fields={testFields} editable={true} />
 		</ErrorBoundary>

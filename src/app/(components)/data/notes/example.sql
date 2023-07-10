@@ -4,6 +4,9 @@ CREATE TABLE tasks (
   title VARCHAR,
   complete BOOLEAN
 );
-
 -- Insert data into the "people" table
-INSERT INTO tasks (id, title, complete) VALUES (2, 'Another Task', true);
+INSERT INTO tasks (title, complete)
+VALUES ('Another Task', true),
+  ('Place a red box around the hex board', false),
+  ('Save board data to db.', false),
+  ('Save hex roster to db.', false);
