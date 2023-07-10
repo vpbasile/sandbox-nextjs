@@ -74,6 +74,10 @@ export default function DisplayPeople() {
 		// I should also query the database for the list of the column names
 	}
 
+	function createPerson(recordInfo: any): void {
+		throw new Error("Function not implemented.")
+	}
+
 	// ---------------------------------------------
 	// <> Misc/Etc
 	// ---------------------------------------------

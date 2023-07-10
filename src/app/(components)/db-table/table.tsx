@@ -13,7 +13,7 @@ type propsTable = {
 	dataContents: tableData[][];
 	fields: field[];
 	editable?: boolean;
-	newRowF:(recordInfo:any)=>void;
+	newRowF: (recordInfo: any) => void;
 	// Pass down class
 	cssClasses?: string;
 }
@@ -27,8 +27,8 @@ export function submitCell() {
 export function inputCell(cellKey: number, matchID: string, contentsCell: tableData, typingF: (arg0: any) => void, cssClasses?: string) {
 	if (typeof (contentsCell) === "boolean") { return <td></td> }
 	else return (<td key={cellKey}>
-		<label className="collapse" htmlFor="uid">UID</label>
-		<input name={matchID} id={matchID} defaultValue={contentsCell}
+		<label key={cellKey + '-label'} className="collapse" htmlFor="uid">UID</label>
+		<input key={cellKey + '-input'} name={matchID} id={matchID} defaultValue={contentsCell}
 			onChange={typingF} className={styles.fields + cssClasses} />
 	</td>)
 }
@@ -71,23 +71,32 @@ export default function Table(props: propsTable) {
 		return <td><button className={styles.button} value={text} onClick={callbackF}>{text}</button></td>
 	}
 
-	function tableRow(indexRow: number, rowValues: tableData[], isEditing: boolean, cssClasses?: string) {
+	function tableRow(indexRow: number, rowValues: tableData[], isEditing: boolean, fields: field[], cssClasses?: string) {
 		let indexCell = 0
 		if (isEditing) {
-			return (<tr key={`row#${indexRow}`}>
-				{rowValues.map((element) => { return inputCell(indexCell++, `match${indexCell - 1}`, element, empty) })}
+			return (<tr key={`row-${indexRow}`}>
+				{rowValues.map(element => inputCell(indexCell++, `match-${indexCell - 1}`, element, empty))}
 				{saveButton()}
 			</tr>)
 		}
 		else return (<tr key={`row#${indexRow}`} className={cssClasses}>
 			{/* Display cells */}
-			{rowValues.map((element) => {
-				const elementType = typeof (element);
+			{rowValues.map((element, index) => {
+				const elementType = fields[index].type;
 				if (elementType === "boolean")
-					return cellDisplay(`cell#${indexRow}-${indexCell++}`, element, elementType);
+					return (<td key={indexCell++}>
+						<input type="checkbox" id="scales" name="scales" defaultChecked={should(element)} />
+						<label htmlFor="scales" className="collapse">Scales</label>
+					</td>)
+				else return cellDisplay(`cell#${indexRow}-${indexCell++}`, element, elementType);
 			})}
 			{editable && editButton(indexRow)}
 		</tr>)
+	}
+
+	function should(input: tableData): boolean {
+		if (typeof (input) !== "boolean") return false
+		else return input;
 	}
 
 	// <> Matching buttons
@@ -123,8 +132,8 @@ export default function Table(props: propsTable) {
 				{data.map((contentsRow) => {
 					const numIndex = indexRow++;
 					let cssClasses = ""
-					if (numIndex % 2 === 0) { cssClasses = "bg-slate-900" }
-					return tableRow(numIndex, contentsRow, (numIndex === isEditing), cssClasses);
+					if (numIndex % 2 === 0) { cssClasses = "bg-slate-900" }  // Make this tranlucent
+					return tableRow(numIndex, contentsRow, (numIndex === isEditing), fields, cssClasses);
 				})}
 				{editable && <InputRow fields={fields} />}
 			</tbody>

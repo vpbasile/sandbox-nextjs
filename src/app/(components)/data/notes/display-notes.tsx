@@ -42,25 +42,19 @@ export default function DisplayNotes() {
 	const [idTemp, SETidTemp] = useState(99); // This should be set by nextID
 	const [titleTemp, SETtitleTemp] = useState("New task")
 	const fieldsForTasks: field[] = [
-		{ matchID: "uid", displayLabel: "UID", type: "number", defaultValue: idTemp, changeFunction: (e: eType) => SETidTemp(+(e.target.value)), automatic:true },
-		{ matchID: "title", displayLabel: "Title", type: "string", defaultValue: titleTemp, changeFunction: (e: eType) => SETtitleTemp(e.target.value) , automatic:false},
-		{ matchID: "complete", displayLabel: "Complete", type: "boolean", defaultValue: false, changeFunction: empty , automatic:false}
+		{ matchID: "uid", displayLabel: "UID", type: "number", defaultValue: idTemp, changeFunction: (e: eType) => SETidTemp(+(e.target.value)), automatic: true },
+		{ matchID: "title", displayLabel: "Title", type: "string", defaultValue: titleTemp, changeFunction: (e: eType) => SETtitleTemp(e.target.value), automatic: false },
+		{ matchID: "complete", displayLabel: "Complete", type: "boolean", defaultValue: false, changeFunction: empty, automatic: false }
 	]
+	const fieldsForCreation = fieldsForTasks.filter(field => !field.automatic).map(eachField => eachField.matchID);
 
 	// ---------------------------------------------
 	// <> Finding and diplaying the data
 	// ---------------------------------------------
 
-
-
 	// Translation functions
-
 	function tasksToTable(tasks: task[]): tableData[][] {
-		return tasks.map(thisTask => {
-			return (
-				[thisTask.uid, thisTask.title, thisTask.complete]
-			)
-		})
+		return tasks.map(thisTask => [thisTask.uid, thisTask.title, thisTask.complete])
 	}
 
 	function unwrapData(data: expectedServerResponse): task[] {
@@ -69,22 +63,17 @@ export default function DisplayNotes() {
 			console.log(`Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${rowsReturned} rows.`)
 			return data.dbResponse;
 		}
-		else return ([{ uid: 99, title: "Blank task", complete: true }]);
+		else return ([{ uid: 99, title: "Spoof task", complete: true }]);
 	}
-
-	// SPOOF<>DATA<>notes Test data used in the editable table until I can store this data in the database.
-	const headersTest = ["Key", "Title", "URL"]
-	const dataTest: tableData[][] = [
-
-	]
 
 	// ---------------------------------------------
 	// <> Create 
 	// ---------------------------------------------
 	function createTask(recordInfo: task) {
 		// <> FIX <> I should build the list of fields from the fieldsForObject array, but that's a task for another day. 
+
 		const queryString = `INSERT INTO tasks (title, complete) VALUES ('${recordInfo.title}', ${recordInfo.complete})`;
-		
+
 	}
 
 	// ---------------------------------------------
@@ -110,7 +99,7 @@ export default function DisplayNotes() {
 	if (dataState === spoofData) { queryDB(dbURL); }
 	return (
 		<ErrorBoundary>
-			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} editable={true} newRowF={createTask}/>
+			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} editable={true} newRowF={createTask} />
 			<div className={styles.bubble + styles.spacious}>{stuffToSay}</div>
 		</ErrorBoundary>
 	)
