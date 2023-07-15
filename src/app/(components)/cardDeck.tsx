@@ -90,7 +90,7 @@ const CardDeck: React.FC = () => {
 	const fields: field[] = [
 		{
 			matchID: "rank",
-			displayLabel: `Rank`,
+			labelText: `Rank`,
 			type: "string",
 			defaultValue: "Rank",
 			changeFunction: null,
@@ -98,7 +98,7 @@ const CardDeck: React.FC = () => {
 		},
 		{
 			matchID: "suit",
-			displayLabel: `Suit`,
+			labelText: `Suit`,
 			type: "string",
 			defaultValue: "Suit",
 			changeFunction: null,

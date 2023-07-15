@@ -1,7 +1,6 @@
 import Link from "next/link"
-import { field, tableData } from "../../db-table/field"
 import { styles } from "../../helpersUniversal/tsStyles"
-import Table, { empty } from "../../db-table/table"
+import Table, { empty, field, tableData } from "../../db-table/table"
 import { useState } from "react";
 import { eType } from "../../helpersUniversal/usefulTypes";
 import ErrorBoundary from "../../helpersUniversal/ErrorBoundary";
@@ -42,9 +41,9 @@ export default function DisplayNotes() {
 	const [idTemp, SETidTemp] = useState(99); // This should be set by nextID
 	const [titleTemp, SETtitleTemp] = useState("New task")
 	const fieldsForTasks: field[] = [
-		{ matchID: "uid", displayLabel: "UID", type: "number", defaultValue: idTemp, changeFunction: (e: eType) => SETidTemp(+(e.target.value)), automatic: true },
-		{ matchID: "title", displayLabel: "Title", type: "string", defaultValue: titleTemp, changeFunction: (e: eType) => SETtitleTemp(e.target.value), automatic: false },
-		{ matchID: "complete", displayLabel: "Complete", type: "boolean", defaultValue: false, changeFunction: empty, automatic: false }
+		{ matchID: "uid", labelText: "UID", type: "number", defaultValue: idTemp, changeFunction: (e: eType) => SETidTemp(+(e.target.value)), automatic: true },
+		{ matchID: "title", labelText: "Title", type: "string", defaultValue: titleTemp, changeFunction: (e: eType) => SETtitleTemp(e.target.value), automatic: false },
+		{ matchID: "complete", labelText: "Complete", type: "boolean", defaultValue: false, changeFunction: empty, automatic: false }
 	]
 	const fieldsForCreation = fieldsForTasks.filter(field => !field.automatic).map(eachField => eachField.matchID);
 
@@ -61,6 +60,7 @@ export default function DisplayNotes() {
 		const rowsReturned = data.rowsReturned;
 		if (rowsReturned) {
 			console.log(`Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${rowsReturned} rows.`)
+			// console.log(data.dbResponse);
 			return data.dbResponse;
 		}
 		else return ([{ uid: 99, title: "Spoof task", complete: true }]);
@@ -77,30 +77,24 @@ export default function DisplayNotes() {
 	}
 
 	// ---------------------------------------------
-	// <> Misc/Etc
-	// ---------------------------------------------
-
-	const stuffToSay =
-		<ul className={`list-disc ${styles.spacious}`}>
-			Background:
-			<li><Link className={styles.link} href="https://expressjs.com/en/guide/routing.html#response-methods">Reference on the Response methods</Link></li>
-			<li><Link className={styles.link} href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes">This tutorial</Link> might be helpful, though it is using mongoose instead of sqlite3.</li>
-			<li><Link className={styles.link} href="https://medium.com/@codesprintpro/rest-api-using-sqlite3-nodejs-and-expressjs-f8c0c0847fe5">This tutorial</Link> was helpful setting up the express server with the sqlite3 database, but it left me stuck when I got to the point of calling the express controllers from my application.</li>
-			<li>To test the database connection, at the command line run < span className='' > npm run database</span >, then in the browser, go to < Link href="http://localhost:8000/" > http://localhost:8000/</Link></li>
-			<li>Boostrapped like this: <Link href="https://tailwindcss.com/docs/guides/nextjs">Next with Tailwind	</Link></li>
-			<li><Link href='https://stackoverflow.com/questions/56583738/how-to-connect-to-a-sqlite-db-from-a-react-app'>sqlite3</Link></li>
-			<li><Link href='https://nextjs.org/docs/getting-started/react-essentials'>Server components</Link></li>
-			<li>I am using Tailwind - sometimes I do not get updates in the app when I save my tailwind config.  I cannot figure out how to trigger them manually.  I tried Mantine, but there was too much coding involved.</li>
-
-		</ul>
-	// ---------------------------------------------
 	// <> Main return
 	// ---------------------------------------------
 	if (dataState === spoofData) { queryDB(dbURL); }
 	return (
 		<ErrorBoundary>
 			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} editable={true} newRowF={createTask} />
-			<div className={styles.bubble + styles.spacious}>{stuffToSay}</div>
+			<div className={styles.bubble + styles.spacious}>{<ul className={`list-disc ${styles.spacious}`}>
+				Background:
+				<li><Link className={styles.link} href="https://expressjs.com/en/guide/routing.html#response-methods">Reference on the Response methods</Link></li>
+				<li><Link className={styles.link} href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes">This tutorial</Link> might be helpful, though it is using mongoose instead of sqlite3.</li>
+				<li><Link className={styles.link} href="https://medium.com/@codesprintpro/rest-api-using-sqlite3-nodejs-and-expressjs-f8c0c0847fe5">This tutorial</Link> was helpful setting up the express server with the sqlite3 database, but it left me stuck when I got to the point of calling the express controllers from my application.</li>
+				<li>To test the database connection, at the command line run <span className=''> npm run database</span>, then in the browser, go to <Link href="http://localhost:8000/"> http://localhost:8000/</Link></li>
+				<li>Boostrapped like this: <Link href="https://tailwindcss.com/docs/guides/nextjs">Next with Tailwind	</Link></li>
+				<li><Link href='https://stackoverflow.com/questions/56583738/how-to-connect-to-a-sqlite-db-from-a-react-app'>sqlite3</Link></li>
+				<li><Link href='https://nextjs.org/docs/getting-started/react-essentials'>Server components</Link></li>
+				<li>I am using Tailwind - sometimes I do not get updates in the app when I save my tailwind config.  I cannot figure out how to trigger them manually.  I tried Mantine, but there was too much coding involved.</li>
+
+			</ul>}</div>
 		</ErrorBoundary>
 	)
 }
