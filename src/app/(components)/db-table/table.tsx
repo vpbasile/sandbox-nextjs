@@ -57,7 +57,8 @@ export default function Table(props: propsTable) {
 	}
 
 	// <> Various cells: Display, Checkbox, and buttons
-	function cellDisplay(indexCell: string, contentsCell: tableData) {
+	function cellDisplay(indexCell: string, contentsCell: tableData, matchID: string, labeltext: string) {
+		if (typeof (contentsCell) === "boolean") return cellCheck(indexCell, contentsCell as boolean, matchID, labeltext)
 		return <td className={styles.roomy} key={indexCell}> {contentsCell} </td>;
 	}
 
@@ -66,13 +67,13 @@ export default function Table(props: propsTable) {
 		// if(disabled===undefined){}
 		switch (typeCell) {
 			case undefined: return <td key={indexCell} className={styles.roomy}></td>
-			case 'boolean': return cellCheck(indexCell, contentsCell)
+			case 'boolean': return cellCheck(indexCell, contentsCell as boolean, matchID, labeltext)
 			case 'string': return <td key={indexCell} className={styles.roomy} >
-				<input key={indexCell + '-input'} name={matchID} id={matchID} defaultValue={contentsCell} onChange={typingF} className={classString} disabled={disabled} />
+				<input key={indexCell + '-input'} name={matchID} id={matchID} defaultValue={contentsCell as string} onChange={typingF} className={classString} disabled={disabled} />
 				<label key={indexCell + '-label'} className="collapse" htmlFor={matchID}>{labeltext}</label>
 			</td>;
 			case "number": return <td key={indexCell} className={styles.roomy} >
-				<input type="number" key={indexCell + '-input'} name={matchID} id={matchID} defaultValue={contentsCell} onChange={typingF} className={classString} disabled={disabled} />
+				<input type="number" key={indexCell + '-input'} name={matchID} id={matchID} defaultValue={contentsCell as number} onChange={typingF} className={classString} disabled={disabled} />
 				<label key={indexCell + '-label'} className="collapse" htmlFor={matchID}>{labeltext}</label>
 			</td>;
 			case 'list': return <td className={styles.roomy} key={indexCell}> {contentsCell} </td>;
@@ -81,10 +82,10 @@ export default function Table(props: propsTable) {
 		}
 
 	}
-	function cellCheck(indexCell: string, value: boolean) {
+	function cellCheck(indexCell: string, value: boolean, matchID: string, labeltext: string) {
 		return <td key={indexCell}>
-			<input type="checkbox" id="scales" name="scales" defaultChecked={value} />
-			<label htmlFor="scales" className="collapse">Scales</label>
+			<input type="checkbox" id={matchID} name={matchID} defaultChecked={value} />
+			<label htmlFor={matchID} className="collapse">{labeltext}</label>
 		</td>;
 	}
 
@@ -95,7 +96,7 @@ export default function Table(props: propsTable) {
 	function submitCell() { return <td><button className={styles.button} type="submit" onClick={() => { selectForEdit(null) }}>Submit</button></td> }
 	function editButton(rowID: number) { return (buttonCell("Edit", () => selectForEdit(rowID))) }
 
-	// Table rows
+	// <> Table rows
 	function tableHeader(headers: string[]) {
 		let numberColumn = 0;
 		return (
@@ -114,9 +115,8 @@ export default function Table(props: propsTable) {
 		else return (<tr key={`row#${indexRow}`} className={cssClasses}>
 			{/* Display cells */}
 			{rowValues.map((element, index) => {
-				const elementType = fields[index].type;
-				if (elementType === "boolean") return cellCheck(`cell#${indexRow}-${indexCell++}`, should(element))
-				else return cellDisplay(`cell#${indexRow}-${indexCell++}`, element);
+				const thisField = fields[index];
+				return cellDisplay(`cell#${indexRow}-${indexCell++}`, element, thisField.matchID, thisField.labelText);
 			})}
 			{editable && editButton(indexRow)}
 		</tr>)
@@ -130,9 +130,9 @@ export default function Table(props: propsTable) {
 		else { newRow = fields.map(eachField => eachField.defaultValue) }
 		// Now that the data is all square, display it.
 		let fieldCount = 0;
-		cssClasses += " border border-white";
+		if (!disabled) cssClasses += " border border-white";
 		return (<tr key={indexRow} className={cssClasses}>
-			{fields.map((thisField, index) => cellInput(`cell-${fieldCount++}`, newRow[index], thisField.type, thisField.matchID, thisField.changeFunction,thisField.labelText))}
+			{fields.map((thisField, index) => cellInput(`cell-${fieldCount++}`, newRow[index], thisField.type, thisField.matchID, thisField.changeFunction, thisField.labelText))}
 			{submitCell()}
 		</tr>)
 	}

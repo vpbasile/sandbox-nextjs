@@ -15,3 +15,6 @@ VALUES ('Another Task', true),
   ('Save board data to db.', false),
   ('Save hex roster to db.', false),
   ('Edit buttons should be links', false);
+
+-- Update
+  UPDATE tasks SET complete = 1 WHERE uid = 5;
