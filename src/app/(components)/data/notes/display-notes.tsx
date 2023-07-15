@@ -4,6 +4,7 @@ import Table, { empty, field, tableData } from "../../db-table/table"
 import { useState } from "react";
 import { eType } from "../../helpersUniversal/usefulTypes";
 import ErrorBoundary from "../../helpersUniversal/ErrorBoundary";
+import { commaList } from "../../helpersUniversal/commonHelpers";
 
 export default function DisplayNotes() {
 	// ---------------------------------------------
@@ -52,6 +53,7 @@ export default function DisplayNotes() {
 	// ---------------------------------------------
 
 	// Translation functions
+	// !!!REQUIRED - A ...ToTable function will be necessary for every data structure
 	function tasksToTable(tasks: task[]): tableData[][] {
 		return tasks.map(thisTask => [thisTask.uid, thisTask.title, thisTask.complete])
 	}
@@ -72,14 +74,13 @@ export default function DisplayNotes() {
 	function createTask(recordInfo: task) {
 		// <> FIX <> I should build the list of fields from the fieldsForObject array, but that's a task for another day. 
 
-		const queryString = `INSERT INTO tasks (title, complete) VALUES ('${recordInfo.title}', ${recordInfo.complete})`;
-
+		const queryString = (fieldsForCreation: string[], recordInfo: task) => `INSERT INTO tasks (${commaList(fieldsForCreation)}) VALUES ('${recordInfo.title}', ${recordInfo.complete})`
 	}
-
+	// Query the Databse
+	if (dataState === spoofData) { queryDB(dbURL); }
 	// ---------------------------------------------
 	// <> Main return
 	// ---------------------------------------------
-	if (dataState === spoofData) { queryDB(dbURL); }
 	return (
 		<ErrorBoundary>
 			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} editable={true} newRowF={createTask} />

@@ -1,7 +1,6 @@
 import { styles } from "../../helpersUniversal/tsStyles"
 import { useState } from "react"
-import Table, { list, listMulti } from "../../db-table/table"
-import { field, tableData } from "../../db-table/field"
+import Table, { field, list, listMulti, tableData } from "../../db-table/table"
 import { eType } from "../../helpersUniversal/usefulTypes"
 
 
@@ -30,7 +29,7 @@ export default function DisplayPeople() {
 	const [dataState, SETdataState] = useState(spoofData);
 
 	const dbURL = "http://localhost:8000/"
-	const queryDB = () => {
+	const queryDB = (dbURL: string): void => {
 		const displayString = "Attempting to send query to " + dbURL;
 		console.log(displayString);
 		SETdisplayState(displayString);
@@ -49,7 +48,7 @@ export default function DisplayPeople() {
 		{ matchID: "uid", labelText: "UID", type: "string", defaultValue: idTemp, changeFunction: (e: eType): void => { SETidTemp(+(e.target.value)) }, automatic: false },
 		{ matchID: "name", labelText: "Name", type: "string", defaultValue: nameTemp, changeFunction: (e: eType) => { SETnameTemp(e.target.value) }, automatic: false },
 		{ matchID: "birthdate", labelText: "DOB", type: "string", defaultValue: birthdateTemp, changeFunction: (e: eType) => { SETbirthdateTemp(e.target.value) }, automatic: false },
-		{ matchID: "contactMethod", labelText: "Preferred Contact Method", type: "list", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), listTable: "methods", automatic:false },
+		{ matchID: "contactMethod", labelText: "Preferred Contact Method", type: "list", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), listTable: "methods", automatic: false },
 		{ matchID: "groups", labelText: "Groups", type: "list-multi", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), automatic: false }
 	]
 
@@ -81,6 +80,9 @@ export default function DisplayPeople() {
 	// ---------------------------------------------
 	// <> Misc/Etc
 	// ---------------------------------------------
+	// Query the Databse
+	if (dataState === spoofData) { queryDB(dbURL); }
+
 	// ---------------------------------------------
 	// <> Main return
 	// ---------------------------------------------
@@ -88,12 +90,12 @@ export default function DisplayPeople() {
 		<>
 			<div className={styles.bubble + styles.spacious}>
 				<form action="/send-data-here" method="post">
-					<Table cssClasses="" editable={true} fields={fieldsForPeople} dataContents={peopleToTable(dataState)} newRowF={createPerson}/>
+					<Table cssClasses="" editable={true} fields={fieldsForPeople} dataContents={peopleToTable(dataState)} newRowF={createPerson} />
 				</form>
 			</div>
-			<div className={styles.bubble + styles.spacious}>
-				{<button onClick={queryDB} className={styles.button + styles.roomy + "block"}>{displayState}</button>}
-			</div>
+			{/* <div className={styles.bubble + styles.spacious}>
+				{<button onClick={()=>queryDB} className={styles.button + styles.roomy + "block"}>{displayState}</button>}
+			</div> */}
 		</>
 	)
 }
