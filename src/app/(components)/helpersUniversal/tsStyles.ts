@@ -3,7 +3,7 @@ export const styles = {
 	, roomy: "p-3 m-2 "
 	, bubble: 'border-solid rounded-lg border border-blue-400 '
 	// Form
-	, button: "button rounded p-3 border "
+	, button: " button rounded p-3 border min-w-full "
 	, fields: "bg-gray-800 border "
 	// text
 	, link: ``
