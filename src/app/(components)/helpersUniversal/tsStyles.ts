@@ -4,7 +4,7 @@ export const styles = {
 	, bubble: 'border-solid rounded-lg border border-blue-400 '
 	// Form
 	, button: " button rounded p-3 border min-w-full "
-	, fields: "bg-gray-800 border "
+	, fields: "bg-gray-800 border min-w-full "
 	// text
 	, link: ``
 	, reallyBig: 'text-2xl '

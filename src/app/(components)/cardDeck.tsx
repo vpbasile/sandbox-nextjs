@@ -1,8 +1,7 @@
 "use client"
 import { useState } from 'react';
 import { styles } from './helpersUniversal/tsStyles';
-import Table from './db-table/table';
-import { field } from './db-table/field';
+import Table, { empty, field } from './db-table/table';
 
 // Define the card suits
 enum Suit {
@@ -65,8 +64,8 @@ const CardDeck: React.FC = () => {
 			[shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
 		}
 		// <> Before we update the state, build a table for displaying the cards
-
-		const displayListTemp = shuffledDeck.map((eachCard) => { return [`${eachCard.suit}`, `${eachCard.rank}`]; });
+		// <> DATA <> Translation function
+		const displayListTemp = shuffledDeck.map((eachCard) => { return [`${eachCard.rank}`,`${eachCard.suit}`]; });
 		setDisplayList(displayListTemp);
 		// <>
 		setDeck(shuffledDeck);
@@ -80,7 +79,7 @@ const CardDeck: React.FC = () => {
 
 		const [dealtCard, ...remainingDeck] = deck;
 		setDeck(remainingDeck);
-		const displayListTemp = remainingDeck.map((eachCard) => { return [`${eachCard.rank}`,`${eachCard.suit}`]; });
+		const displayListTemp = remainingDeck.map((eachCard) => { return [`${eachCard.rank}`, `${eachCard.suit}`]; });
 		setDisplayList(displayListTemp);
 
 		setTopCard(dealtCard);
@@ -93,16 +92,18 @@ const CardDeck: React.FC = () => {
 			labelText: `Rank`,
 			type: "string",
 			defaultValue: "Rank",
-			changeFunction: null,
 			listTable: "ranks",
+			changeFunction: empty,
+			automatic: false
 		},
 		{
 			matchID: "suit",
 			labelText: `Suit`,
 			type: "string",
 			defaultValue: "Suit",
-			changeFunction: null,
 			listTable: undefined,
+			changeFunction: empty,
+			automatic: false
 		}
 	];
 	return (
@@ -110,13 +111,13 @@ const CardDeck: React.FC = () => {
 			<div className={styles.gridSidebar}>
 				<button onClick={shuffleDeck} className={styles.button}>Shuffle Deck</button>
 				<button onClick={dealCard} className={styles.button}>Deal Card</button>
-				<button onClick={()=>SETshowDeck(!showDeck)} className={styles.button}>Hide/show deck</button>
+				<button onClick={() => SETshowDeck(!showDeck)} className={styles.button}>Hide/show deck</button>
 				<div className={styles.playingCard}>
 					{topCard && `${topCard?.rank} of ${topCard?.suit}`}	</div>
 			</div>
 			<div className={styles.gridDisplay}>
 				{/* editable={false} */}
-				{showDeck && displayList && <Table dataContents={displayList} fields={fields} />}
+				{showDeck && displayList && <Table dataContents={displayList} fields={fields} newRowF={empty}/>}
 			</div>
 		</div>
 	);
