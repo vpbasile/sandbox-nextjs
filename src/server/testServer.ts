@@ -14,6 +14,10 @@ type dbResponse = { error: any } | {
   rowsReturned: number;
   dbResponse: rowType;
 };
+type reqType = {
+  params: any,
+  body?: { id: any; token: any; geo: any; };
+};
 type resType = {
   status: (arg0: number) => {
     (): any;
@@ -23,11 +27,13 @@ type resType = {
       new(): any;
     };
   };
+  send: any;
 };
 
 // <> Initialize the app
 var app = express();
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 // <> Define the databases
 type dbProfile = { name: string, path: string }
@@ -51,7 +57,7 @@ app.listen(HTTP_PORT, () => {
 });
 
 // Default GET
-const defaultRoute = app.get("/", (req: any, res: resType, next: any) => {
+const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
 
   // <> Select a database
   const selectedDB = databaseList[0];
@@ -81,7 +87,7 @@ const defaultRoute = app.get("/", (req: any, res: resType, next: any) => {
 // GET with a dbName - return a list of all tables in that database
 
 // GET with a dbName and tableName
-app.get("/:dbName/:tableName", (req: { params: { dbName: string; tableName: string; }; }, res: resType, next: any) => {
+app.get("/:dbName/:tableName", (req: reqType, res: resType, next: any) => {
   const tableName = req.params.tableName;
   // <> Select a database
   const dbName = req.params.dbName;
@@ -119,3 +125,25 @@ function structureResponse(rows: rowType, tableName: string): dbResponse {
     dbResponse: rows
   };
 }
+
+// POST
+app.post("/notes/tasks/new/:query", (req: reqType, res: resType, next: any) => {
+  const queryString = req.params.query;
+  console.log("Running db query: " + queryString);
+  const db = new sqlite3.Database('./notes.db', (err: errType) => {
+    if (err) {
+      console.error(`Error opening database Notes: ` + err.message);
+    } else {
+      console.log(`Database Notes} found at ./notes.db`)
+      db.all(queryString, [], (err: errType, rows: rowType) => {
+        if (err) {
+          res.status(400).json({ "error": err.message });
+          return;
+        } else {
+          res.status(200).json(structureResponse(rows, "tasks"));
+          return;
+        }
+      })
+    }
+  })
+});

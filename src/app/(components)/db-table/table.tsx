@@ -73,7 +73,7 @@ export default function Table(props: propsTable) {
 				<label key={indexCell + '-label'} className="collapse" htmlFor={matchID}>{labeltext}</label>
 			</td>;
 			case "number": return <td key={indexCell} className={styles.roomy} >
-				<input type="number" key={indexCell + '-input'} name={matchID} id={matchID} defaultValue={contentsCell as number} onChange={typingF} className={classString} disabled={disabled} />
+				<input type="number" key={indexCell + '-input'} name={matchID} id={matchID} defaultValue={contentsCell as number} onChange={typingF} className={classString + ` w-min `} disabled={disabled} />
 				<label key={indexCell + '-label'} className="collapse" htmlFor={matchID}>{labeltext}</label>
 			</td>;
 			case 'list': return <td className={styles.roomy} key={indexCell}> {contentsCell} </td>;

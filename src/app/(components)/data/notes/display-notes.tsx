@@ -87,7 +87,7 @@ export default function DisplayNotes() {
 			<div className={styles.bubble + styles.spacious}>{<ul className={`list-disc ${styles.spacious}`}>
 				Background:
 				<li><Link className={styles.link} href="https://expressjs.com/en/guide/routing.html#response-methods">Reference on the Response methods</Link></li>
-				<li><Link className={styles.link} href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes">This tutorial</Link> might be helpful, though it is using mongoose instead of sqlite3.</li>
+				<li><Link className={styles.link} href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes">This MDN tutorial</Link> might be helpful, though it is using mongoose instead of sqlite3.</li>
 				<li><Link className={styles.link} href="https://medium.com/@codesprintpro/rest-api-using-sqlite3-nodejs-and-expressjs-f8c0c0847fe5">This tutorial</Link> was helpful setting up the express server with the sqlite3 database, but it left me stuck when I got to the point of calling the express controllers from my application.</li>
 				<li>To test the database connection, at the command line run <span className=''> npm run database</span>, then in the browser, go to <Link href="http://localhost:8000/"> http://localhost:8000/</Link></li>
 				<li>Boostrapped like this: <Link href="https://tailwindcss.com/docs/guides/nextjs">Next with Tailwind	</Link></li>
