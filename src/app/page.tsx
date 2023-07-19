@@ -25,15 +25,15 @@ export default function Home() {
   // <> Define modeules
   let modules: { uid: number, id: string; contents: JSX.Element; headerText: string, type?: "notDB" | null }[] = []
   let makeUID = 0
+  modules.push({ uid: makeUID++, id: "cardeck", headerText: "CarDeck Simulator", contents: <CardDeck />, type: "notDB"  });
   modules.push({ uid: makeUID++, id: "notesDisplay", headerText: "Notes Database", contents: <DisplayNotes /> });
   modules.push({ uid: makeUID++, headerText: 'People Database', id: 'peopleDisplay', contents: <DisplayPeople /> });
-  modules.push({ uid: makeUID++, id: "trivia", headerText: "Trivia board", contents: <TriviaBoard />, type: "notDB" });
+  // modules.push({ uid: makeUID++, id: "trivia", headerText: "Trivia board", contents: <TriviaBoard />, type: "notDB" });
   modules.push({ uid: makeUID++, id: "keyboard", headerText: "Keyboard", contents: <Keyboard />, type: "notDB" })
   modules.push({ uid: makeUID++, id: "generative", headerText: "Generative Map", contents: <GenerativeBoard /> });
   // modules.push({ uid: makeUID++, id: "savedHexBoard", headerText: "Saved Hex Board", contents: <SavedBoard />});
   // modules.push({ uid: makeUID++, id: "create", headerText: "Create Hex Board", contents: <CreateBoard /> });
-  modules.push({ uid: makeUID++, id: "snowflake", headerText: "Snowflake Generator", contents: <Snowflake />, type: "notDB" });
-  modules.push({ uid: makeUID++, id: "cardeck", headerText: "CarDeck Simulator", contents: <CardDeck />, type: "notDB"  });
+  // modules.push({ uid: makeUID++, id: "snowflake", headerText: "Snowflake Generator", contents: <Snowflake />, type: "notDB" });
 
 
   // <> Toolbar for selecting a module
