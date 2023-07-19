@@ -1,4 +1,4 @@
-import ErrorBoundary from '@/app/(components)/helpersUniversal/ErrorBoundary';
+import ErrorBoundary from '@/app/helpersUniversal/ErrorBoundary';
 import GameBoard from '../HexBoardSVG';
 import { useState } from "react";
 import { gameGlobals, hexagon } from '../hexDefinitions';
@@ -7,7 +7,7 @@ import CanvasControl from '@/app/(components)/hexboard/forms/CanvasControl';
 import BoardControl from '@/app/(components)/hexboard/forms/BoardControl';
 import aspectRatio from '../rectMath';
 import { clickMessage } from '../hexFunctions';
-import { styles } from '../../helpersUniversal/tsStyles';
+import { styles } from '../../../helpersUniversal/tsStyles';
 
 
 export default function Keyboard() {

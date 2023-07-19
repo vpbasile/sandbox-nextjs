@@ -1,9 +1,9 @@
 "use client"
 import { useState } from 'react';
 import Link from 'next/link'
-import CardDeck from './(components)/cardDeck';
-import { styles } from './(components)/helpersUniversal/tsStyles';
-import Section from './(components)/helpersUniversal/section';
+import CardDeck from './(games)/cardDeck';
+import { styles } from './helpersUniversal/tsStyles';
+import Section from './helpersUniversal/section';
 
 // <>DATA<>people
 import DisplayPeople from './(components)/data/people/display-people';

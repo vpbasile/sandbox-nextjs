@@ -8,7 +8,7 @@ import CanvasControl from "@/app/(components)/hexboard/forms/CanvasControl";
 import BoardControl from "@/app/(components)/hexboard/forms/BoardControl";
 import aspectRatio from "../rectMath";
 import { clickMessage } from "../hexFunctions";
-import { styles } from "../../helpersUniversal/tsStyles";
+import { styles } from "../../../helpersUniversal/tsStyles";
 
 export default function CreateBoard() {
 	// <> States that control canvas parameters

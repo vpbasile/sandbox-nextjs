@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react";
-import { styles } from "../helpersUniversal/tsStyles";
+import { styles } from "../../helpersUniversal/tsStyles";
 
 // <> Types used wihen working with tables
 export type list = number;

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import './color-dark.css';
 
 // <> Import components
-import ErrorBoundary from '@/app/(components)/helpersUniversal/ErrorBoundary';
+import ErrorBoundary from '@/app/helpersUniversal/ErrorBoundary';
 
 // <> Import GameBoards
 import TriviaBoard from './boards/TriviaBoard';

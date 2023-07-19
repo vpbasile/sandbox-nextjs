@@ -1,5 +1,5 @@
 import GameBoard from '../HexBoardSVG';
-import ErrorBoundary from '@/app/(components)/helpersUniversal/ErrorBoundary';
+import ErrorBoundary from '@/app/helpersUniversal/ErrorBoundary';
 import { useState } from "react";
 import { gameGlobals, hexagon } from '../hexDefinitions';
 import { blackHexes, clickMessage, colorHexes } from '../hexFunctions';
@@ -7,7 +7,7 @@ import { hexOrientations, cube_ring, calcCenteredRectangle } from '../hexMath'
 import CanvasControl from '../forms/CanvasControl';
 import BoardControl from '../forms/BoardControl';
 import aspectRatio from '../rectMath';
-import { styles } from '../../helpersUniversal/tsStyles';
+import { styles } from '../../../helpersUniversal/tsStyles';
 import RosterDisplay from '../RosterDisplay';
 
 export default function TriviaBoard() {

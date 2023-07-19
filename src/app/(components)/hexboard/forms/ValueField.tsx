@@ -1,5 +1,5 @@
 import React from 'react';
-import { styles } from '../../helpersUniversal/tsStyles';
+import { styles } from '../../../helpersUniversal/tsStyles';
 import { tableData } from '../../db-table/field';
 
 export default function ValueField(props: {

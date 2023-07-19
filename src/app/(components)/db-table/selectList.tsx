@@ -1,4 +1,4 @@
-import { styles } from "../helpersUniversal/tsStyles";
+import { styles } from "../../helpersUniversal/tsStyles";
 
 type propsType = {
 	tableName: string, url: string, onSelect: (e: Event) => void

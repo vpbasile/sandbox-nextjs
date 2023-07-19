@@ -2,7 +2,7 @@
 import { Dispatch } from "react";
 import { coordinateXY } from "../hexDefinitions";
 import ValueField from "@/app/(components)/hexboard/forms/ValueField";
-import { styles } from "../../helpersUniversal/tsStyles";
+import { styles } from "../../../helpersUniversal/tsStyles";
 // import { useState } from 'react';
 
 type myProps = {

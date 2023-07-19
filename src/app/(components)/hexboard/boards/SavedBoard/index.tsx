@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import ErrorBoundary from "@/app/(components)/helpersUniversal/ErrorBoundary";
+import ErrorBoundary from "@/app/helpersUniversal/ErrorBoundary";
 import { canvasGlobals, gameGlobals } from "../../hexDefinitions";
 import GameBoard from "../../HexBoardSVG";
 import fileData from './data.json';

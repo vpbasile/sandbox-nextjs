@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
-import { styles } from './helpersUniversal/tsStyles';
-import Table, { empty, field } from './db-table/table';
+import { styles } from '../helpersUniversal/tsStyles';
+import Table, { empty, field } from '../(components)/db-table/table';
 
 // Define the card suits
 enum Suit {

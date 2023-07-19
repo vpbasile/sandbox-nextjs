@@ -1,10 +1,10 @@
 import Link from "next/link"
-import { styles } from "../../helpersUniversal/tsStyles"
+import { styles } from "../../../helpersUniversal/tsStyles"
 import Table, { empty, field, tableData } from "../../db-table/table"
 import { useState } from "react";
-import { eType } from "../../helpersUniversal/usefulTypes";
-import ErrorBoundary from "../../helpersUniversal/ErrorBoundary";
-import { commaList } from "../../helpersUniversal/commonHelpers";
+import { eType } from "../../../helpersUniversal/usefulTypes";
+import ErrorBoundary from "../../../helpersUniversal/ErrorBoundary";
+import { commaList } from "../../../helpersUniversal/commonHelpers";
 
 export default function DisplayNotes() {
 	// ---------------------------------------------

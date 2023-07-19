@@ -1,6 +1,6 @@
 // https://dev.to/sanity-io/how-to-use-svgs-in-react-3gof
 
-import ErrorBoundary from '@/app/(components)/helpersUniversal/ErrorBoundary';
+import ErrorBoundary from '@/app/helpersUniversal/ErrorBoundary';
 import Hexagon from './Hexagon';
 import { canvasGlobals, coordinateXY, gameGlobals, hexagon } from "./hexDefinitions";
 import { directionVectors, hex_to_pixel } from './hexMath';
