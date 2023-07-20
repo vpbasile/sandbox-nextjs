@@ -1,0 +1,262 @@
+[
+	{
+		"suit": "cups",
+		"rank": "ace",
+		"uid": "001"
+	},
+	{
+		"suit": "cups",
+		"rank": "two",
+		"uid": "002"
+	},
+	{
+		"suit": "cups",
+		"rank": "three",
+		"uid": "003"
+	},
+	{
+		"suit": "cups",
+		"rank": "four",
+		"uid": "004"
+	},
+	{
+		"suit": "cups",
+		"rank": "five",
+		"uid": "005"
+	},
+	{
+		"suit": "cups",
+		"rank": "six",
+		"uid": "006"
+	},
+	{
+		"suit": "cups",
+		"rank": "seven",
+		"uid": "007"
+	},
+	{
+		"suit": "cups",
+		"rank": "eight",
+		"uid": "008"
+	},
+	{
+		"suit": "cups",
+		"rank": "nine",
+		"uid": "009"
+	},
+	{
+		"suit": "cups",
+		"rank": "ten",
+		"uid": "010"
+	},
+	{
+		"suit": "cups",
+		"rank": "jack",
+		"uid": "011"
+	},
+	{
+		"suit": "cups",
+		"rank": "queen",
+		"uid": "012"
+	},
+	{
+		"suit": "cups",
+		"rank": "king",
+		"uid": "013"
+	},
+	{
+		"suit": "wands",
+		"rank": "ace",
+		"uid": "014"
+	},
+	{
+		"suit": "wands",
+		"rank": "two",
+		"uid": "015"
+	},
+	{
+		"suit": "wands",
+		"rank": "three",
+		"uid": "016"
+	},
+	{
+		"suit": "wands",
+		"rank": "four",
+		"uid": "017"
+	},
+	{
+		"suit": "wands",
+		"rank": "five",
+		"uid": "018"
+	},
+	{
+		"suit": "wands",
+		"rank": "six",
+		"uid": "019"
+	},
+	{
+		"suit": "wands",
+		"rank": "seven",
+		"uid": "020"
+	},
+	{
+		"suit": "wands",
+		"rank": "eight",
+		"uid": "021"
+	},
+	{
+		"suit": "wands",
+		"rank": "nine",
+		"uid": "022"
+	},
+	{
+		"suit": "wands",
+		"rank": "ten",
+		"uid": "023"
+	},
+	{
+		"suit": "wands",
+		"rank": "jack",
+		"uid": "024"
+	},
+	{
+		"suit": "wands",
+		"rank": "queen",
+		"uid": "025"
+	},
+	{
+		"suit": "wands",
+		"rank": "king",
+		"uid": "026"
+	},
+	{
+		"suit": "coins",
+		"rank": "ace",
+		"uid": "027"
+	},
+	{
+		"suit": "coins",
+		"rank": "two",
+		"uid": "028"
+	},
+	{
+		"suit": "coins",
+		"rank": "three",
+		"uid": "029"
+	},
+	{
+		"suit": "coins",
+		"rank": "four",
+		"uid": "030"
+	},
+	{
+		"suit": "coins",
+		"rank": "five",
+		"uid": "031"
+	},
+	{
+		"suit": "coins",
+		"rank": "six",
+		"uid": "032"
+	},
+	{
+		"suit": "coins",
+		"rank": "seven",
+		"uid": "033"
+	},
+	{
+		"suit": "coins",
+		"rank": "eight",
+		"uid": "034"
+	},
+	{
+		"suit": "coins",
+		"rank": "nine",
+		"uid": "035"
+	},
+	{
+		"suit": "coins",
+		"rank": "ten",
+		"uid": "036"
+	},
+	{
+		"suit": "coins",
+		"rank": "jack",
+		"uid": "037"
+	},
+	{
+		"suit": "coins",
+		"rank": "queen",
+		"uid": "038"
+	},
+	{
+		"suit": "coins",
+		"rank": "king",
+		"uid": "039"
+	},
+	{
+		"suit": "swords",
+		"rank": "ace",
+		"uid": "040"
+	},
+	{
+		"suit": "swords",
+		"rank": "two",
+		"uid": "041"
+	},
+	{
+		"suit": "swords",
+		"rank": "three",
+		"uid": "042"
+	},
+	{
+		"suit": "swords",
+		"rank": "four",
+		"uid": "043"
+	},
+	{
+		"suit": "swords",
+		"rank": "five",
+		"uid": "044"
+	},
+	{
+		"suit": "swords",
+		"rank": "six",
+		"uid": "045"
+	},
+	{
+		"suit": "swords",
+		"rank": "seven",
+		"uid": "046"
+	},
+	{
+		"suit": "swords",
+		"rank": "eight",
+		"uid": "047"
+	},
+	{
+		"suit": "swords",
+		"rank": "nine",
+		"uid": "048"
+	},
+	{
+		"suit": "swords",
+		"rank": "ten",
+		"uid": "049"
+	},
+	{
+		"suit": "swords",
+		"rank": "jack",
+		"uid": "050"
+	},
+	{
+		"suit": "swords",
+		"rank": "queen",
+		"uid": "051"
+	},
+	{
+		"suit": "swords",
+		"rank": "king",
+		"uid": "052"
+	}
+]

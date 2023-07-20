@@ -1,5 +1,5 @@
 import ErrorBoundary from "@/app/helpersUniversal/ErrorBoundary";
-import GameBoard from "../HexBoardSVG";
+import Hexboard from "../HexBoardSVG";
 import { useState } from "react";
 
 import { gameGlobals, hexagon, vector } from "../hexDefinitions";
@@ -116,7 +116,7 @@ export default function GenerativeBoard() {
 			</div>
 			<div id='generativeBoard' className={styles.gridDisplay}>
 				<ErrorBoundary>
-					<GameBoard
+					<Hexboard
 						hexRoster={hexRoster}
 						gameGlobals={gameGlobals}
 						canvasGlobals={canvasGlobals}

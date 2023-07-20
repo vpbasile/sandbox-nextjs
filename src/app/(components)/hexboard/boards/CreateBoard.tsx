@@ -1,5 +1,5 @@
 import ArraySelect from "@/app/(components)/hexboard/forms/ArraySelect";
-import GameBoard from "../HexBoardSVG";
+import Hexboard from "../HexBoardSVG";
 import { useState } from "react";
 import { gameGlobals, hexagon } from "../hexDefinitions";
 import SaveRosterButton from "@/app/(components)/hexboard/forms/saveRoster";
@@ -111,7 +111,7 @@ export default function CreateBoard() {
 				/>
 			</div>
 			<div id='createBoard' className={styles.gridContainer}>
-				<GameBoard
+				<Hexboard
 					hexRoster={hexRoster}
 					gameGlobals={gameGlobals}
 					canvasGlobals={canvasGlobals}

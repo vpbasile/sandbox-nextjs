@@ -10,7 +10,7 @@ import RosterDisplay from './RosterDisplay';
 //style
 import './hex.css';
 
-export interface gameBoardProps {
+export interface hexboardProps {
 	gameGlobals: gameGlobals;
 	canvasGlobals: canvasGlobals;
 	hexRoster: hexagon[];
@@ -19,7 +19,7 @@ export interface gameBoardProps {
 	displayRoster?: boolean
 }
 
-export default function GameBoard(props: gameBoardProps) {
+export default function Hexboard(props: hexboardProps) {
 	// Initialize variables
 	const gameGlobals = props.gameGlobals;
 	const hexRoster = props.hexRoster;
@@ -84,7 +84,7 @@ export default function GameBoard(props: gameBoardProps) {
 	const rectInfo = boundRect(range);
 
 	return (
-		<ErrorBoundary boundaryName={"GameBoard"}>
+		<ErrorBoundary boundaryName={"Hexboard"}>
 			{/* <> Parent SVG */}
 			<svg
 				className={cssClasses}

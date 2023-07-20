@@ -1,7 +1,7 @@
 import { hexagon, vector } from "./hexDefinitions"
 import { directionVectors, sCoordinate } from "./hexMath";
 
-export const centerHexagon: hexagon = { "q": 0, "r": 0, "cssClasses": "gameboard-center bg-gray" }
+export const centerHexagon: hexagon = { "q": 0, "r": 0, "cssClasses": "hexboard-center bg-gray" }
 
 export function randomMove(): vector { return directionVectors[Math.floor(6 * Math.random())] }
 export function alreadyThere(hexSearch: hexagon, roster: hexagon[]): boolean {

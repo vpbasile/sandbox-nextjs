@@ -1,4 +1,4 @@
-// Top-level App for selecting a specific Gameboard to display
+// Top-level App for selecting a specific Hexboard to display
 import { useState } from 'react';
 
 //style
@@ -7,7 +7,7 @@ import './color-dark.css';
 // <> Import components
 import ErrorBoundary from '@/app/helpersUniversal/ErrorBoundary';
 
-// <> Import GameBoards
+// <> Import Hexboards
 import TriviaBoard from './boards/TriviaBoard';
 import Keyboard from './boards/Keyboard';
 import Generative from './boards/Generative';
@@ -22,19 +22,18 @@ export default function HexBrowser() {
 		key: string;
 		title: string;
 		value: string;
-		GameBoard: JSX.Element;
-		Gameboard?: undefined;
+		Hexboard: JSX.Element;
 	})[] = [
-			{ key: 'trivia', title: 'Trivia Board', value: 'trivia', GameBoard: <TriviaBoard /> },
-			{ key: 'keyboard', title: 'Keyboard', value: 'keyboard', GameBoard: <Keyboard /> },
-			{ key: 'saved', title: 'Saved Map', value: 'saved', GameBoard: <SavedBoard /> },
-			{ key: 'snowflake', title: 'Snowflake Generator', value: 'snowflake', GameBoard: <Snowflake /> },
-			{ key: 'generative', title: 'Generative Map', value: 'generative', GameBoard: <Generative /> },
-			{ key: 'create', title: 'Create Board', value: 'create', GameBoard: <CreateBoard /> },
+			{ key: 'trivia', title: 'Trivia Board', value: 'trivia', Hexboard: <TriviaBoard /> },
+			{ key: 'keyboard', title: 'Keyboard', value: 'keyboard', Hexboard: <Keyboard /> },
+			{ key: 'saved', title: 'Saved Map', value: 'saved', Hexboard: <SavedBoard /> },
+			{ key: 'snowflake', title: 'Snowflake Generator', value: 'snowflake', Hexboard: <Snowflake /> },
+			{ key: 'generative', title: 'Generative Map', value: 'generative', Hexboard: <Generative /> },
+			{ key: 'create', title: 'Create Board', value: 'create', Hexboard: <CreateBoard /> },
 		]
-	const [chosenGameBoard, setGame] = useState(options[0])
+	const [chosenHexboard, setGame] = useState(options[0])
 
-	function pickGameBoard(pickedKey: string) {
+	function pickHexboard(pickedKey: string) {
 		const choice = options.find((thisOption) => { return (thisOption.key === pickedKey) })
 		if (choice) setGame(choice)
 	}
@@ -43,7 +42,7 @@ export default function HexBrowser() {
 	const navBar = options.map(option => {
 		let css = `bg-gray`
 		return (
-			<button key={buttonID++} onClick={() => pickGameBoard(option.key)}
+			<button key={buttonID++} onClick={() => pickHexboard(option.key)}
 				className={`btn m-2 ${css}`}> {option.title}</button >
 		)
 	})
@@ -55,11 +54,11 @@ export default function HexBrowser() {
 					<nav id="nav-bar" className='col-12'>{navBar}</nav>
 					<h1>Hexboard Maker</h1>
 				</div>
-				<h2 className="bg-gray border">{chosenGameBoard.title}</h2>
+				<h2 className="bg-gray border">{chosenHexboard.title}</h2>
 			</div>
 			<div className="row" id="page-content-row">
 				<ErrorBoundary>
-					{chosenGameBoard.GameBoard}
+					{chosenHexboard.Hexboard}
 				</ErrorBoundary>
 			</div>
 			<a href='https://www.redblobgames.com/grids/hexagons/'>Special thanks to Red Blob Games!</a>

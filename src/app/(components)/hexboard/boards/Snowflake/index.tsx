@@ -7,7 +7,7 @@ import { centerHexagon, reflectAcrossAxis } from '../../hexFunctions';
 import { gameGlobals, hexagon } from '../../hexDefinitions';
 
 import ErrorBoundary from '@/app/helpersUniversal/ErrorBoundary';
-import GameBoard from '../../HexBoardSVG';
+import Hexboard from '../../HexBoardSVG';
 // import BoardControl from '../../forms/BoardControl';
 // import CanvasControl from '../../forms/CanvasControl';
 
@@ -70,7 +70,7 @@ export default function Snowflake() {
 		<div className="row" id="snowflakeBoardContainer">
 			<div id='displayBoard' className="col-md-10">
 				<ErrorBoundary>
-					<GameBoard
+					<Hexboard
 						gameGlobals={gameGlobals}
 						canvasGlobals={canvasGlobals}
 						hexRoster={hexRoster}

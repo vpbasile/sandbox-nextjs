@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import ErrorBoundary from "@/app/helpersUniversal/ErrorBoundary";
 import { canvasGlobals, gameGlobals } from "../../hexDefinitions";
-import GameBoard from "../../HexBoardSVG";
+import Hexboard from "../../HexBoardSVG";
 import fileData from './data.json';
 import { hexOrientations } from '../../hexMath';
 import CanvasControl from '../../forms/CanvasControl';
@@ -47,7 +47,7 @@ export default function SavedBoard() {
 		<div className="row" id="savedBoardContainer">
 			<div id='displayBoard' className="col-md-10">
 				<ErrorBoundary>
-					<GameBoard
+					<Hexboard
 						hexRoster={hexRoster}
 						gameGlobals={gameGlobals}
 						canvasGlobals={canvasGlobals}

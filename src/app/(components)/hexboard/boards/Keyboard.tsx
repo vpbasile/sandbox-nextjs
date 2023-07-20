@@ -1,5 +1,5 @@
 import ErrorBoundary from '@/app/helpersUniversal/ErrorBoundary';
-import GameBoard from '../HexBoardSVG';
+import Hexboard from '../HexBoardSVG';
 import { useState } from "react";
 import { gameGlobals, hexagon } from '../hexDefinitions';
 import { hexOrientations } from '../hexMath';
@@ -48,7 +48,7 @@ export default function Keyboard() {
 		return hex;
 	})
 
-	// <> Gameboard Parameters
+	// <> Hexboard Parameters
 	const gameGlobals: gameGlobals = {
 		orientation: orientation,
 		hexRadius: hexRadius,
@@ -86,7 +86,7 @@ export default function Keyboard() {
 				</div>
 				<div id="displayBoardContainer" className={styles.gridDisplay}>
 					<div id='displayBoard' className="col-md-10">
-						<GameBoard
+						<Hexboard
 							hexRoster={keyboardHexes}
 							gameGlobals={gameGlobals}
 							canvasGlobals={canvasGlobals}

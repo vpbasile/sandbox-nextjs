@@ -1,7 +1,6 @@
 "use client"
 import { useState } from 'react';
 import Link from 'next/link'
-import CardDeck from './(games)/cardDeck';
 import { styles } from './helpersUniversal/tsStyles';
 import Section from './helpersUniversal/section';
 
@@ -9,13 +8,15 @@ import Section from './helpersUniversal/section';
 import DisplayPeople from './(components)/data/people/display-people';
 
 // <>DATA<>notes
+import DisplayNotes from './(components)/data/notes/display-notes';
+
 import Snowflake from './(components)/hexboard/boards/Snowflake';
 import Keyboard from './(components)/hexboard/boards/Keyboard';
-import TriviaBoard from './(components)/hexboard/boards/TriviaBoard';
+// import TriviaBoard from './(components)/hexboard/boards/TriviaBoard';
 import GenerativeBoard from './(components)/hexboard/boards/Generative';
 // import SavedBoard from './(components)/hexboard/boards/SavedBoard';
 // import CreateBoard from './(components)/hexboard/boards/CreateBoard';
-import DisplayNotes from './(components)/data/notes/display-notes';
+import Gameboard from './(games)/gameboard';
 
 export default function Home() {
 
@@ -25,7 +26,7 @@ export default function Home() {
   // <> Define modeules
   let modules: { uid: number, id: string; contents: JSX.Element; headerText: string, type?: "notDB" | null }[] = []
   let makeUID = 0
-  modules.push({ uid: makeUID++, id: "cardeck", headerText: "CarDeck Simulator", contents: <CardDeck />, type: "notDB"  });
+  modules.push({ uid: makeUID++, id: "cardeck", headerText: "CarDeck Simulator", contents: <Gameboard />, type: "notDB"  });
   modules.push({ uid: makeUID++, id: "notesDisplay", headerText: "Notes Database", contents: <DisplayNotes /> });
   modules.push({ uid: makeUID++, headerText: 'People Database', id: 'peopleDisplay', contents: <DisplayPeople /> });
   // modules.push({ uid: makeUID++, id: "trivia", headerText: "Trivia board", contents: <TriviaBoard />, type: "notDB" });

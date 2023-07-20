@@ -1,4 +1,4 @@
-import GameBoard from '../HexBoardSVG';
+import Hexboard from '../HexBoardSVG';
 import ErrorBoundary from '@/app/helpersUniversal/ErrorBoundary';
 import { useState } from "react";
 import { gameGlobals, hexagon } from '../hexDefinitions';
@@ -26,7 +26,7 @@ export default function TriviaBoard() {
 
   // <><><> Step 1: Create the hex roster
   // Create a center hexagon
-  const centerHexagon = { "key": 0, "q": 0, "r": 0, "cssClasses": "gameboard-center bg-gray" }
+  const centerHexagon = { "key": 0, "q": 0, "r": 0, "cssClasses": "Hexboard-center bg-gray" }
   let hexRoster: hexagon[] = [centerHexagon]
 
   // First ring
@@ -90,7 +90,7 @@ export default function TriviaBoard() {
       </div>
       <div id='displayBoard' className={styles.gridDisplay}>
         <ErrorBoundary>
-          <GameBoard
+          <Hexboard
             gameGlobals={gameGlobals}
             canvasGlobals={canvasGlobals}
             hexRoster={hexRoster}
