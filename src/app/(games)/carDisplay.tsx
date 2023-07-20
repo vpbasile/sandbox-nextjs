@@ -1,60 +1,8 @@
 "use client"
-import { useState } from 'react';
 import { styles } from '../helpersUniversal/tsStyles';
 import Table, { empty, field } from '../(components)/db-table/table';
 
-// Define the card suits
-enum Suit {
-	Cups = 'Cups',
-	Coins = 'Coins',
-	Wands = 'Wands',
-	Swords = 'Swords',
-}
-
-// Define the card ranks
-enum Rank {
-	Ace = 'Ace',
-	Two = 'Two',
-	Three = 'Three',
-	Four = 'Four',
-	Five = 'Five',
-	Six = 'Six',
-	Seven = 'Seven',
-	Eight = 'Eight',
-	Nine = 'Nine',
-	Ten = 'Ten',
-	Jack = 'Jack',
-	Queen = 'Queen',
-	King = 'King',
-}
-
-// Define a type for a card
-interface Card {
-	suit: Suit;
-	rank: Rank;
-}
-
-// Create a deck of cards
-const createDeck = (): Card[] => {
-	const suits = Object.values(Suit);
-	const ranks = Object.values(Rank);
-
-	const deck: Card[] = [];
-
-	for (const suit of suits) {
-		for (const rank of ranks) {
-			deck.push({ suit, rank });
-		}
-	}
-
-	return deck;
-};
-
-const CardDeck: React.FC = () => {
-	const [deck, setDeck] = useState<Card[]>(createDeck());
-	const [topCard, setTopCard] = useState<Card | null>(null);
-	const [displayList, setDisplayList] = useState<string[][] | null>(null);
-	const [showDeck, SETshowDeck] = useState(true);
+export default function CardDisplay() {
 
 	const shuffleDeck = () => {
 		setTopCard(null);
@@ -65,7 +13,7 @@ const CardDeck: React.FC = () => {
 		}
 		// <> Before we update the state, build a table for displaying the cards
 		// <> DATA <> Translation function
-		const displayListTemp = shuffledDeck.map((eachCard) => { return [`${eachCard.rank}`,`${eachCard.suit}`]; });
+		const displayListTemp = shuffledDeck.map((eachCard) => { return [`${eachCard.rank}`, `${eachCard.suit}`]; });
 		setDisplayList(displayListTemp);
 		// <>
 		setDeck(shuffledDeck);
@@ -117,11 +65,9 @@ const CardDeck: React.FC = () => {
 			</div>
 			<div className={styles.gridDisplay}>
 				{/* editable={false} */}
-				{showDeck && displayList && <Table dataContents={displayList} fields={fields} newRowF={empty}/>}
+				{showDeck && displayList && <Table dataContents={displayList} fields={fields} newRowF={empty} />}
 			</div>
 		</div>
 	);
-};
-
-export default CardDeck;
+}
 
