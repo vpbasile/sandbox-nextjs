@@ -90,9 +90,9 @@ export default function Table(props: propsTable) {
 
 	// <> Matching buttons
 	function buttonCell(text: string, callbackF: () => void, key: number | string, type?: string) {
-		return <td><button className={styles.button} value={text} onClick={callbackF}>{text}</button></td>
+		return <td key={key}><button className={styles.button} value={text} onClick={callbackF}>{text}</button></td>
 	}
-	function submitCell() { return <td><button className={styles.button} type="submit" onClick={() => { selectForEdit(null) }}>Submit</button></td> }
+	function submitCell(key: string | number) { return <td key={key}><button className={styles.button} type="submit" onClick={() => { selectForEdit(null) }}>Submit</button></td> }
 	function editButton(rowID: number) { return (buttonCell("Edit", () => selectForEdit(rowID), "edit")) }
 
 	// <> Table rows
@@ -132,10 +132,10 @@ export default function Table(props: propsTable) {
 		if (!disabled) cssClasses += " border border-white";
 		return (<tr key={indexRow} className={cssClasses}>
 			{fields.map((thisField, index) => {
-				if (thisField.type === "uid") return <td>UID</td>
+				if (thisField.type === "uid") return <td key={fieldCount++}>UID</td>
 				return cellInput(`cell-${fieldCount++}`, newRow[index], thisField.type, thisField.matchID, thisField.changeFunction, thisField.labelText);
 			})}
-			{submitCell()}
+			{submitCell(fieldCount)}
 		</tr>)
 	}
 
