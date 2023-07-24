@@ -6,7 +6,7 @@ import { styles } from "../../helpersUniversal/tsStyles";
 export type list = number;
 export type listMulti = number;
 export type tableData = undefined | string | number | boolean | list | listMulti;
-export type fieldType = "string" | "number" | "boolean" | "list" | "list-multi"
+export type fieldType = "string" | "number" | "boolean" | "list" | "list-multi" | "uid"
 export type field = {
 	matchID: string;
 	labelText: string;
@@ -15,7 +15,6 @@ export type field = {
 	changeFunction: ((arg0: any) => void);
 	listTable?: string;
 	// url?: URL;
-	automatic: boolean;
 };
 type inputFieldType = string | number | readonly string[] | undefined;
 
@@ -78,7 +77,7 @@ export default function Table(props: propsTable) {
 			</td>;
 			case 'list': return <td className={styles.roomy} key={indexCell}> {contentsCell} </td>;
 			case 'list-multi': return <td className={styles.roomy} key={indexCell}> {contentsCell} </td>;
-			default: console.log(`Field type not implemented: ${typeCell}`); return <td></td>
+			default: console.log(`Field type not implemented: ${typeCell}`); return <td key={indexCell}></td>
 		}
 
 	}
@@ -90,11 +89,11 @@ export default function Table(props: propsTable) {
 	}
 
 	// <> Matching buttons
-	function buttonCell(text: string, callbackF: () => void, type?: string) {
+	function buttonCell(text: string, callbackF: () => void, key: number | string, type?: string) {
 		return <td><button className={styles.button} value={text} onClick={callbackF}>{text}</button></td>
 	}
 	function submitCell() { return <td><button className={styles.button} type="submit" onClick={() => { selectForEdit(null) }}>Submit</button></td> }
-	function editButton(rowID: number) { return (buttonCell("Edit", () => selectForEdit(rowID))) }
+	function editButton(rowID: number) { return (buttonCell("Edit", () => selectForEdit(rowID), "edit")) }
 
 	// <> Table rows
 	function tableHeader(headers: string[]) {
@@ -132,16 +131,19 @@ export default function Table(props: propsTable) {
 		let fieldCount = 0;
 		if (!disabled) cssClasses += " border border-white";
 		return (<tr key={indexRow} className={cssClasses}>
-			{fields.map((thisField, index) => cellInput(`cell-${fieldCount++}`, newRow[index], thisField.type, thisField.matchID, thisField.changeFunction, thisField.labelText))}
+			{fields.map((thisField, index) => {
+				if (thisField.type === "uid") return <td>UID</td>
+				return cellInput(`cell-${fieldCount++}`, newRow[index], thisField.type, thisField.matchID, thisField.changeFunction, thisField.labelText);
+			})}
 			{submitCell()}
 		</tr>)
 	}
 
 	function createRow(indexRow: number, fields: field[], cssClasses?: string) {
 		let indexCell = 0;
-		return (<tr key={indexRow} className={cssClasses}>
+		return (<tr key="createRow" className={cssClasses}>
 			{fields.map((thisField, index) => <td key={`row${indexRow}-col${indexCell++}`}></td>)}
-			{buttonCell("Create",()=>selectForEdit(0))}
+			{buttonCell("New", () => selectForEdit(0), indexCell++)}
 		</tr>)
 	}
 
@@ -161,7 +163,7 @@ export default function Table(props: propsTable) {
 					if (numIndex % 2 === 0) { cssClasses += "bg-slate-900" }  // Make this tranlucent
 					return displayRow(numIndex, contentsRow, (numIndex === isEditing), fields, cssClasses);
 				})}
-				{(isEditing === null && editable) && createRow(0,fields)}
+				{(isEditing === null && editable) && createRow(0, fields)}
 				{(isEditing === 0 && editable) && editRow(indexRow, fields)}
 			</tbody>
 		</table>

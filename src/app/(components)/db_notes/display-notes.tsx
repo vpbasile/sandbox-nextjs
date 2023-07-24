@@ -1,10 +1,32 @@
 import Link from "next/link"
-import { styles } from "../../../helpersUniversal/tsStyles"
-import Table, { empty, field, tableData } from "../../db-table/table"
+import { styles } from "../../helpersUniversal/tsStyles"
+import Table, { empty, field, tableData } from "../db-table/table"
 import { useState } from "react";
-import { eType } from "../../../helpersUniversal/usefulTypes";
-import ErrorBoundary from "../../../helpersUniversal/ErrorBoundary";
-import { commaList } from "../../../helpersUniversal/commonHelpers";
+import { eType } from "../../helpersUniversal/usefulTypes";
+import ErrorBoundary from "../../helpersUniversal/ErrorBoundary";
+import { commaList } from "../../helpersUniversal/commonHelpers";
+
+async function createtask(values: { title: string; }) {
+	try {
+		const response = await fetch('/api/posts', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ values }),
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to create posts.');
+		}
+
+		const data = await response.json();
+		console.log(data.message); // Values inserted successfully.
+	} catch (error: any) {
+		console.error(error.message);
+	}
+}
+
 
 export default function DisplayNotes() {
 	// ---------------------------------------------
@@ -42,11 +64,11 @@ export default function DisplayNotes() {
 	const [idTemp, SETidTemp] = useState(99); // This should be set by nextID
 	const [titleTemp, SETtitleTemp] = useState("New task")
 	const fieldsForTasks: field[] = [
-		{ matchID: "uid", labelText: "UID", type: "number", defaultValue: idTemp, changeFunction: (e: eType) => SETidTemp(+(e.target.value)), automatic: true },
-		{ matchID: "title", labelText: "Title", type: "string", defaultValue: titleTemp, changeFunction: (e: eType) => SETtitleTemp(e.target.value), automatic: false },
-		{ matchID: "complete", labelText: "Complete", type: "boolean", defaultValue: false, changeFunction: empty, automatic: false }
+		{ matchID: "uid", labelText: "UID", type: "uid", defaultValue: idTemp, changeFunction: (e: eType) => SETidTemp(+(e.target.value)) },
+		{ matchID: "title", labelText: "Title", type: "string", defaultValue: titleTemp, changeFunction: (e: eType) => SETtitleTemp(e.target.value) },
+		{ matchID: "complete", labelText: "Complete", type: "boolean", defaultValue: false, changeFunction: empty }
 	]
-	const fieldsForCreation = fieldsForTasks.filter(field => !field.automatic).map(eachField => eachField.matchID);
+	const fieldsForCreation = fieldsForTasks.filter(field => !(field.type === "uid")).map(eachField => eachField.matchID);
 
 	// ---------------------------------------------
 	// <> Finding and diplaying the data

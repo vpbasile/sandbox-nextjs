@@ -1,7 +1,7 @@
-import { styles } from "../../../helpersUniversal/tsStyles"
+import { styles } from "../../helpersUniversal/tsStyles"
 import { useState } from "react"
-import Table, { field, list, listMulti, tableData } from "../../db-table/table"
-import { eType } from "../../../helpersUniversal/usefulTypes"
+import Table, { field, list, listMulti, tableData } from "../db-table/table"
+import { eType } from "../../helpersUniversal/usefulTypes"
 
 
 export default function DisplayPeople() {
@@ -45,11 +45,11 @@ export default function DisplayPeople() {
 	const [birthdateTemp, SETbirthdateTemp] = useState("1990-01-01")
 	// Define the fields
 	const fieldsForPeople: field[] = [
-		{ matchID: "uid", labelText: "UID", type: "string", defaultValue: idTemp, changeFunction: (e: eType): void => { SETidTemp(+(e.target.value)) }, automatic: false },
-		{ matchID: "name", labelText: "Name", type: "string", defaultValue: nameTemp, changeFunction: (e: eType) => { SETnameTemp(e.target.value) }, automatic: false },
-		{ matchID: "birthdate", labelText: "DOB", type: "string", defaultValue: birthdateTemp, changeFunction: (e: eType) => { SETbirthdateTemp(e.target.value) }, automatic: false },
-		{ matchID: "contactMethod", labelText: "Preferred Contact Method", type: "list", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), listTable: "methods", automatic: false },
-		{ matchID: "groups", labelText: "Groups", type: "list-multi", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), automatic: false }
+		{ matchID: "uid", labelText: "UID", type: "uid", defaultValue: idTemp, changeFunction: (e: eType): void => { SETidTemp(+(e.target.value)) }},
+		{ matchID: "name", labelText: "Name", type: "string", defaultValue: nameTemp, changeFunction: (e: eType) => { SETnameTemp(e.target.value) }},
+		{ matchID: "birthdate", labelText: "DOB", type: "string", defaultValue: birthdateTemp, changeFunction: (e: eType) => { SETbirthdateTemp(e.target.value) }},
+		{ matchID: "contactMethod", labelText: "Preferred Contact Method", type: "list", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value), listTable: "methods"},
+		{ matchID: "groups", labelText: "Groups", type: "list-multi", defaultValue: 1, changeFunction: (e: eType): void => console.log(e.target.value)}
 	]
 
 	// ---------------------------------------------

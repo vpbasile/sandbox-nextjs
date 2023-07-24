@@ -47,8 +47,14 @@ const databaseList: dbProfile[] = [
 const HTTP_PORT = 8000
 const baseURL = `http://localhost:${HTTP_PORT}/`
 
-const startTime = new Date();
-const startTimeDisplay = startTime.getHours() + ":" + startTime.getMinutes() + ":" + startTime.getSeconds();
+function timestamp() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+  return hours + ":" + minutes + ":" + seconds;
+}
+const startTimeDisplay = timestamp();
 
 app.listen(HTTP_PORT, () => {
   console.log(`Start time: ${startTimeDisplay}`)
@@ -58,7 +64,6 @@ app.listen(HTTP_PORT, () => {
 
 // Default GET
 const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
-
   // <> Select a database
   const selectedDB = databaseList[0];
 
@@ -71,6 +76,7 @@ const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
       console.log(`Database ${selectedDB.name} found at ` + dbPath)
     }
   });
+
 
   const tableName = 'people'
   db.all("SELECT * FROM " + tableName, [], (err: errType, rows: rowType) => {
@@ -127,23 +133,24 @@ function structureResponse(rows: rowType, tableName: string): dbResponse {
 }
 
 // POST
-app.post("/notes/tasks/new/:query", (req: reqType, res: resType, next: any) => {
-  const queryString = req.params.query;
-  console.log("Running db query: " + queryString);
-  const db = new sqlite3.Database('./notes.db', (err: errType) => {
+app.post("/notes/tasks/stamp/", (req: reqType, res: resType, next: any) => {
+  const now = timestamp();
+  console.log("Route reached at " + now);
+  // <> Select a database
+  const selectedDB = databaseList[1];
+  // <> Connect to the Database
+  const dbPath = selectedDB.path;
+  const db = new sqlite3.Database(dbPath, (err: errType) => {
     if (err) {
-      console.error(`Error opening database Notes: ` + err.message);
+      console.error(`Error opening database ${selectedDB.name}: ` + err.message);
     } else {
-      console.log(`Database Notes} found at ./notes.db`)
-      db.all(queryString, [], (err: errType, rows: rowType) => {
-        if (err) {
-          res.status(400).json({ "error": err.message });
-          return;
-        } else {
-          res.status(200).json(structureResponse(rows, "tasks"));
-          return;
-        }
-      })
+      console.log(`Database ${selectedDB.name} found at ` + dbPath)
+      const queryString = `INSERT INTO tasks (title, complete) VALUES ("Task created at ${now}", false)`;
+      // -- Insert data into the "tasks" table
+      db.all(queryString)
+      // Now respond
+      res.status(200).json(structureResponse([queryString], "tasks"));
+      return;
     }
-  })
-});
+  });
+})
