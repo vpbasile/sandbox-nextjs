@@ -16,24 +16,28 @@ type dbResponse = { error: any } | {
 };
 type reqType = {
   params: any,
-  body?: { id: any; token: any; geo: any; };
+  body?: fixme;
+  method: fixme;
+  headers: fixme;
 };
+
+type fixme = any;
+
 type resType = {
   status: (arg0: number) => {
-    (): any;
-    new(): any;
-    json: {
-      (arg0: dbResponse): void;
-      new(): any;
-    };
+    (): fixme;
+    new(): fixme;
+    json: fixme;
+    end?: fixme
   };
-  send: any;
+  send: fixme;
 };
 
 // <> Initialize the app
 var app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // Add this line to parse JSON request bodies
 
 // <> Define the databases
 type dbProfile = { name: string, path: string }
@@ -54,10 +58,10 @@ function timestamp() {
   const seconds = now.getSeconds().toString().padStart(2, "0");
   return hours + ":" + minutes + ":" + seconds;
 }
-const startTimeDisplay = timestamp();
+const serverStartTime = timestamp();
 
 app.listen(HTTP_PORT, () => {
-  console.log(`Start time: ${startTimeDisplay}`)
+  console.log(`Start time: ${serverStartTime}`)
   console.log("Server is listening on port " + HTTP_PORT);
   console.log(baseURL)
 });
@@ -124,7 +128,7 @@ app.get("/:dbName/:tableName", (req: reqType, res: resType, next: any) => {
 
 function structureResponse(rows: rowType, tableName: string): dbResponse {
   return {
-    serverUpSince: startTimeDisplay,
+    serverUpSince: serverStartTime,
     baseURL: 'http://localhost:8000/',
     tableName: tableName,
     rowsReturned: rows.length,
@@ -134,23 +138,53 @@ function structureResponse(rows: rowType, tableName: string): dbResponse {
 
 // POST
 app.post("/notes/tasks/stamp/", (req: reqType, res: resType, next: any) => {
-  const now = timestamp();
-  console.log("Route reached at " + now);
-  // <> Select a database
-  const selectedDB = databaseList[1];
-  // <> Connect to the Database
-  const dbPath = selectedDB.path;
-  const db = new sqlite3.Database(dbPath, (err: errType) => {
-    if (err) {
-      console.error(`Error opening database ${selectedDB.name}: ` + err.message);
-    } else {
-      console.log(`Database ${selectedDB.name} found at ` + dbPath)
-      const queryString = `INSERT INTO tasks (title, complete) VALUES ("Task created at ${now}", false)`;
-      // -- Insert data into the "tasks" table
-      db.all(queryString)
-      // Now respond
-      res.status(200).json(structureResponse([queryString], "tasks"));
-      return;
+  console.log(`Server request received:`, req.body)
+  try {
+    const now = timestamp();
+    console.log("Route reached at " + now);
+    // If it's not a POST, disallow it.
+    if (req.method !== 'POST') {
+      return res.status(405).end(); // Method not allowed
     }
-  });
+    let { taskTitle } = req.body;
+    console.log(`Server attempting to create task titled ${taskTitle}.`)
+    // <> Select a database
+    const selectedDB = databaseList[1];
+    // <> Connect to the Database
+    const dbPath = selectedDB.path;
+    const db = new sqlite3.Database(dbPath, (err: errType) => {
+      if (err) {
+        console.error(`Error opening database ${selectedDB.name}: ` + err.message);
+      } else {
+        // Now that the db connection is open, insert the data
+        console.log(`Database ${selectedDB.name} found at ` + dbPath)
+        // Insert data into the "tasks" table
+        // if (taskTitle === undefined) {
+        //   console.log("Task title was undefined.  Spoofing data");
+        //   taskTitle = 'Spoof task ' + timestamp();
+        // }
+
+        const queryString = 'INSERT INTO tasks (title, complete) VALUES (?, ?)';
+        console.log(`Prepared query string: ${queryString}`)
+        const params = [taskTitle, false];
+
+        db.run(queryString, params, function (err: errType) {
+          if (err) {
+            console.error(`Error inserting task: ${err.message}`);
+            res.status(500).json({ error: 'Failed to create task.' });
+          } else {
+            console.log(`New task inserted with title: ${taskTitle}`);
+            // Now respond
+            res.status(200).json({ message: 'Task created successfully.' });
+          }
+        });
+        // Now respond
+        // res.status(200).json(structureResponse([queryString], "tasks"));
+        return;
+      }
+    });
+  } catch (error) {
+    console.error("Error encountered:", error);
+    return res.status(500).json({ error: 'Something went wrong.' });
+  }
 })

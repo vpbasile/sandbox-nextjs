@@ -23,7 +23,7 @@ type propsTable = {
 	dataContents: tableData[][];
 	fields: field[];
 	editable?: boolean;
-	newRowF: (recordInfo: any) => void;
+	newRowF: (arg0: any) => void;
 	// Pass down class
 	cssClasses?: string;
 }
@@ -92,7 +92,12 @@ export default function Table(props: propsTable) {
 	function buttonCell(text: string, callbackF: () => void, key: number | string, type?: string) {
 		return <td key={key}><button className={styles.button} value={text} onClick={callbackF}>{text}</button></td>
 	}
-	function submitCell(key: string | number) { return <td key={key}><button className={styles.button} type="submit" onClick={() => { selectForEdit(null) }}>Submit</button></td> }
+	function submitCell(key: string | number) {
+		return <td key={key}><button className={styles.button} type="submit" onClick={() => {
+			props.newRowF(null)
+			selectForEdit(null)
+		}}>Submit</button></td>
+	}
 	function editButton(rowID: number) { return (buttonCell("Edit", () => selectForEdit(rowID), "edit")) }
 
 	// <> Table rows

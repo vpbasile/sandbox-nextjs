@@ -4,28 +4,27 @@ import Table, { empty, field, tableData } from "../db-table/table"
 import { useState } from "react";
 import { eType } from "../../helpersUniversal/usefulTypes";
 import ErrorBoundary from "../../helpersUniversal/ErrorBoundary";
-import { commaList } from "../../helpersUniversal/commonHelpers";
 
-async function createtask(values: { title: string; }) {
-	try {
-		const response = await fetch('/api/posts', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ values }),
-		});
+// async function createtask(values: { title: string; }) {
+// 	try {
+// 		const response = await fetch('/api/posts', {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 			},
+// 			body: JSON.stringify(values),
+// 		});
 
-		if (!response.ok) {
-			throw new Error('Failed to create posts.');
-		}
+// 		if (!response.ok) {
+// 			throw new Error('Failed to create posts.');
+// 		}
 
-		const data = await response.json();
-		console.log(data.message); // Values inserted successfully.
-	} catch (error: any) {
-		console.error(error.message);
-	}
-}
+// 		const data = await response.json();
+// 		console.log(data.message); // Values inserted successfully.
+// 	} catch (error: any) {
+// 		console.error(error.message);
+// 	}
+// }
 
 
 export default function DisplayNotes() {
@@ -62,13 +61,13 @@ export default function DisplayNotes() {
 	//  ---------------------------------------------------------------------------------------------------------------------
 	// <> States used for creating a new record
 	const [idTemp, SETidTemp] = useState(99); // This should be set by nextID
-	const [titleTemp, SETtitleTemp] = useState("New task")
+	const [titleTemp, SETtitleTemp] = useState("Title of the new task")
 	const fieldsForTasks: field[] = [
 		{ matchID: "uid", labelText: "UID", type: "uid", defaultValue: idTemp, changeFunction: (e: eType) => SETidTemp(+(e.target.value)) },
 		{ matchID: "title", labelText: "Title", type: "string", defaultValue: titleTemp, changeFunction: (e: eType) => SETtitleTemp(e.target.value) },
 		{ matchID: "complete", labelText: "Complete", type: "boolean", defaultValue: false, changeFunction: empty }
 	]
-	const fieldsForCreation = fieldsForTasks.filter(field => !(field.type === "uid")).map(eachField => eachField.matchID);
+	// const fieldsForCreation = fieldsForTasks.filter(field => !(field.type === "uid")).map(eachField => eachField.matchID);
 
 	// ---------------------------------------------
 	// <> Finding and diplaying the data
@@ -87,17 +86,43 @@ export default function DisplayNotes() {
 			// console.log(data.dbResponse);
 			return data.dbResponse;
 		}
-		else return ([{ uid: 99, title: "Spoof task", complete: true }]);
+		else return ([{ uid: 99, title: "Spoof task zzz", complete: true }]);
 	}
 
 	// ---------------------------------------------
-	// <> Create 
+	// <> Create new task
 	// ---------------------------------------------
-	function createTask(recordInfo: task) {
-		// <> FIX <> I should build the list of fields from the fieldsForObject array, but that's a task for another day. 
+	async function createTask(taskTitle: string) {
+		console.log(`Attempting to create task ${taskTitle}`)
+		try {
+			const response = await fetch('http://localhost:8000/notes/tasks/stamp/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ taskTitle }),
+			});
+			console.log(`Rsponse from server ${JSON.stringify(response)}`)
 
-		const queryString = (fieldsForCreation: string[], recordInfo: task) => `INSERT INTO tasks (${commaList(fieldsForCreation)}) VALUES ('${recordInfo.title}', ${recordInfo.complete})`
+			if (!response.ok) {
+				throw new Error('Failed to create task.');
+			}
+
+			const data = await response.json();
+			console.log("Another debug")
+			console.log(data.message); // Values inserted successfully.
+		} catch (error: any) {
+			console.log("Error encountered.")
+			console.error(error.message);
+		}
+		// Now that the tasks have been updated, re-query the database
+		queryDB(dbURL);
 	}
+	// Make a wrapper so that we can pass the function more easily
+	function createWrapper() { createTask(titleTemp); }
+	// ---------------------------------------------
+	// <> Main loop
+	// ---------------------------------------------
 	// Query the Databse
 	if (dataState === spoofData) { queryDB(dbURL); }
 	// ---------------------------------------------
@@ -105,7 +130,7 @@ export default function DisplayNotes() {
 	// ---------------------------------------------
 	return (
 		<ErrorBoundary>
-			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} editable={true} newRowF={createTask} />
+			<Table dataContents={tasksToTable(dataState)} fields={fieldsForTasks} editable={true} newRowF={createWrapper} />
 			<div className={styles.bubble + styles.spacious}>{<ul className={`list-disc ${styles.spacious}`}>
 				Background:
 				<li><Link className={styles.link} href="https://expressjs.com/en/guide/routing.html#response-methods">Reference on the Response methods</Link></li>
