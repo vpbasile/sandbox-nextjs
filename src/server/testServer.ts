@@ -44,7 +44,8 @@ type dbProfile = { name: string, path: string }
 const databaseList: dbProfile[] = [
   // These paths will end up finding the database in the application root directory.  Later, I'd like to store it in the sever directory, but for now that'a not important
   { name: 'people', path: './people.db' },
-  { name: 'notes', path: './notes.db' }
+  { name: 'notes', path: './notes.db' },
+  { name: 'triviaQuestions', path: './trivia.db' }
 ]
 
 // <> Listen on port 8000 and log the url to the console.
@@ -65,6 +66,17 @@ app.listen(HTTP_PORT, () => {
   console.log("Server is listening on port " + HTTP_PORT);
   console.log(baseURL)
 });
+
+// <> Utility functions
+function structureResponse(rows: rowType, tableName: string): dbResponse {
+  return {
+    serverUpSince: serverStartTime,
+    baseURL: 'http://localhost:8000/',
+    tableName: tableName,
+    rowsReturned: rows.length,
+    dbResponse: rows
+  };
+}
 
 // Default GET
 const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
@@ -126,17 +138,48 @@ app.get("/:dbName/:tableName", (req: reqType, res: resType, next: any) => {
 
 })
 
-function structureResponse(rows: rowType, tableName: string): dbResponse {
-  return {
-    serverUpSince: serverStartTime,
-    baseURL: 'http://localhost:8000/',
-    tableName: tableName,
-    rowsReturned: rows.length,
-    dbResponse: rows
-  };
-}
-
 // POST
+
+app.post("/trivia/save/:content", (req: reqType, res: resType) => {
+  try {
+    const now = timestamp();
+    console.log("Route reached at " + now);
+    // If it's not a POST, disallow it.
+    if (req.method !== 'POST') return res.status(405).end(); // Method not allowed
+    // Ok, now let's do the stuff
+    const selectedDB = databaseList[2];
+    const question = req.body;
+    console.log(`Received a`, question.categoryTag, `question from the client.`);
+    // Stick the JSON string into a database
+    const queryString = 'INSERT INTO questions (questionText, choices, correctIndex, categoryTag) VALUES (?, ?, ?, ?)';
+    console.log(`Prepared query string: ${queryString}`)
+    const categoryTag = question.categoryTag;
+    const params = [question.questionText, JSON.stringify(question.choices), question.correctIndex, categoryTag];
+    // <> Connect to the Database
+    const dbPath = selectedDB.path;
+    const db = new sqlite3.Database(dbPath, (err: errType) => {
+      if (err) {
+        console.error(`Error opening database ${selectedDB.name}: ` + err.message);
+      } else {
+        db.run(queryString, params, function (err: errType) {
+          if (err) {
+            console.error(`Error saving question: ${err.message}`);
+            res.status(500).json({ error: 'Failed to save question.' });
+          } else {
+            console.log(`Question saved. Category: ${categoryTag}`);
+            // Now respond
+            res.status(200).json({ message: 'Question saved successfully.' });
+          }
+        });
+      }
+    })
+  }
+  catch (error) {
+    console.error("Error encountered:", error);
+    return res.status(500).json({ error: 'Something went wrong.' });
+  }
+})
+
 app.post("/notes/tasks/stamp/", (req: reqType, res: resType, next: any) => {
   console.log(`Server request received:`, req.body)
   try {
@@ -158,12 +201,6 @@ app.post("/notes/tasks/stamp/", (req: reqType, res: resType, next: any) => {
       } else {
         // Now that the db connection is open, insert the data
         console.log(`Database ${selectedDB.name} found at ` + dbPath)
-        // Insert data into the "tasks" table
-        // if (taskTitle === undefined) {
-        //   console.log("Task title was undefined.  Spoofing data");
-        //   taskTitle = 'Spoof task ' + timestamp();
-        // }
-
         const queryString = 'INSERT INTO tasks (title, complete) VALUES (?, ?)';
         console.log(`Prepared query string: ${queryString}`)
         const params = [taskTitle, false];
