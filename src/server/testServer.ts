@@ -45,7 +45,7 @@ const databaseList: dbProfile[] = [
   // These paths will end up finding the database in the application root directory.  Later, I'd like to store it in the sever directory, but for now that'a not important
   { name: 'people', path: './people.db' },
   { name: 'notes', path: './notes.db' },
-  { name: 'triviaQuestions', path: './trivia.db' }
+  { name: 'trivia', path: './trivia.db' }
 ]
 
 // <> Listen on port 8000 and log the url to the console.
@@ -107,6 +107,36 @@ const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
 })
 
 // GET with a dbName - return a list of all tables in that database
+
+// GET with a dbName and tableName
+app.get("/trivia/questions", (req: reqType, res: resType, next: any) => {
+  // <> Select a database
+  const dbName = req.params.dbName;
+  const selectedDB = databaseList.find((eachDB) => { return eachDB.name === "trivia" });
+  if (selectedDB === undefined) { console.error(`Database ${dbName} not found.`); }
+  else {
+    // <> Connect to the Database
+    const dbPath = selectedDB.path;
+    const db = new sqlite3.Database(dbPath, (err: errType) => {
+      if (err) {
+        console.error(`Error opening database ${selectedDB.name}: ` + err.message);
+      } else {
+        console.log(`Database ${selectedDB.name} found at ` + dbPath)
+        db.all(`SELECT * FROM questions`, [], (err: errType, rows: rowType) => {
+          console.log(rows);
+          if (err) {
+            res.status(400).json({ "error": err.message });
+            return;
+          } else {
+            res.status(200).json(structureResponse(rows, `questions`));
+            return;
+          }
+        })
+      }
+    });
+  }
+
+})
 
 // GET with a dbName and tableName
 app.get("/:dbName/:tableName", (req: reqType, res: resType, next: any) => {

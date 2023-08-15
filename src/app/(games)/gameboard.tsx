@@ -5,9 +5,9 @@ import deckMaster from "./deck-standard.json"
 import Table, { empty, field } from "../(components)/db-table/table";
 import { styles } from "../helpersUniversal/tsStyles";
 import { useState } from "react";
-import sun from "./sun.svg"
-import water from "./water.svg"
-import growth from "./growth.svg"
+// import sun from "./sun.svg"
+// import water from "./water.svg"
+// import growth from "./growth.svg"
 import Image from "next/image";
 
 export default function Gameboard() {
@@ -52,8 +52,7 @@ export default function Gameboard() {
 			type: "string",
 			defaultValue: "Rank",
 			listTable: "ranks",
-			changeFunction: empty,
-			automatic: false
+			changeFunction: empty
 		},
 		{
 			matchID: "suit",
@@ -61,8 +60,7 @@ export default function Gameboard() {
 			type: "string",
 			defaultValue: "Suit",
 			listTable: undefined,
-			changeFunction: empty,
-			automatic: false
+			changeFunction: empty
 		}
 	];
 
@@ -79,9 +77,9 @@ export default function Gameboard() {
 		{/* <DiceRoller numDice={1} numSides={6} />
 		<DiceRoller numDice={2} numSides={12} /> */}
 		<div className={styles.gridContainer}>
-			<Image src={sun} alt={"sun"} width={100} className="bg-white bg-opacity-30"/>
+			{/* <Image src={sun} alt={"sun"} width={100} className="bg-white bg-opacity-30"/>
 			<Image src={water} alt={"water"} width={100} className="bg-white bg-opacity-30"/>
-			<Image src={growth} alt={"growth"} width={100} className="bg-white bg-opacity-30"/>
+			<Image src={growth} alt={"growth"} width={100} className="bg-white bg-opacity-30"/> */}
 
 			<div className={styles.gridSidebar}>
 				<button onClick={shuffleDrawPile} className={styles.button}>Shuffle Deck</button>
