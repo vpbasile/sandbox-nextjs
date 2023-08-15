@@ -170,7 +170,7 @@ app.get("/:dbName/:tableName", (req: reqType, res: resType, next: any) => {
 
 // POST
 
-app.post("/trivia/save/:content", (req: reqType, res: resType) => {
+app.post("/trivia/save/", (req: reqType, res: resType) => {
   try {
     const now = timestamp();
     console.log("Route reached at " + now);
@@ -180,27 +180,39 @@ app.post("/trivia/save/:content", (req: reqType, res: resType) => {
     const selectedDB = databaseList[2];
     const question = req.body;
     console.log(`Received a`, question.categoryTag, `question from the client.`);
-    // Stick the JSON string into a database
-    const queryString = 'INSERT INTO questions (questionText, choices, correctIndex, categoryTag) VALUES (?, ?, ?, ?)';
-    console.log(`Prepared query string: ${queryString}`)
-    const categoryTag = question.categoryTag;
-    const params = [question.questionText, JSON.stringify(question.choices), question.correctIndex, categoryTag];
     // <> Connect to the Database
     const dbPath = selectedDB.path;
     const db = new sqlite3.Database(dbPath, (err: errType) => {
       if (err) {
         console.error(`Error opening database ${selectedDB.name}: ` + err.message);
       } else {
-        db.run(queryString, params, function (err: errType) {
-          if (err) {
-            console.error(`Error saving question: ${err.message}`);
-            res.status(500).json({ error: 'Failed to save question.' });
-          } else {
-            console.log(`Question saved. Category: ${categoryTag}`);
-            // Now respond
-            res.status(200).json({ message: 'Question saved successfully.' });
+        // Database found
+        console.log(`Database ${selectedDB.name} found at ` + dbPath)
+        // Does the question already exist in the database?  If so, no need to save it
+        db.run(`SELECT * FROM questions WHERE questionText = ?`, question.questionText, function (err: errType, rows: rowType) {
+          if (err) res.status(500).json({ error: 'Failed to check for duplicates.' });
+          else {
+            if (rows) {
+              console.log(`The question already exists in the database.  Not saving.`)
+              return false;
+            } else {
+
+              // Add the question to the database
+              const categoryTag = question.categoryTag;
+              db.run('INSERT INTO questions (questionText, choices, correctIndex, categoryTag) VALUES (?, ?, ?, ?)', [question.questionText, JSON.stringify(question.choices), question.correctIndex, categoryTag], function (err: errType) {
+                if (err) {
+                  console.error(`Error saving question: ${err.message}`);
+                  res.status(500).json({ error: 'Failed to save question.' });
+                } else {
+                  console.log(`Question saved. Category: ${categoryTag}`);
+                  // Now respond
+                  res.status(200).json({ message: 'Question saved successfully.' });
+                }
+              });
+            }
           }
-        });
+        })
+
       }
     })
   }

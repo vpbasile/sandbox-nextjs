@@ -42,6 +42,7 @@ export default function TriviaDisplay() {
 
 	// Define the fields
 	const fieldsForTriva: field[] = [
+		// <> FIXME This should be a map
 		{ matchID: "uid", labelText: "UID", type: "uid", defaultValue: idTemp, changeFunction: (e: eType): void => { SETidTemp(+(e.target.value)) } },
 		{ matchID: "questionText", labelText: "Question", type: "string", defaultValue: "Question text", changeFunction: () => { } },
 		{ matchID: "choices", labelText: "Choices", type: "string", defaultValue: "Question text", changeFunction: () => { } },
