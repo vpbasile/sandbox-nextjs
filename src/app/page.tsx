@@ -5,20 +5,16 @@ import { styles } from './helpersUniversal/tsStyles';
 import Section from './helpersUniversal/section';
 
 // <>DATA<>people
-import DisplayPeople from './(components)/db_people/display-people';
 
 // <>DATA<>notes
-import DisplayNotes from './(components)/db_notes/display-notes';
+import DisplayNotes from "./(components)/db_notes";
 
-import Snowflake from './(components)/hexboard/boards/Snowflake';
 import Keyboard from './(components)/hexboard/boards/Keyboard';
-// import TriviaBoard from './(components)/hexboard/boards/TriviaBoard';
 import GenerativeBoard from './(components)/hexboard/boards/Generative';
-// import SavedBoard from './(components)/hexboard/boards/SavedBoard';
-// import CreateBoard from './(components)/hexboard/boards/CreateBoard';
 import Gameboard from './(games)/gameboard';
-import TriviaDisplay from './(components)/db_trivia/display';
-import HabitTracker from './(components)/db_habits/display';
+import TriviaDisplay from './(components)/db_trivia';
+import HabitTracker from './(components)/db_habits';
+import DisplayPeople from './(components)/db_people';
 
 export default function Home() {
 
@@ -28,7 +24,7 @@ export default function Home() {
   // <> Define modeules
   let modules: { uid: number, id: string; contents: JSX.Element; headerText: string, type?: "notDB" | null }[] = []
   let makeUID = 0
-  modules.push({ uid:makeUID++, id:'habitDisplay', contents: <HabitTracker />, headerText: 'Habits'})
+  // modules.push({ uid: makeUID++, id: 'habitDisplay', contents: <HabitTracker />, headerText: 'Habits' })
   modules.push({ uid: makeUID++, id: 'triviaDisplay', contents: <TriviaDisplay />, headerText: 'Trivia' })
   modules.push({ uid: makeUID++, id: "notesDisplay", headerText: "Notes Database", contents: <DisplayNotes /> });
   modules.push({ uid: makeUID++, headerText: 'People Database', id: 'peopleDisplay', contents: <DisplayPeople /> });

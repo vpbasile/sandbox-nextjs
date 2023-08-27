@@ -1,51 +1,24 @@
-import Link from "next/link"
-import { styles } from "../../helpersUniversal/tsStyles"
-import Table, { empty, field, tableData } from "../db-table/table"
+import Link from "next/link";
+import { styles } from "../helpersUniversal/tsStyles";
+import Table, { empty, field, tableData } from "./db-table/table";
 import { useState } from "react";
-import { eType } from "../../helpersUniversal/usefulTypes";
-import ErrorBoundary from "../../helpersUniversal/ErrorBoundary";
-
-// async function createtask(values: { title: string; }) {
-// 	try {
-// 		const response = await fetch('/api/posts', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 			},
-// 			body: JSON.stringify(values),
-// 		});
-
-// 		if (!response.ok) {
-// 			throw new Error('Failed to create posts.');
-// 		}
-
-// 		const data = await response.json();
-// 		console.log(data.message); // Values inserted successfully.
-// 	} catch (error: any) {
-// 		console.error(error.message);
-// 	}
-// }
-
+import { eType } from "../helpersUniversal/usefulTypes";
+import ErrorBoundary from "../helpersUniversal/ErrorBoundary";
+import { unwrapData } from "./dbvb_helpers";
 
 export default function DisplayNotes() {
 	// ---------------------------------------------
 	// <> Step 1 - Define types
 	// ---------------------------------------------
-	type task = { uid: number, title: string, complete: boolean };
-	type expectedServerResponse = {
-		serverUpSince: string
-		rowsReturned: number
-		dbResponse: task[]
-	}
+	type task = { uid: number; title: string; complete: boolean; };
 
 	// ---------------------------------------------
 	// <> Step 2 - Initialize some values
-	// ---------------------------------------------
-	const spoofData: task[] = []
 	// States for storage and display
-	// const [displayState, SETdisplayState] = useState("No query has been sent.");
+	// ---------------------------------------------
+	const spoofData: task[] = [];
 	const [dataState, SETdataState] = useState(spoofData);
-	const dbURL = "http://localhost:8000/notes/tasks"
+	const dbURL = "http://localhost:8000/notes/tasks";
 	function queryDB(dbURL: string): void {
 		const displayString = "Attempting to send query to " + dbURL;
 		console.log(displayString);
@@ -56,44 +29,30 @@ export default function DisplayNotes() {
 			.catch(error => { console.log(error); });
 	}
 	// ---------------------------------------------------------------------------------------------------------------------
-	// <>DATA<>notes - This is part of the data definition of the tasks table in the notes database.  
+	// <> DBVB data definition <> notes - This is part of the data definition of the tasks table in the notes database.  
 	// It should conatin all of the information unique to a database.
 	//  ---------------------------------------------------------------------------------------------------------------------
 	// <> States used for creating a new record
 	const [idTemp, SETidTemp] = useState(99); // This should be set by nextID
-	const [titleTemp, SETtitleTemp] = useState("Title of the new task")
+	const [titleTemp, SETtitleTemp] = useState("Title of the new task");
 	const fieldsForTasks: field[] = [
 		{ matchID: "uid", labelText: "UID", type: "uid", defaultValue: idTemp, changeFunction: (e: eType) => SETidTemp(+(e.target.value)) },
 		{ matchID: "title", labelText: "Title", type: "string", defaultValue: titleTemp, changeFunction: (e: eType) => SETtitleTemp(e.target.value) },
 		{ matchID: "complete", labelText: "Complete", type: "boolean", defaultValue: false, changeFunction: empty }
-	]
-	// const fieldsForCreation = fieldsForTasks.filter(field => !(field.type === "uid")).map(eachField => eachField.matchID);
-
+	];
 	// ---------------------------------------------
-	// <> Finding and diplaying the data
-	// ---------------------------------------------
-
 	// Translation functions
 	// !!!REQUIRED - A ...ToTable function will be necessary for every data structure
+	// ---------------------------------------------
 	function tasksToTable(tasks: task[]): tableData[][] {
-		return tasks.map(thisTask => [thisTask.uid, thisTask.title, thisTask.complete])
-	}
-
-	function unwrapData(data: expectedServerResponse): task[] {
-		const rowsReturned = data.rowsReturned;
-		if (rowsReturned) {
-			console.log(`Successful response from the server! Server has been up since ${data.serverUpSince}. Databse query returned ${rowsReturned} rows.`)
-			// console.log(data.dbResponse);
-			return data.dbResponse;
-		}
-		else return ([{ uid: 99, title: "Spoof task zzz", complete: true }]);
+		return tasks.map(thisTask => [thisTask.uid, thisTask.title, thisTask.complete]);
 	}
 
 	// ---------------------------------------------
 	// <> Create new task
 	// ---------------------------------------------
 	async function createTask(taskTitle: string) {
-		console.log(`Attempting to create task ${taskTitle}`)
+		console.log(`Attempting to create task ${taskTitle}`);
 		try {
 			const response = await fetch('http://localhost:8000/notes/tasks/stamp/', {
 				method: 'POST',
@@ -102,17 +61,17 @@ export default function DisplayNotes() {
 				},
 				body: JSON.stringify({ taskTitle }),
 			});
-			console.log(`Rsponse from server ${JSON.stringify(response)}`)
+			console.log(`Rsponse from server ${JSON.stringify(response)}`);
 
 			if (!response.ok) {
 				throw new Error('Failed to create task.');
 			}
 
 			const data = await response.json();
-			console.log("Another debug")
+			console.log("Another debug");
 			console.log(data.message); // Values inserted successfully.
 		} catch (error: any) {
-			console.log("Error encountered.")
+			console.log("Error encountered.");
 			console.error(error.message);
 		}
 		// Now that the tasks have been updated, re-query the database
@@ -144,5 +103,5 @@ export default function DisplayNotes() {
 
 			</ul>}</div>
 		</ErrorBoundary>
-	)
+	);
 }

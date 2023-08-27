@@ -1,7 +1,7 @@
-import { styles } from "../../helpersUniversal/tsStyles"
+import { styles } from "../helpersUniversal/tsStyles"
 import { useState } from "react"
-import Table, { field, list, listMulti, tableData } from "../db-table/table"
-import { eType } from "../../helpersUniversal/usefulTypes"
+import Table, { field, list, listMulti, tableData } from "./db-table/table"
+import { eType } from "../helpersUniversal/usefulTypes"
 
 
 export default function DisplayPeople() {

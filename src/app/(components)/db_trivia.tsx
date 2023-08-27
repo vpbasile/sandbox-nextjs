@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Table, { field, tableData } from "../db-table/table";
+import Table, { field, tableData } from "./db-table/table";
 import { eType } from "@/app/helpersUniversal/usefulTypes";
 import { styles } from "@/app/helpersUniversal/tsStyles";
 
