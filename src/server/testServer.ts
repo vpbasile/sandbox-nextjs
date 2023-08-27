@@ -156,6 +156,9 @@ app.get("/habits", (req: reqType, res: resType, next: any) => {
     { "name": "Draw Something", "category": "creativity", "complete": false },
     { "name": "Learn some Spanish", "category": "learning", "complete": false },
     { "name": "Write something", "category": "creativity", "complete": false },
+    { "name":"Find my keys", "category": "", "complete": false}
+    // { "name":, "category": , "complete": false}
+
   ]
   res.status(200).json(structureResponse(rows, `questions`));
   // else {

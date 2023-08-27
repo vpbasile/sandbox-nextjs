@@ -24,7 +24,7 @@ export default function Home() {
   // <> Define modeules
   let modules: { uid: number, id: string; contents: JSX.Element; headerText: string, type?: "notDB" | null }[] = []
   let makeUID = 0
-  // modules.push({ uid: makeUID++, id: 'habitDisplay', contents: <HabitTracker />, headerText: 'Habits' })
+  modules.push({ uid: makeUID++, id: 'habitDisplay', contents: <HabitTracker />, headerText: 'Habits' })
   modules.push({ uid: makeUID++, id: 'triviaDisplay', contents: <TriviaDisplay />, headerText: 'Trivia' })
   modules.push({ uid: makeUID++, id: "notesDisplay", headerText: "Notes Database", contents: <DisplayNotes /> });
   modules.push({ uid: makeUID++, headerText: 'People Database', id: 'peopleDisplay', contents: <DisplayPeople /> });
