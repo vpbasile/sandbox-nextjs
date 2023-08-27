@@ -2,29 +2,26 @@
 import { useState } from 'react';
 import Link from 'next/link'
 import { styles } from './helpersUniversal/tsStyles';
-import Section from './helpersUniversal/section';
 
-// <>DATA<>people
-
-// <>DATA<>notes
+// <>DATA<>
 import DisplayNotes from "./(components)/db_notes";
-
 import Keyboard from './(components)/hexboard/boards/Keyboard';
 import GenerativeBoard from './(components)/hexboard/boards/Generative';
 import Gameboard from './(games)/gameboard';
 import TriviaDisplay from './(components)/db_trivia';
-import HabitTracker from './(components)/db_habits';
 import DisplayPeople from './(components)/db_people';
+import CheatSheet from './(components)/jsCheatSheet';
+import ErrorBoundary from './helpersUniversal/ErrorBoundary';
 
 export default function Home() {
 
-  // <> Enhancement <> Add a theme switch with a state for the current theme.  Then make the css strings dependent on that
+  // <> Enhancement <> Add a theme switch with a state for the current thememaking the css strings dependent on that
   // https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually
 
   // <> Define modeules
   let modules: { uid: number, id: string; contents: JSX.Element; headerText: string, type?: "notDB" | null }[] = []
   let makeUID = 0
-  modules.push({ uid: makeUID++, id: 'habitDisplay', contents: <HabitTracker />, headerText: 'Habits' })
+  modules.push({ uid: makeUID++, id: 'jsCheatSheet', contents: <CheatSheet />, headerText: 'Cheat Sheet' })
   modules.push({ uid: makeUID++, id: 'triviaDisplay', contents: <TriviaDisplay />, headerText: 'Trivia' })
   modules.push({ uid: makeUID++, id: "notesDisplay", headerText: "Notes Database", contents: <DisplayNotes /> });
   modules.push({ uid: makeUID++, headerText: 'People Database', id: 'peopleDisplay', contents: <DisplayPeople /> });
@@ -77,9 +74,8 @@ export default function Home() {
       <h2>with <Link href='https://tailwindcss.com/' className='' >tailwind</Link> (<Link href={"https://tailwindcomponents.com/cheatsheet/"}>cheat sheet</Link>) and <Link className={styles.link} href="https://react.daisyui.com/">react-daisyUI</Link></h2>
       {toolbar}
       {toolbar2}
-      <Section key={moduleCounter++} id={actualModule.id} headerText={actualModule.headerText}>
-        {actualModule.contents}
-      </Section>
+      <ErrorBoundary>{actualModule.contents}</ErrorBoundary>
+
     </main>
   )
 

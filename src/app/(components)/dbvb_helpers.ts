@@ -4,6 +4,9 @@ type expectedServerResponse = {
     dbResponse: any[];
 };
 
+/**
+     * Returns the data minus the wrapper.  I KNOW I should get rid of this.
+     */
 export function unwrapData(data: expectedServerResponse) {
     const rowsReturned = data.rowsReturned;
     if (rowsReturned) {

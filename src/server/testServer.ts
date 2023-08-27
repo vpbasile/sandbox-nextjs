@@ -148,7 +148,7 @@ app.get("/habits", (req: reqType, res: resType, next: any) => {
   const selectedDB = dbProfile(dbName);
   if (selectedDB === undefined) { console.error(`Database ${dbName} not found.`); }
   const rows = [
-    { "name": "Strech lower back and legs", "category": "self-care", "complete": false },
+    { "name": "Stretch lower back and legs", "category": "self-care", "complete": false },
     { "name": "Take a walk", "category": "activity", "complete": false },
     { "name": "Meditate", "category": "self-care", "complete": false },
     { "name": "Make a meal", "category": "creativity", "complete": false },
