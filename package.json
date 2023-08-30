@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dbserver": "npx ts-node ./src/server/testServer.ts",
+    "dbserver": "npx ts-node ./src/serv_people.ts",
+    "people": "npx ts-node ./src/serv_people.ts",
+    "grocery": "npx ts-node ./src/serv_grocery.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -19,7 +21,6 @@
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "next": "13.4.3",
-    "octokit": "^3.1.0",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",

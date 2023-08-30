@@ -1,0 +1,1 @@
+https://sebhastian.com/javascript-console-input/ Helped

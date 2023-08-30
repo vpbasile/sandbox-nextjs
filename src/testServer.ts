@@ -1,37 +1,9 @@
-// Retrieves the table myTable from ./test.db
+import { reqType, resType, errType, rowType } from "./util";
+import { structureResponse } from "./util";
 
 const express = require("express");
 const sqlite3 = require('sqlite3');
 const cors = require('cors');
-
-// <> Useful types
-type errType = { message: any; };
-type rowType = string | any[];
-type dbResponse = { error: any } | {
-  serverUpSince: string;
-  baseURL: string;
-  tableName: string;
-  rowsReturned: number;
-  dbResponse: rowType;
-};
-type reqType = {
-  params: any,
-  body?: fixme;
-  method: fixme;
-  headers: fixme;
-};
-
-type fixme = any;
-
-type resType = {
-  status: (arg0: number) => {
-    (): fixme;
-    new(): fixme;
-    json: fixme;
-    end?: fixme
-  };
-  send: fixme;
-};
 
 // <> Initialize the app
 var app = express();
@@ -46,7 +18,6 @@ const databaseList: dbProfile[] = [
   { name: 'people', path: './people.db' },
   { name: 'notes', path: './notes.db' },
   { name: 'trivia', path: './trivia.db' },
-  { name: "habits", path: "./habits.db" }
 ]
 
 function dbProfile(dbName: string): dbProfile | undefined { return databaseList.find((eachDB) => { return eachDB.name === dbName; }); }
@@ -70,17 +41,6 @@ app.listen(HTTP_PORT, () => {
   console.log(baseURL)
 });
 
-// <> Utility functions
-function structureResponse(rows: rowType, tableName: string): dbResponse {
-  return {
-    serverUpSince: serverStartTime,
-    baseURL: 'http://localhost:8000/',
-    tableName: tableName,
-    rowsReturned: rows.length,
-    dbResponse: rows
-  };
-}
-
 // <> FIXME Need to add a GET with a dbName - return a list of all tables in that database
 
 // GET with a dbName and tableName
@@ -103,7 +63,7 @@ app.get("/:dbName/:tableName", (req: reqType, res: resType, next: any) => {
             res.status(400).json({ "error": err.message });
             return;
           } else {
-            res.status(200).json(structureResponse(rows, tableName));
+            res.status(200).json(structureResponse(rows, tableName, serverStartTime));
             return;
           }
         })
@@ -135,7 +95,7 @@ const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
         res.status(400).json({ "error": err.message });
         return;
       } else {
-        res.status(200).json(structureResponse(rows, tableName));
+        res.status(200).json(structureResponse(rows, tableName, serverStartTime));
         return;
       }
     });
@@ -166,7 +126,7 @@ const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
               res.status(400).json({ "error": err.message });
               return;
             } else {
-              res.status(200).json(structureResponse(rows, `questions`));
+              res.status(200).json(structureResponse(rows, `questions`, serverStartTime));
               return;
             }
           })
@@ -249,7 +209,7 @@ const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
       // { "name":, "category": , "complete": false}
 
     ]
-    res.status(200).json(structureResponse(rows, `questions`));
+    res.status(200).json(structureResponse(rows, `questions`, serverStartTime));
     // else {
     //   // <> Connect to the Database
     //   const dbPath = selectedDB.path;
@@ -274,41 +234,4 @@ const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
 
   })
 
-
-
-  // ---------------------------------------------
-  // <> db_groceries
-  // ---------------------------------------------
-
-  // get 
-  // Default GET
-  const defaultRoute = app.get("/", (req: reqType, res: resType, next: any) => {
-    // <> Select a database
-    const selectedDB = databaseList[0];
-
-    // <> Connect to the Database
-    const dbPath = selectedDB.path;
-    const db = new sqlite3.Database(dbPath, (err: errType) => {
-      if (err) {
-        console.error(`Error opening database ${selectedDB.name}: ` + err.message);
-      } else {
-        console.log(`Database ${selectedDB.name} found at ` + dbPath)
-      }
-      // });
-      const tableName = 'people'
-      db.all("SELECT * FROM " + tableName, [], (err: errType, rows: rowType) => {
-        if (err) {
-          res.status(400).json({ "error": err.message });
-          return;
-        } else {
-          res.status(200).json(structureResponse(rows, tableName));
-          return;
-        }
-      });
-    })
-  })
 })
-
-// app.post() {
-
-// }
