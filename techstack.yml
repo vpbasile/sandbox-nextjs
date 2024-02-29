@@ -2,7 +2,7 @@ repo_name: vpbasile/sandbox-nextjs
 report_id: 426056a9b0814d74f1a5750c45db33ea
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-05T09:17:22+00:00'
+timestamp: '2024-02-29T18:12:14+00:00'
 requested_by: vpbasile
 provider: github
 branch: main
@@ -80,7 +80,7 @@ tools:
   last_updated_by: Vincent Basile
   last_updated_on: 2023-06-19 17:59:09.000000000 Z
 - name: Next.js
-  description: 'A small framework for server-rendered universal JavaScript apps '
+  description: A small framework for server-rendered universal JavaScript apps
   website_url: https://nextjs.org/
   version: 13.4.3
   open_source: true
@@ -156,7 +156,7 @@ tools:
   detection_source_url: https://github.com/vpbasile/sandbox-nextjs
   detection_source: Repo Metadata
 - name: Prettier
-  description: 'Prettier is an opinionated code formatter. '
+  description: Prettier is an opinionated code formatter.
   website_url: https://prettier.io/
   version: 2.8.8
   license: MIT
